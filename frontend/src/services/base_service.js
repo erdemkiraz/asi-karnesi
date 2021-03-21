@@ -40,7 +40,8 @@ export function getCurrentDate(separator=''){
 }
 
 export function getEmail(google_user) {
-    return google_user["profileObj"]["email"] ?? null;
+    if (google_user == null || google_user["profileObj"] == null ) return "null";
+    return google_user["profileObj"]["email"] ?? "null";
 }
 
 // const AXIOS_CONFIG = {

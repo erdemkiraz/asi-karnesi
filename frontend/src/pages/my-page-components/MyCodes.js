@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 
-import {BASE_URL, HEADER, BUILD_HEADER} from "../../services/base_service";
+import {BASE_URL, HEADER, BUILD_HEADER, getEmail} from "../../services/base_service";
 
 // import {clientId} from "../../services/base_service";
 import {Button} from "primereact/button";
@@ -35,50 +35,53 @@ export class MyCodes extends React.Component {
 
         this.componentDidMount = this.componentDidMount.bind(this);
         this.generateQRCode = this.generateQRCode.bind(this);
+        this.fetchData = this.fetchData.bind(this);
 
     }
 
 
     componentDidMount() {
         let google_user = get_storage("google_user");
+        let email = getEmail(google_user)
 
         console.log(google_user)
-        let data = {
-            "my_vaccines": [
-                {
-                    "id": 0,
-                    "name": "COVID-19",
-                    "date": "15.02.2019",
-                    "dose": "1",
-                    "vaccine_point": "Ankara Merkez",
-                    "expires_in": "364"
-                },
-                {
-                    "id": 1,
-                    "name": "COVID-20",
-                    "date": "15.02.2020",
-                    "dose": "1",
-                    "vaccine_point": "Istranbul Merkez",
-                    "expires_in": "255"
-                },
-                {
-                    "id": 2,
-                    "name": "COVID-21",
-                    "date": "15.02.2021",
-                    "dose": "1",
-                    "vaccine_point": "Eskisehir Merkez",
-                    "expires_in": "321"
-                },
-                {
-                    "id": 3,
-                    "name": "COVID-22",
-                    "date": "15.02.2022",
-                    "dose": "1",
-                    "vaccine_point": "Adana Merkez",
-                    "expires_in": "0"
-                },
-            ]
-        };
+        // let data = {
+        //     "my_vaccines": [
+        //         {
+        //             "id": 0,
+        //             "name": "COVID-19",
+        //             "date": "15.02.2019",
+        //             "dose": "1",
+        //             "vaccine_point": "Ankara Merkez",
+        //             "expires_in": "364"
+        //         },
+        //         {
+        //             "id": 1,
+        //             "name": "COVID-20",
+        //             "date": "15.02.2020",
+        //             "dose": "1",
+        //             "vaccine_point": "Istranbul Merkez",
+        //             "expires_in": "255"
+        //         },
+        //         {
+        //             "id": 2,
+        //             "name": "COVID-21",
+        //             "date": "15.02.2021",
+        //             "dose": "1",
+        //             "vaccine_point": "Eskisehir Merkez",
+        //             "expires_in": "321"
+        //         },
+        //         {
+        //             "id": 3,
+        //             "name": "COVID-22",
+        //             "date": "15.02.2022",
+        //             "dose": "1",
+        //             "vaccine_point": "Adana Merkez",
+        //             "expires_in": "0"
+        //         },
+        //     ]
+        // };
+
 
         // let test_data = {
         //     "root": [
@@ -190,27 +193,24 @@ export class MyCodes extends React.Component {
         // }
 
 
-        this.setState({my_vaccines: data["my_vaccines"]});
+        // this.setState({my_vaccines: data["my_vaccines"]});
 
         // let friend = {  "name": "Ayberk", "surname" : "Uslu", "Age": 22, "withFriendsSince" : "15.02.2021", "vaccines" : [ "covid19", "asi1", "asi2", "asi3"]
         //              }
 
+        this.fetchData(email).then(user_codes => this.setState({my_vaccines: user_codes}))
+
+
     }
 
 
-    async getData() {
+   async fetchData(email){
 
-        // NOT WORKING!!!!!!! yet..
-        let data = await axios.get(BASE_URL + "/mycodes", {
-            headers: {
-                'APIKEY': "api_key",
-                'Access-Control-Allow-Origin': '*'
-            }
-        })
-        console.log("Data : ", data);
-        let codes = data.data.content
-        console.log("My Codes ", codes)
-        return codes
+        let data = await axios.get(BASE_URL+"/user/codes", {headers: BUILD_HEADER("API_TOKEN",email)})
+        console.log("Data : ",data);
+        let user_codes = data.data["my_vaccines"]
+        console.log("User Friends ", user_codes)
+        return user_codes;
     }
 
 

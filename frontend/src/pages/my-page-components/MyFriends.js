@@ -67,6 +67,7 @@ export class MyFriends extends React.Component {
 
         let data = await axios.get(BASE_URL+"/user/friends", {headers: BUILD_HEADER("API_TOKEN",email)})
         console.log("Data : ",data);
+        console.log("email :",email )
         let user_friends = data.data["friends"]
         console.log("User Friends ", user_friends)
         return user_friends;

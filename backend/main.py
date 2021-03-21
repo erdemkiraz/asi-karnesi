@@ -47,15 +47,15 @@ def hello_world():
 
 @app.route("/user/friends", methods=["GET"])
 def get_user_friends():
-    req = json.loads(request.data)
-    req = req["data"]
-    # return "asdas"
+    # req = json.loads(request.data)
+    # req = req["data"]
+    # print(req)
+
     print("Get users friend from db")
-    print(req)
 
     # TODO:  data format is for test and can change, real data should come from DB. according to google_email
     #  parameter (this can be also changed) Further info => Ayberk
-    
+
     friend_data = {
         "friends": [
             {"id": 0, "name": "Ayberk", "surname": "Uslu", "Age": 22, "withFriendsSince": "15.02.2021",
@@ -71,11 +71,64 @@ def get_user_friends():
             {"id": 3, "name": "Ferhat", "surname": "Koc", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
             {"id": 3, "name": "Gokhan", "surname": "Mutlu", "Age": 22, "withFriendsSince": "15.02.2021",
-             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]}
+        ]
+    }
+
+    return jsonify(friend_data)
+
+
+
+@app.route("/user/codes", methods=["GET"])
+def get_user_codes():
+    # req = json.loads(request.data)
+    # req = req["data"]
+    # print(req)
+
+    # return "asdas"
+    print("Get user codes  from db")
+
+    # TODO:  data format is for test and can change, real data should come from DB. according to google_email
+    #  parameter (this can be also changed) Further info => Ayberk
+
+    code_data = {
+        "my_vaccines": [
+            {
+                "id": 0,
+                "name": "COVID-19",
+                "date": "15.02.2019",
+                "dose": "1",
+                "vaccine_point": "Ankara Merkez",
+                "expires_in": "364"
+            },
+            {
+                "id": 1,
+                "name": "COVID-20",
+                "date": "15.02.2020",
+                "dose": "1",
+                "vaccine_point": "Istranbul Merkez",
+                "expires_in": "255"
+            },
+            {
+                "id": 2,
+                "name": "COVID-21",
+                "date": "15.02.2021",
+                "dose": "1",
+                "vaccine_point": "Eskisehir Merkez",
+                "expires_in": "321"
+            },
+            {
+                "id": 3,
+                "name": "COVID-22",
+                "date": "15.02.2022",
+                "dose": "1",
+                "vaccine_point": "Adana Merkez",
+                "expires_in": "0"
+            }
         ]
     }
     # Serializing json
-    # json_object = json.dumps(data)
+    # json_object = json.dumps(code_data)
     # print(json_object)
-    # print(jsonify(friend_data))
-    return jsonify(friend_data)
+    # print(jsonify(code_data))
+    return jsonify(code_data)
