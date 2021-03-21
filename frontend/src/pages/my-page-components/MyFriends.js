@@ -1,11 +1,12 @@
 import React from 'react';
 // import GoogleLogin from "react-google-login";
-// import {clientId} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER} from "../../services/base_service";
 import {Button} from "primereact/button";
 import {put_storage, get_storage} from "../../services/StorageUtil";
 import {TreeTable} from "primereact/treetable";
 import {Column} from "primereact/column";
 import {DataTable} from "primereact/datatable";
+import axios from "axios";
 
 
 // import '../App.css';
@@ -26,12 +27,14 @@ export class MyFriends extends React.Component {
         };
 
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.fetchData = this.fetchData.bind(this);
 
     }
 
 
-     componentDidMount() {
-    let google_user = get_storage("google_user");
+     async componentDidMount() {
+    let google_user = await get_storage("google_user");
+
 
     console.log(google_user)
         let data = {
@@ -48,14 +51,22 @@ export class MyFriends extends React.Component {
                 ]
         };
 
-
-
-
     this.setState({friends : data["friends"]});
 
-    // let friend = {  "name": "Ayberk", "surname" : "Uslu", "Age": 22, "withFriendsSince" : "15.02.2021", "vaccines" : [ "covid19", "asi1", "asi2", "asi3"]
-    //              }
 
+    // this.fetchData().then(user_friends => this.setState({friends: user_friends}))
+
+
+    }
+
+
+   async fetchData(google_user){
+
+        let data = await axios.get(BASE_URL+"/user/friends", {headers: BUILD_HEADER("API_TOKEN","GOOGLE_TOKEN")})
+        console.log("Data : ",data);
+        let user_friends = data.data.content
+        console.log("User Friends ", user_friends)
+        return user_friends;
     }
 
 

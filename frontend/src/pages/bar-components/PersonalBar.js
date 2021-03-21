@@ -1,6 +1,6 @@
 import React from 'react';
 import GoogleLogin from "react-google-login";
-import {clientId} from "../../services/base_service";
+import {clientId, BASE_URL} from "../../services/base_service";
 import {get_storage, put_storage} from "../../services/StorageUtil";
 import {Button} from "primereact/button";
 import styles from '../../css/divs.css';

@@ -21,9 +21,10 @@ export var HEADER = {
     'APIKEY': APIKEY
 };
 
-export function BUILD_HEADER(api_key){
+export function BUILD_HEADER(api_key,google_token){
     return {
         'APIKEY' : api_key,
+        'google_token' : google_token,
         'Access-Control-Allow-Origin': '*'
     };
 }
