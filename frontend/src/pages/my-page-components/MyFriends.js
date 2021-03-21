@@ -1,6 +1,6 @@
 import React from 'react';
 // import GoogleLogin from "react-google-login";
-import {BASE_URL, BUILD_HEADER} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER, getEmail} from "../../services/base_service";
 import {Button} from "primereact/button";
 import {put_storage, get_storage} from "../../services/StorageUtil";
 import {TreeTable} from "primereact/treetable";
@@ -34,24 +34,27 @@ export class MyFriends extends React.Component {
 
      async componentDidMount() {
     let google_user = await get_storage("google_user");
+    let email = getEmail(google_user)
+
 
 
     console.log(google_user)
-        let data = {
-            // "name" : "Ayberk Uslu",
-            // "my_infos" : "asda",
-                "friends":[
-                    {  "id" : 0,"name": "Ayberk", "surname" : "Uslu", "Age": 22, "withFriendsSince" : "15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
-                    {  "id" : 1, "name": "Ayberk2", "surname" : "Uslu2", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
-                    {  "id" : 2, "name": "Ayberk3", "surname" : "Uslu3", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
-                    {  "id" : 3, "name": "Ayberk4", "surname" : "Uslu4", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
-                    {  "id" : 3, "name": "Ayberk5", "surname" : "Uslu5", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
-                    {  "id" : 3, "name": "Ayberk6", "surname" : "Uslu6", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
-                    {  "id" : 3, "name": "Ayberk7", "surname" : "Uslu7", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
-                ]
-        };
+        // let data = {
+        //     // "name" : "Ayberk Uslu",
+        //     // "my_infos" : "asda",
+        //         "friends":[
+        //             {  "id" : 0,"name": "Ayberk", "surname" : "Uslu", "Age": 22, "withFriendsSince" : "15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
+        //             {  "id" : 1, "name": "Ayberk2", "surname" : "Uslu2", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
+        //             {  "id" : 2, "name": "Ayberk3", "surname" : "Uslu3", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
+        //             {  "id" : 3, "name": "Ayberk4", "surname" : "Uslu4", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
+        //             {  "id" : 3, "name": "Ayberk5", "surname" : "Uslu5", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
+        //             {  "id" : 3, "name": "Ayberk6", "surname" : "Uslu6", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
+        //             {  "id" : 3, "name": "Ayberk7", "surname" : "Uslu7", "Age": 22, "withFriendsSince" :"15.02.2021", "vaccines" : [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]} ,
+        //         ]
+        // };
 
-    this.setState({friends : data["friends"]});
+    this.fetchData(email).then(user_friends => this.setState({friends: user_friends}))
+    // this.setState({friends : data["friends"]});
 
 
     // this.fetchData().then(user_friends => this.setState({friends: user_friends}))
@@ -60,11 +63,11 @@ export class MyFriends extends React.Component {
     }
 
 
-   async fetchData(google_user){
+   async fetchData(email){
 
-        let data = await axios.get(BASE_URL+"/user/friends", {headers: BUILD_HEADER("API_TOKEN","GOOGLE_TOKEN")})
+        let data = await axios.get(BASE_URL+"/user/friends", {headers: BUILD_HEADER("API_TOKEN",email)})
         console.log("Data : ",data);
-        let user_friends = data.data.content
+        let user_friends = data.data["friends"]
         console.log("User Friends ", user_friends)
         return user_friends;
     }

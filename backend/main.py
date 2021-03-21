@@ -1,5 +1,6 @@
 from hello import app
 import dbops
+import json
 
 from flask import request, jsonify
 
@@ -42,3 +43,39 @@ def hello_world():
     erdem = dbops.get_user_by_name("erdem")
     print(erdem.id, erdem)
     return "Hello Worldqqqasd!"
+
+
+@app.route("/user/friends", methods=["GET"])
+def get_user_friends():
+    req = json.loads(request.data)
+    req = req["data"]
+    # return "asdas"
+    print("Get users friend from db")
+    print(req)
+
+    # TODO:  data format is for test and can change, real data should come from DB. according to google_email
+    #  parameter (this can be also changed) Further info => Ayberk
+    
+    friend_data = {
+        "friends": [
+            {"id": 0, "name": "Ayberk", "surname": "Uslu", "Age": 22, "withFriendsSince": "15.02.2021",
+             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+            {"id": 1, "name": "Burcu", "surname": "Kose", "Age": 22, "withFriendsSince": "15.02.2021",
+             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+            {"id": 2, "name": "Ceyda", "surname": "Keskin", "Age": 22, "withFriendsSince": "15.02.2021",
+             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+            {"id": 3, "name": "Derya", "surname": "Dincer", "Age": 22, "withFriendsSince": "15.02.2021",
+             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+            {"id": 3, "name": "Emre", "surname": "Demir", "Age": 22, "withFriendsSince": "15.02.2021",
+             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+            {"id": 3, "name": "Ferhat", "surname": "Koc", "Age": 22, "withFriendsSince": "15.02.2021",
+             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+            {"id": 3, "name": "Gokhan", "surname": "Mutlu", "Age": 22, "withFriendsSince": "15.02.2021",
+             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+        ]
+    }
+    # Serializing json
+    # json_object = json.dumps(data)
+    # print(json_object)
+    # print(jsonify(friend_data))
+    return jsonify(friend_data)

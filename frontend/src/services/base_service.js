@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 function createUrl() {
-    let port = 8081;
+    let port = 5000;
     // console.log(window.location.protocol)
     // return `${window.location.protocol}//${window.location.hostname}:${port}`;
     return `${window.location.protocol}//127.0.0.1:${port}`;
@@ -37,6 +37,10 @@ export function getCurrentDate(separator=''){
     let year = newDate.getFullYear();
 
     return `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`
+}
+
+export function getEmail(google_user) {
+    return google_user["profileObj"]["email"] ?? null;
 }
 
 // const AXIOS_CONFIG = {

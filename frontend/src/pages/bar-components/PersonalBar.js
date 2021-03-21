@@ -94,23 +94,27 @@ class PersonalBar extends React.Component {
                         {this.state.email}
                     </div>
                     <div className="p-col-2">
+                        <div className="p-grid">
+                            <div className="p-col-6">
 
-                        <img
-                            style={{height: "7vh", borderRadius: "55%"}}
-                            src={this.state.image}
-                            alt="new"
-                        />
-
-                        <GoogleLogin
-                            clientId={clientId}
-                            buttonText="Login"
-                            onSuccess={this.onSignIn}
-                            // onFailure={onFailure}
-                            cookiePolicy={'single_host_origin'}
-                            style={{height: "7vh",margin: '10px'}}
-                            isSignedIn={true}
-                        />
-
+                                <img
+                                    style={{height: "7vh", borderRadius: "55%"}}
+                                    src={this.state.image}
+                                    alt="new"
+                                />
+                            </div>
+                            <div className="p-col-6">
+                                <GoogleLogin
+                                    clientId={clientId}
+                                    buttonText="Login"
+                                    onSuccess={this.onSignIn}
+                                    // onFailure={onFailure}
+                                    cookiePolicy={'single_host_origin'}
+                                    style={{height: "7vh", margin: '10px'}}
+                                    isSignedIn={true}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
