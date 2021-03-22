@@ -24,13 +24,12 @@ class App extends React.Component {
 
         return (
             <div>
-                <div style={{height: "7vh"}}>
+                <div style={{height: "8vh"}}>
 
                     <PersonalBar/>
 
                 </div>
                 <hr/>
-
             </div>
 
         )
