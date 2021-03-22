@@ -45,7 +45,7 @@ export class MyPage extends React.Component {
                         architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
                     voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
                     </TabPanel>
-                    <TabPanel header="My Codes" leftIcon="pi pi-search" rightIcon="pi pi-cog">
+                    <TabPanel header="My Vaccines" leftIcon="pi pi-table" rightIcon="pi pi-user">
                         <MyCodes />
                     </TabPanel>
                 </TabView>
