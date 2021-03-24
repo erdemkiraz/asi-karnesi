@@ -55,23 +55,29 @@ def get_user_friends():
 
     # TODO:  data format is for test and can change, real data should come from DB. according to google_email
     #  parameter (this can be also changed) Further info => Ayberk
-
     friend_data = {
         "friends": [
             {"id": 0, "name": "Ayberk", "surname": "Uslu", "Age": 22, "withFriendsSince": "15.02.2021",
-             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+             "vaccines":
+                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
             {"id": 1, "name": "Burcu", "surname": "Kose", "Age": 22, "withFriendsSince": "15.02.2021",
-             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+             "vaccines":
+                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
             {"id": 2, "name": "Ceyda", "surname": "Keskin", "Age": 22, "withFriendsSince": "15.02.2021",
-             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+             "vaccines":
+                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
             {"id": 3, "name": "Derya", "surname": "Dincer", "Age": 22, "withFriendsSince": "15.02.2021",
-             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+             "vaccines":
+                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
             {"id": 3, "name": "Emre", "surname": "Demir", "Age": 22, "withFriendsSince": "15.02.2021",
-             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+             "vaccines":
+                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
             {"id": 3, "name": "Ferhat", "surname": "Koc", "Age": 22, "withFriendsSince": "15.02.2021",
-             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+             "vaccines":
+                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
             {"id": 3, "name": "Gokhan", "surname": "Mutlu", "Age": 22, "withFriendsSince": "15.02.2021",
-             "vaccines": [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]}
+             "vaccines":
+                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]}
         ]
     }
 
@@ -99,7 +105,7 @@ def get_user_codes():
                 "date": "15.02.2019",
                 "dose": "1",
                 "vaccine_point": "Ankara Merkez",
-                "expires_in": "364"
+                "expires_in": "364",
             },
             {
                 "id": 1,
