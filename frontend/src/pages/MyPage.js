@@ -2,6 +2,7 @@ import React from 'react';
 import {TabPanel, TabView} from "primereact/tabview";
 import MyFriends from "./my-page-components/MyFriends";
 import MyCodes from "./my-page-components/MyCodes";
+import AddFriend from "./my-page-components/AddFriend";
 
 // import '../App.css';
 
@@ -47,6 +48,9 @@ export class MyPage extends React.Component {
                         </TabPanel>
                         <TabPanel header="My Vaccines" leftIcon="pi pi-table" rightIcon="pi pi-user">
                             <MyCodes/>
+                        </TabPanel>
+                        <TabPanel header="Add New Friend" leftIcon="pi pi-users" rightIcon="pi pi-user-plus">
+                            <AddFriend/>
                         </TabPanel>
                     </TabView>
                 </div>
