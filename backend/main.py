@@ -2,7 +2,12 @@ from hello import app
 import dbops
 import json
 
-from flask import request, jsonify
+from flask import request, jsonify, Flask
+app = Flask(__name__)
+
+
+def run():
+    app.run()
 
 
 def get_result(res, status):
@@ -132,3 +137,7 @@ def get_user_codes():
     # print(json_object)
     # print(jsonify(code_data))
     return jsonify(code_data)
+
+
+if __name__ == "__main__":
+    app.run()
