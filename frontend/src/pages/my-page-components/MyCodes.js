@@ -12,7 +12,8 @@ import {DataTable} from "primereact/datatable";
 import QRCode from "qrcode.react"
 import {TabPanel} from "primereact/tabview";
 import {Panel} from "primereact/panel";
-
+import {Dialog} from "primereact/dialog";
+import EditPrivacy from "./EditPrivacy";
 
 
 export class MyCodes extends React.Component {
@@ -26,7 +27,10 @@ export class MyCodes extends React.Component {
             selected_vaccines: [],
             qr_hidden: true,
             qr_value: "",
-            panelCollapsed : false,
+            panelCollapsed: false,
+            displayEditPrivacy: false,
+            vaccine_id_to_be_changed: null,
+
 
             // login : new Login(),
 
@@ -35,6 +39,13 @@ export class MyCodes extends React.Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.generateQRCode = this.generateQRCode.bind(this);
         this.fetchData = this.fetchData.bind(this);
+
+
+        this.onHide = this.onHide.bind(this);
+
+
+        this.editButton = this.editButton.bind(this);
+        this.editPrivacy = this.editPrivacy.bind(this);
 
     }
 
@@ -49,13 +60,33 @@ export class MyCodes extends React.Component {
     }
 
 
-   async fetchData(email){
+    async fetchData(email) {
 
-        let data = await axios.get(BASE_URL+"/user/codes", {headers: BUILD_HEADER("API_TOKEN",email)})
-        console.log("Data : ",data);
+        let data = await axios.get(BASE_URL + "/user/codes", {headers: BUILD_HEADER("API_TOKEN", email)})
+        console.log("Data : ", data);
         let user_codes = data.data["my_vaccines"]
         console.log("User Friends ", user_codes)
         return user_codes;
+    }
+        onHide(name) {
+        this.setState({
+            [`${name}`]: false
+        });
+    }
+
+    async editPrivacy(row) {
+
+        await this.setState({vaccine_id_to_be_changed: row["id"] ?? "error"});
+        //
+        await this.setState({displayEditPrivacy: true});
+    }
+
+    editButton(row) {
+        return (
+            <div>
+                <Button type="button" onClick={() => this.editPrivacy(row)} label="Edit" icon="pi pi-users"
+                        className="p-button-secondary"/>
+            </div>);
     }
 
 
@@ -90,7 +121,7 @@ export class MyCodes extends React.Component {
         let qr_new = this.state.qr_value + "/TEST";
         this.setState({qr_value: qr_new})
 
-         this.setState({panelCollapsed: true})
+        this.setState({panelCollapsed: true})
     }
 
 
@@ -115,12 +146,19 @@ export class MyCodes extends React.Component {
 
         return (<div>
 
+                <Dialog header="Edit Privacy Settings" visible={this.state.displayEditPrivacy} style={{width: '50vw'}}
+                        onHide={() => this.onHide('displayEditPrivacy')}>
+
+                    <EditPrivacy
+                        vaccine_id={this.state.vaccine_id_to_be_changed}
+                    />
+                </Dialog>
 
                 <div className="card">
                     {/*<h5>Checkbox</h5>*/}
                     <Panel header="My Vaccines" toggleable collapsed={this.state.panelCollapsed}
                            onToggle={(e) => this.setState({panelCollapsed: e.value})}
-                           >
+                    >
                         <DataTable value={this.state.my_vaccines}
                                    selection={this.state.selected_vaccines}
                                    onSelectionChange={e => this.setState({selected_vaccines: e.value})}
@@ -133,6 +171,9 @@ export class MyCodes extends React.Component {
                             <Column field="dose" header="Dose"></Column>
                             <Column field="vaccine_point" header="Vaccine Point"></Column>
                             <Column field="expires_in" header="Expires in"></Column>
+                            <Column body={this.editButton} headerStyle={{width: '8em', textAlign: 'center'}}
+                                    bodyStyle={{textAlign: 'center', overflow: 'visible'}}/>
+
                         </DataTable>
 
                     </Panel>
