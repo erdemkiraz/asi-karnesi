@@ -2,7 +2,12 @@ from hello import app
 import dbops
 import json
 
-from flask import request, jsonify
+from flask import request, jsonify, Flask
+app = Flask(__name__)
+
+
+def run():
+    app.run()
 
 
 def get_result(res, status):
@@ -83,7 +88,19 @@ def get_user_friends():
 
     return jsonify(friend_data)
 
+@app.route("/add", methods=["POST"])
+def add_new_friend():
+    # req = json.loads(request.data)
+    # req = req["data"]
+    # print(req)
 
+    print("Get users friend from db")
+
+    # TODO:  data format is for test and can change, real data should come from DB. according to google_email
+    #  parameter (this can be also changed) Further info => Ayberk
+
+    return {"status": 200};
+    # return jsonify(friend_data)
 
 @app.route("/user/codes", methods=["GET"])
 def get_user_codes():
@@ -140,16 +157,5 @@ def get_user_codes():
     return jsonify(code_data)
 
 
-@app.route("/add", methods=["POST"])
-def add_new_friend():
-    # req = json.loads(request.data)
-    # req = req["data"]
-    # print(req)
-
-    print("Get users friend from db")
-
-    # TODO:  data format is for test and can change, real data should come from DB. according to google_email
-    #  parameter (this can be also changed) Further info => Ayberk
-
-    return {"status": 200};
-    # return jsonify(friend_data)
+if __name__ == "__main__":
+    app.run()
