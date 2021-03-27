@@ -105,6 +105,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate { //meta d
             
             if metadataObj.stringValue != nil {
                 messageLabel.text = metadataObj.stringValue
+                
             }
         }
     }
