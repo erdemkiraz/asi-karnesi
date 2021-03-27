@@ -5,3 +5,28 @@
     height: 10%;
     background:red;
 }
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+    background-color: #f7f7f7;
+}
+
+h1, h2, h3{
+    margin: 0;
+}
+
+.nav-right {
+     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-img {
+    margin-right: 10px;
+}
