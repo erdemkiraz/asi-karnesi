@@ -15,8 +15,8 @@ export class AddFriend extends React.Component {
 
             // login : new Login(),
             logged_in_email: null,
-            new_friend_email: null,
-            new_friend_tckn: null,
+            new_friend_email: "",
+            new_friend_tckn: "",
 
         };
 
