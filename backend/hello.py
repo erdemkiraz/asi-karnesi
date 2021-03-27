@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 def run():
-    pass
+    app.run()
 
 
 if __name__ == "__main__":
