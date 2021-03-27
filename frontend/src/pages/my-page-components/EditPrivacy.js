@@ -112,10 +112,6 @@ class EditPrivacy extends React.Component {
 
     submissionOnChange(key, value) {
 
-        // let temp = this.state.answers;
-        //
-        // temp[key] = value;
-        // this.setState({answers : temp});
 
     }
 
