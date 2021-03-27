@@ -44,9 +44,7 @@ class EditPrivacy extends React.Component {
         let url = BASE_URL+"/get/privacy/" + vaccine_id ;
         let data = await axios.get(url, {headers: BUILD_HEADER("","")});
 
-        // console.log(submission.data)
-        // let values_answers = Object.values(submission.data["answers"]);
-        // let values_questions = Object.values(submission.data["questions"]);
+
 
         this.setState({answers : ""});
         this.setState({questions : ""});

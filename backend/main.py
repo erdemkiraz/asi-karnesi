@@ -84,7 +84,6 @@ def get_user_friends():
     return jsonify(friend_data)
 
 
-
 @app.route("/user/codes", methods=["GET"])
 def get_user_codes():
     # req = json.loads(request.data)
@@ -140,16 +139,25 @@ def get_user_codes():
     return jsonify(code_data)
 
 
-@app.route("/add", methods=["POST"])
+@app.route("/add-new-friend", methods=["POST"])
 def add_new_friend():
     # req = json.loads(request.data)
     # req = req["data"]
     # print(req)
 
-    print("Get users friend from db")
+    print("Add new friendss")
 
-    # TODO:  data format is for test and can change, real data should come from DB. according to google_email
-    #  parameter (this can be also changed) Further info => Ayberk
+    return {"status": 200}
+    # return jsonify(friend_data)
 
-    return {"status": 200};
+
+@app.route("/set-privacy", methods=["POST"])
+def set_vaccine_privacy():
+    # req = json.loads(request.data)
+    # req = req["data"]
+    # print(req)
+
+    print("Set vaccine privacy")
+
+    return {"status": 200}
     # return jsonify(friend_data)
