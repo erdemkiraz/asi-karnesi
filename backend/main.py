@@ -153,11 +153,27 @@ def add_new_friend():
 
 @app.route("/set-privacy", methods=["POST"])
 def set_vaccine_privacy():
-    # req = json.loads(request.data)
-    # req = req["data"]
-    # print(req)
+
 
     print("Set vaccine privacy")
 
     return {"status": 200}
-    # return jsonify(friend_data)
+
+
+@app.route("/get-privacy", methods=["GET"])
+def get_vaccine_privacy():
+    # req = json.loads(request.data)
+    # req = req["data"]
+    # print(req)
+    vaccine_id = request.args.get('vaccine_id')
+    print(vaccine_id)
+    users_vaccine_privacy = {
+        "privacy_setting": "0"
+    }
+    response = jsonify(users_vaccine_privacy)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+    return response
+
+    # return jsonify(users_vaccine_privacy)

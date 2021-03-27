@@ -96,7 +96,7 @@ export class AddFriend extends React.Component {
                             <Button label="Add" onClick={(e) => this.addFriend(e)}  />
                         </div>
                         <div className="p-col-12 p-md-6">
-                            Box2
+                            {/*Box2*/}
                         </div>
                     </div>
                 </div>
