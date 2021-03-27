@@ -84,7 +84,7 @@ export class MyCodes extends React.Component {
     editButton(row) {
         return (
             <div>
-                <Button type="button" onClick={() => this.editPrivacy(row)} label="Edit" icon="pi pi-users"
+                <Button type="button" onClick={() => this.editPrivacy(row)} label="Privacy" icon="pi pi-users"
                         className="p-button-secondary"/>
             </div>);
     }
