@@ -47,7 +47,7 @@ def hello_world():
     dbops.add_user("erdemsu", country_id=turkey.id)
     erdem = dbops.get_user_by_name("erdem")
     print(erdem.id, erdem)
-    return set_response("Hello Worldqqqasd!")
+    return "Hello Worldqqqasd!"
 
 
 @app.route("/user/friends", methods=["GET"])
@@ -88,6 +88,7 @@ def get_user_friends():
 
 
     return set_response(friend_data)
+    # return jsonify(friend_data)
 
 
 @app.route("/add", methods=["POST"])
@@ -155,7 +156,7 @@ def get_user_codes():
     # json_object = json.dumps(code_data)
     # print(json_object)
     # print(jsonify(code_data))
-    return set_response(code_data)
+    return jsonify(code_data)
 
 
 @app.route("/add-new-friend", methods=["POST"])
@@ -166,15 +167,17 @@ def add_new_friend():
 
     print("Add new friendss")
 
-    return set_response({"status": 200})
+    return {"status": 200}
     # return jsonify(friend_data)
 
 
 @app.route("/set-privacy", methods=["POST"])
 def set_vaccine_privacy():
+
+
     print("Set vaccine privacy")
 
-    return set_response({"status": 200})
+    return {"status": 200}
 
 
 @app.route("/get-privacy", methods=["GET"])
@@ -184,13 +187,8 @@ def get_vaccine_privacy():
     # print(req)
     vaccine_id = request.args.get('vaccine_id')
     print(vaccine_id)
-    # 0 means Nobody should see his/her vaccine info . TODO: Calculate from db and send it to frontend!
-    # Nobody : 0
-    # Just Friends : 1
-    # Everybody : 2
-    vaccine_privacy_setting_from_db = "0"
     users_vaccine_privacy = {
-        "privacy_setting": vaccine_privacy_setting_from_db
+        "privacy_setting": "0"
     }
     response = jsonify(users_vaccine_privacy)
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -211,6 +209,9 @@ def set_response(data):
     response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
     return response
 
-=======
 if __name__ == "__main__":
     app.run()
+    response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+
+    # return jsonify(users_vaccine_privacy)
