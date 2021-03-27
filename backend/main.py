@@ -180,6 +180,7 @@ def get_vaccine_privacy():
     response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
     return set_response(users_vaccine_privacy)
 
+
     # return jsonify(users_vaccine_privacy)
 
 

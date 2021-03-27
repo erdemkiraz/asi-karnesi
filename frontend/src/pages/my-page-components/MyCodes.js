@@ -91,10 +91,8 @@ export class MyCodes extends React.Component {
 
 
     formSubmissionsTemplate(data) {
-        // let values = Object.values(data["vaccines"]);
         let values = data["vaccines"];
-        // console.log(data["vaccines"])
-        // console.log("Values : ", values)
+
         return (
             <div className="orders-subtable">
                 {/*<h5>Submissions for {data.form_id}</h5>*/}
@@ -126,9 +124,7 @@ export class MyCodes extends React.Component {
 
 
     render() {
-        // let friends_header = <div className="p-clearfix" style={{'lineHeight': '1.87em'}}>
-        //     Submissions for {(this.state.selectedFormDetail) ? this.state.selectedFormDetail : ""}
-        // </div>;
+
 
         let vaccinesCount = this.state.my_vaccines ? this.state.my_vaccines.length : 0;
         let selectedVaccinesCount = this.state.selected_vaccines ? this.state.selected_vaccines.length : 0;
@@ -186,10 +182,7 @@ export class MyCodes extends React.Component {
                     <QRCode value={this.state.qr_value}/>
 
                 </div>
-
-
-                {/*<Button label="Test button"/>*/}
-
+                
             </div>
         );
     }
