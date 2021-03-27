@@ -1,5 +1,5 @@
 {
-  "python.pythonPath": "/Users/erdem/.pyenv/shims/python",
+  "python.pythonPath": "/usr/bin/python3",
   "python.autoComplete.extraPaths": ["./"],
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,

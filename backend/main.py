@@ -64,25 +64,25 @@ def get_user_friends():
         "friends": [
             {"id": 0, "name": "Ayberk", "surname": "Uslu", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
-                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+                 [{"vaccine": "covid19Ayberk"}, {"vaccine": "asi1Ayberk"}, {"vaccine": "asi2Ayberk"}, {"vaccine": "asi3Ayberk"}]},
             {"id": 1, "name": "Burcu", "surname": "Kose", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
-                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+                 [{"vaccine": "covid19Burcu"}, {"vaccine": "asi1Burcu"}, {"vaccine": "asi2Burcu"}, {"vaccine": "asi3Burcu"}]},
             {"id": 2, "name": "Ceyda", "surname": "Keskin", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
-                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+                 [{"vaccine": "covid19Ceyda"}, {"vaccine": "asi1Ceyda"}, {"vaccine": "asi2Ceyda"}, {"vaccine": "asi3Ceyda"}]},
             {"id": 3, "name": "Derya", "surname": "Dincer", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
                  [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
             {"id": 3, "name": "Emre", "surname": "Demir", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
-                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+                 [{"vaccine": "covid19Emre"}, {"vaccine": "asi1Emre"}, {"vaccineEmre": "asi2"}, {"vaccine": "asi3Emre"}]},
             {"id": 3, "name": "Ferhat", "surname": "Koc", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
-                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
+                 [{"vaccine": "covid19Ferhat"}, {"vaccine": "asi1Ferhat"}, {"vaccine": "asi2Ferhat"}, {"vaccine": "asi3Ferhat"}, {"vaccine": "asi4Ferhat"}]},
             {"id": 3, "name": "Gokhan", "surname": "Mutlu", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
-                 [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]}
+                 [{"vaccine": "covid19Gokhan"}, {"vaccine": "asi1Gokhan"}, {"vaccine": "asi2Gokhan"}]}
         ]
     }
 
