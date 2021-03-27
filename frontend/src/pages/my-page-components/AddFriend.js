@@ -45,7 +45,8 @@ export class AddFriend extends React.Component {
     }
 
     async sendData(e) {
-        let data = await axios.post(BASE_URL + "/add", {"data": this.state}) // TODO : add user email to send
+        console.log("sendData")
+        let data = await axios.post(BASE_URL + "/add-new-friend", {"data": this.state}) // TODO : add user email to send
         console.log(data)
         if (data.data.status !== 200) {
             // this.messages.show({severity: 'error', summary: 'ERROR', detail: 'NOT ADDED'});
@@ -92,10 +93,10 @@ export class AddFriend extends React.Component {
                                                onChange={(e) => this.setState({new_friend_tckn: e.target.value})}/>
                                 </div>
                             </div>
-                            <Button label="Add"/>
+                            <Button label="Add" onClick={(e) => this.addFriend(e)}  />
                         </div>
                         <div className="p-col-12 p-md-6">
-                            Box2
+                            {/*Box2*/}
                         </div>
                     </div>
                 </div>

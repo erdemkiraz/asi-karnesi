@@ -47,7 +47,7 @@ def hello_world():
     dbops.add_user("erdemsu", country_id=turkey.id)
     erdem = dbops.get_user_by_name("erdem")
     print(erdem.id, erdem)
-    return "Hello Worldqqqasd!"
+    return set_response("Hello Worldqqqasd!")
 
 
 @app.route("/user/friends", methods=["GET"])
@@ -86,14 +86,15 @@ def get_user_friends():
         ]
     }
 
-    return jsonify(friend_data)
+
+    return set_response(friend_data)
+
 
 @app.route("/add", methods=["POST"])
 def add_new_friend():
     # req = json.loads(request.data)
     # req = req["data"]
     # print(req)
-
     print("Get users friend from db")
 
     # TODO:  data format is for test and can change, real data should come from DB. according to google_email
@@ -154,8 +155,61 @@ def get_user_codes():
     # json_object = json.dumps(code_data)
     # print(json_object)
     # print(jsonify(code_data))
-    return jsonify(code_data)
+    return set_response(code_data)
 
 
+@app.route("/add-new-friend", methods=["POST"])
+def add_new_friend():
+    # req = json.loads(request.data)
+    # req = req["data"]
+    # print(req)
+
+    print("Add new friendss")
+
+    return set_response({"status": 200})
+    # return jsonify(friend_data)
+
+
+@app.route("/set-privacy", methods=["POST"])
+def set_vaccine_privacy():
+    print("Set vaccine privacy")
+
+    return set_response({"status": 200})
+
+
+@app.route("/get-privacy", methods=["GET"])
+def get_vaccine_privacy():
+    # req = json.loads(request.data)
+    # req = req["data"]
+    # print(req)
+    vaccine_id = request.args.get('vaccine_id')
+    print(vaccine_id)
+    # 0 means Nobody should see his/her vaccine info . TODO: Calculate from db and send it to frontend!
+    # Nobody : 0
+    # Just Friends : 1
+    # Everybody : 2
+    vaccine_privacy_setting_from_db = "0"
+    users_vaccine_privacy = {
+        "privacy_setting": vaccine_privacy_setting_from_db
+    }
+    response = jsonify(users_vaccine_privacy)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers',
+                         'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+    return set_response(users_vaccine_privacy)
+
+    # return jsonify(users_vaccine_privacy)
+
+
+def set_response(data):
+    response = jsonify(data)
+    response.headers.add('Access-Control-Allow-Origin', '*') ## needed for avoiding CORS policy
+    response.headers.add('Access-Control-Allow-Headers',
+                         'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+    return response
+
+=======
 if __name__ == "__main__":
     app.run()
