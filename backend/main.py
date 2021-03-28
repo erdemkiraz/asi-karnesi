@@ -144,17 +144,26 @@ def get_user_codes():
     # print(jsonify(code_data))
     return set_response(code_data)
 
+    # payload has "accepted_email" = "xxxxxx@gmail.com"
+
 
 @app.route("/add-new-friend", methods=["POST"])
 def add_new_friend():
+    print("Add new friends")
+    return set_response({"status": 200})
+
+
+## payload has "declined_email" = "xxxxxx@gmail.com"
+
+@app.route("/decline-new-friend", methods=["POST"])
+def decline_new_friend():
     # req = json.loads(request.data)
     # req = req["data"]
     # print(req)
 
-    print("Add new friendss")
+    print("Decline new friends")
 
     return set_response({"status": 200})
-    # return jsonify(friend_data)
 
 
 @app.route("/set-privacy", methods=["POST"])
