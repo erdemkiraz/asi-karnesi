@@ -116,7 +116,7 @@ export class MyFriends extends React.Component {
                     <Column  expander></Column>
                     <Column field="id" header="ID" ></Column>
                     <Column field="name" header="Name" filter filterPlaceholder="Search by name" filterMatchMode="contains"></Column>
-                    <Column field="surname" header="Size"></Column>
+                    <Column field="surname" header="Surname" filter filterPlaceholder="Search by surname" filterMatchMode="contains"></Column>
                     {/*<Column field="type" header="Type"></Column>*/}
                 </DataTable>
             {/*</div>*/}

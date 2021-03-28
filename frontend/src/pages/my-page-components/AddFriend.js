@@ -6,6 +6,8 @@ import {BASE_URL, BUILD_HEADER, getEmail} from "../../services/base_service";
 import {get_storage} from "../../services/StorageUtil";
 import {Panel} from "primereact/panel";
 import qs from 'qs';
+import {Messages} from "primereact/messages";
+import {Toast} from "primereact/toast";
 
 
 export class AddFriend extends React.Component {
@@ -91,6 +93,11 @@ export class AddFriend extends React.Component {
         };
         let response = await axios(options);
         console.log("POST RESPONSE", response.data);
+        if (response.data["status"] === 200) {
+            this.showSuccessApproved();
+        } else {
+            this.showError()
+        }
     }
 
     async decline_friend_request(email) {
@@ -107,6 +114,11 @@ export class AddFriend extends React.Component {
         };
         let response = await axios(options);
         console.log("POST RESPONSE", response.data);
+        if (response.data["status"] === 200) {
+            this.showSuccessApproved();
+        } else {
+            this.showError()
+        }
     }
 
     reset_state() {
@@ -114,6 +126,24 @@ export class AddFriend extends React.Component {
             email: null,
             tckn: null
         })
+    }
+
+
+    showSuccessApproved() {
+        this.messages.show({severity: 'success', summary: '', detail: 'Friend request approved'});
+        this.toast.show({severity: 'success', summary: '', detail: 'Friend request approved'});
+    }
+
+
+    showError() {
+        this.messages.show({severity: 'error', summary: '', detail: 'Friend request failed'});
+        this.toast.show({severity: 'error', summary: '', detail: 'Friend request failed'});
+    }
+
+
+    showGenericError(msg) {
+        this.messages.show({severity: 'error', summary: '', detail: "Error!" + msg});
+        this.toast.show({severity: 'error', summary: 'Error!', detail: msg});
     }
 
 
@@ -129,7 +159,7 @@ export class AddFriend extends React.Component {
 
             let acceptButton = <Button label="Accept" icon="pi pi-check" className="p-button-success"
                                        onClick={() => this.accept_friend_request(col["email"])}/>;
-            let declineButton = <Button label="Decline" icon="pi pi-check" className="p-button-danger"
+            let declineButton = <Button label="Decline" icon="pi pi-times" className="p-button-danger"
                                         onClick={() => this.decline_friend_request(col["email"])}/>;
 
             return (
@@ -150,7 +180,8 @@ export class AddFriend extends React.Component {
 
 
         return (<div>
-
+                <Messages ref={(el) => this.messages = el}/>
+                <Toast ref={(el) => this.toast = el}/>
                 <div style={{'height': '300px', 'margin': '10px'}}>
 
                     <div className="p-grid p-fluid">
@@ -175,7 +206,7 @@ export class AddFriend extends React.Component {
                             <Button label="Add" onClick={(e) => this.addFriend(e)}/>
                         </div>
                         <div className="p-col-12 p-md-6">
-                            <Panel header="Friend Requests" toggleable>
+                            <Panel header="Friend Requests" className="p-jc-start" toggleable>
                                 {dynamicFriendRequests}
                             </Panel></div>
                     </div>
