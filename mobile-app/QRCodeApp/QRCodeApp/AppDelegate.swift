@@ -4,12 +4,13 @@
 //
 //  Created by Elif Basak  Yildirim on 26.02.2021.
 //
+
 import GoogleSignIn
 import Firebase
 import UIKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate  {
+class AppDelegate: UIResponder, UIApplicationDelegate  {
 
     var window: UIWindow?
 
@@ -18,12 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate  {
         FirebaseApp.configure()
         // Override point for customization after application launch.
         //firebase configuresinden sonra GoogleService-info da clientID yi aldım.
-        GIDSignIn.sharedInstance()?.clientID="896551858622-8jlvbqi0udknaqesp0tt9muicfm83pnd.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance()?.delegate=self
+        
+       // GIDSignIn.sharedInstance()?.clientID="896551858622-8jlvbqi0udknaqesp0tt9muicfm83pnd.apps.googleusercontent.com"
+        //GIDSignIn.sharedInstance()?.delegate=self
         return true
     }
     //emailname ve authentication idTokeni print ettiriyorum
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+   func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         let userId = user.userID
         let idToken = user.authentication.idToken // Safe to send to the server
           let fullName = user.profile.name
@@ -33,9 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate  {
         print("User email: \(user.profile.email ?? "No Email")")
         print("User tokenId: \(user.authentication.idToken ?? "No Email")")
     }
+   
     
-    
-    
+  
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
        
         return GIDSignIn.sharedInstance().handle(url)
