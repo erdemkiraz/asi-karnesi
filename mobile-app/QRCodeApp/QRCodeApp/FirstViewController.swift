@@ -10,6 +10,7 @@ import Firebase
 
 import GoogleSignIn
 class FirstViewController: UIViewController {
+  
     @IBOutlet var signInButton: GIDSignInButton!
     
     override func viewDidLoad() {
@@ -30,6 +31,7 @@ class FirstViewController: UIViewController {
         performSegue(withIdentifier: "toMainPage", sender: nil)
        
     }
+    
     /*
     // MARK: - Navigation
 

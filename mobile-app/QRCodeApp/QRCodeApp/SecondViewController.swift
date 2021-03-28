@@ -11,6 +11,8 @@ class SecondViewController: UIViewController {
     var my_vaccines: [String] = []
     var my_vaccines_friends: [String] = []
     var my_friends_vaccines_list: [[[String : Any]]] = []
+    var all_my_vaccines_inform : [[String : Any]] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,6 +56,7 @@ class SecondViewController: UIViewController {
                          DispatchQueue.main.async {
                             
                             if let info = jsonResponse["my_vaccines"] as? [[String : Any]] {
+                                self.all_my_vaccines_inform = info
                                 print(info)
                                // if let tl = rates["name"] as? String {
                                 //  self.response.text = "TRY: \(tl)"
@@ -162,6 +165,7 @@ class SecondViewController: UIViewController {
         if segue.identifier == "toVaccineViewController" {
             let destinationVC = segue.destination as! VaccineViewController
             destinationVC.my_vaccines_list = my_vaccines
+            destinationVC.all_my_vaccines_inform = all_my_vaccines_inform
         }
         if segue.identifier == "toFriendsList" {
             let destinationVC = segue.destination as! FriendsListViewController

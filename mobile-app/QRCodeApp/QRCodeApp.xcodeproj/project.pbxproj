@@ -19,6 +19,9 @@
 		D747E749260E62A1003BC584 /* VaccineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D747E748260E62A1003BC584 /* VaccineViewController.swift */; };
 		D747E74B260E7AE8003BC584 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D747E74A260E7AE8003BC584 /* FriendsListViewController.swift */; };
 		D747E74F260E9BBB003BC584 /* FriendsVaccinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D747E74E260E9BBB003BC584 /* FriendsVaccinesViewController.swift */; };
+		D75A5E47260FCC210050A5BA /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75A5E46260FCC210050A5BA /* TodoCell.swift */; };
+		D7631C4D260F9BC900B5A50A /* InfoMyVaccasineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7631C4C260F9BC900B5A50A /* InfoMyVaccasineViewController.swift */; };
+		D7631C4F260FB41400B5A50A /* VaccinePermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7631C4E260FB41400B5A50A /* VaccinePermissionViewController.swift */; };
 		D7C8997E260610F900C87DDD /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8997D260610F900C87DDD /* FirstViewController.swift */; };
 		D7C89980260612B100C87DDD /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8997F260612B100C87DDD /* SecondViewController.swift */; };
 		D7C899822606227100C87DDD /* QRGenerateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C899812606227100C87DDD /* QRGenerateViewController.swift */; };
@@ -42,6 +45,9 @@
 		D747E748260E62A1003BC584 /* VaccineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineViewController.swift; sourceTree = "<group>"; };
 		D747E74A260E7AE8003BC584 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
 		D747E74E260E9BBB003BC584 /* FriendsVaccinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVaccinesViewController.swift; sourceTree = "<group>"; };
+		D75A5E46260FCC210050A5BA /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
+		D7631C4C260F9BC900B5A50A /* InfoMyVaccasineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMyVaccasineViewController.swift; sourceTree = "<group>"; };
+		D7631C4E260FB41400B5A50A /* VaccinePermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinePermissionViewController.swift; sourceTree = "<group>"; };
 		D7C8997D260610F900C87DDD /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		D7C8997F260612B100C87DDD /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		D7C899812606227100C87DDD /* QRGenerateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGenerateViewController.swift; sourceTree = "<group>"; };
@@ -83,12 +89,15 @@
 			children = (
 				D7C899852606621D00C87DDD /* GoogleService-Info.plist */,
 				4A98BA35259135D5005BA338 /* AppDelegate.swift */,
+				D75A5E46260FCC210050A5BA /* TodoCell.swift */,
 				4A98BA37259135D5005BA338 /* SceneDelegate.swift */,
 				4A98BA39259135D5005BA338 /* ViewController.swift */,
 				4A98BA3B259135D5005BA338 /* Main.storyboard */,
+				D7631C4E260FB41400B5A50A /* VaccinePermissionViewController.swift */,
 				D747E74E260E9BBB003BC584 /* FriendsVaccinesViewController.swift */,
 				D747E74A260E7AE8003BC584 /* FriendsListViewController.swift */,
 				D747E748260E62A1003BC584 /* VaccineViewController.swift */,
+				D7631C4C260F9BC900B5A50A /* InfoMyVaccasineViewController.swift */,
 				D7C899812606227100C87DDD /* QRGenerateViewController.swift */,
 				D7C8997F260612B100C87DDD /* SecondViewController.swift */,
 				D7C8997D260610F900C87DDD /* FirstViewController.swift */,
@@ -251,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7631C4F260FB41400B5A50A /* VaccinePermissionViewController.swift in Sources */,
 				4A98BA5325913E8F005BA338 /* QRScannerController.swift in Sources */,
 				4A98BA3A259135D5005BA338 /* ViewController.swift in Sources */,
 				D747E74B260E7AE8003BC584 /* FriendsListViewController.swift in Sources */,
@@ -259,6 +269,8 @@
 				D7C8997E260610F900C87DDD /* FirstViewController.swift in Sources */,
 				D7C89980260612B100C87DDD /* SecondViewController.swift in Sources */,
 				4A98BA5025913BE0005BA338 /* QRCodeViewController.swift in Sources */,
+				D75A5E47260FCC210050A5BA /* TodoCell.swift in Sources */,
+				D7631C4D260F9BC900B5A50A /* InfoMyVaccasineViewController.swift in Sources */,
 				D747E749260E62A1003BC584 /* VaccineViewController.swift in Sources */,
 				D7C899822606227100C87DDD /* QRGenerateViewController.swift in Sources */,
 				4A98BA38259135D5005BA338 /* SceneDelegate.swift in Sources */,
@@ -411,6 +423,46 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7NLSMQ8RGS;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/FirebaseAnalytics\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAppMeasurement\"",
+					"\"${PODS_ROOT}/Pods/Google\"",
+				);
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/FirebaseAnalytics\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAppMeasurement\"",
+					"\"${PODS_ROOT}/Pods/Google\"",
+				);
 				INFOPLIST_FILE = QRCodeApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -431,6 +483,47 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7NLSMQ8RGS;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/FirebaseAnalytics\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAppMeasurement\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_ROOT}/Pods/Google\"",
+				);
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/FirebaseAnalytics\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/GoogleAppMeasurement\"",
+					"\"${PODS_ROOT}/Pods/Google\"",
+				);
 				INFOPLIST_FILE = QRCodeApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
