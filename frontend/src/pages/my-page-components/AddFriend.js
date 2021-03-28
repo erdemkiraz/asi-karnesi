@@ -68,7 +68,12 @@ export class AddFriend extends React.Component {
             console.log("Add submitted")
         }
         console.log(data.data.status)
-        this.reset_state()
+        if (data.data.status === 200) {
+            this.showSuccessAddFriend();
+        } else {
+            this.showErrorAddFriend()
+        }
+        // this.reset_state()
     }
 
     async fetch_friend_requests() {
@@ -127,7 +132,15 @@ export class AddFriend extends React.Component {
             tckn: null
         })
     }
+    showSuccessAddFriend() {
+        this.messages.show({severity: 'success', summary: '', detail: 'Friend request sent!'});
+        this.toast.show({severity: 'success', summary: '', detail: 'Friend request sent!'});
+    }
 
+    showErrorAddFriend() {
+        this.messages.show({severity: 'error', summary: '', detail: 'Friend request failed'});
+        this.toast.show({severity: 'error', summary: '', detail: 'Friend request failed'});
+    }
 
     showSuccessApproved() {
         this.messages.show({severity: 'success', summary: '', detail: 'Friend request approved'});
@@ -149,11 +162,7 @@ export class AddFriend extends React.Component {
 
     render() {
 
-
         const dynamicFriendRequests = this.state.friend_requests.map((col, i) => {
-
-            console.log("col", col)
-            console.log("i", i)
 
             // return <div key={i} ></div>;
 
