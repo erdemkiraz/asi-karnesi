@@ -158,3 +158,5 @@ dmypy.json
 **/settings.json
 
 backend/flask/
+backend/.idea/misc.xml
+backend/.idea/backend.iml

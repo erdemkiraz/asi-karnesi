@@ -5,6 +5,7 @@ import axios from "axios";
 import {BASE_URL, BUILD_HEADER, getEmail} from "../../services/base_service";
 import {get_storage} from "../../services/StorageUtil";
 import {Panel} from "primereact/panel";
+import qs from 'qs';
 
 
 export class AddFriend extends React.Component {
@@ -76,12 +77,36 @@ export class AddFriend extends React.Component {
         console.log(requests)
     }
 
-    accept_friend_request(email) {
+    async accept_friend_request(email) {
+        let data_to_send = [];
 
+        data_to_send["accepted_email"] = email
+
+        let url = BASE_URL + "/add-new-friend"
+        const options = {
+            method: 'POST',
+            headers: {'content-type': 'application/x-www-form-urlencoded', "google_token": this.state.logged_in_email},
+            data: qs.stringify(data_to_send),
+            url,
+        };
+        let response = await axios(options);
+        console.log("POST RESPONSE", response.data);
     }
 
-    decline_friend_request(email) {
+    async decline_friend_request(email) {
+        let data_to_send = [];
 
+        data_to_send["declined_email"] = email
+
+        let url = BASE_URL + "/decline-new-friend"
+        const options = {
+            method: 'POST',
+            headers: {'content-type': 'application/x-www-form-urlencoded', "google_token": this.state.logged_in_email},
+            data: qs.stringify(data_to_send),
+            url,
+        };
+        let response = await axios(options);
+        console.log("POST RESPONSE", response.data);
     }
 
     reset_state() {
@@ -103,9 +128,9 @@ export class AddFriend extends React.Component {
             // return <div key={i} ></div>;
 
             let acceptButton = <Button label="Accept" icon="pi pi-check" className="p-button-success"
-                                       onClick={this.accept_friend_request(col["email"])}/>;
+                                       onClick={() => this.accept_friend_request(col["email"])}/>;
             let declineButton = <Button label="Decline" icon="pi pi-check" className="p-button-danger"
-                                        onClick={this.accept_friend_request(col["email"])}/>;
+                                        onClick={() => this.decline_friend_request(col["email"])}/>;
 
             return (
                 <div key={i} className="p-fluid p-formgrid p-grid">
@@ -147,7 +172,7 @@ export class AddFriend extends React.Component {
                                                onChange={(e) => this.setState({new_friend_tckn: e.target.value})}/>
                                 </div>
                             </div>
-                            <Button label="Add"  onClick={(e) => this.addFriend(e)}/>
+                            <Button label="Add" onClick={(e) => this.addFriend(e)}/>
                         </div>
                         <div className="p-col-12 p-md-6">
                             <Panel header="Friend Requests" toggleable>
