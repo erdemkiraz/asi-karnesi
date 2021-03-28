@@ -75,13 +75,13 @@ def get_user_friends():
             {"id": 3, "name": "Derya", "surname": "Dincer", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
                  [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
-            {"id": 3, "name": "Emre", "surname": "Demir", "Age": 22, "withFriendsSince": "15.02.2021",
+            {"id": 4, "name": "Emre", "surname": "Demir", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
                  [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
-            {"id": 3, "name": "Ferhat", "surname": "Koc", "Age": 22, "withFriendsSince": "15.02.2021",
+            {"id": 5, "name": "Ferhat", "surname": "Koc", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
                  [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
-            {"id": 3, "name": "Gokhan", "surname": "Mutlu", "Age": 22, "withFriendsSince": "15.02.2021",
+            {"id": 6, "name": "Gokhan", "surname": "Mutlu", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
                  [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]}
         ]
