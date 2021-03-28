@@ -160,3 +160,6 @@ dmypy.json
 backend/flask/
 backend/.idea/misc.xml
 backend/.idea/backend.iml
+backend/.idea/backend.iml
+backend/.idea/misc.xml
+backend/.idea/misc.xml
