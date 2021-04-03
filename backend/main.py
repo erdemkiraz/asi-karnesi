@@ -76,7 +76,7 @@ def get_user_friends():
                  [{"vaccine": "covid19"}, {"vaccine": "asi1"}, {"vaccine": "asi2"}, {"vaccine": "asi3"}]},
             {"id": 3, "name": "Emre", "surname": "Demir", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
-                 [{"vaccine": "covid19Emre"}, {"vaccine": "asi1Emre"}, {"vaccineEmre": "asi2"}, {"vaccine": "asi3Emre"}]},
+                 [{"vaccine": "covid19Emre"}, {"vaccine": "asi1Emre"}, {"vaccine": "asi2"}, {"vaccine": "asi3Emre"}]},
             {"id": 3, "name": "Ferhat", "surname": "Koc", "Age": 22, "withFriendsSince": "15.02.2021",
              "vaccines":
                  [{"vaccine": "covid19Ferhat"}, {"vaccine": "asi1Ferhat"}, {"vaccine": "asi2Ferhat"}, {"vaccine": "asi3Ferhat"}, {"vaccine": "asi4Ferhat"}]},
