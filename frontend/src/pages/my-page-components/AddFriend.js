@@ -34,7 +34,7 @@ export class AddFriend extends React.Component {
         this.decline_friend_request = this.decline_friend_request.bind(this);
 
 
-        this.sendData = this.sendData.bind(this);
+        this.sendDataForNewFriendRequest = this.sendDataForNewFriendRequest.bind(this);
         this.reset_state = this.reset_state.bind(this);
 
 
@@ -55,12 +55,28 @@ export class AddFriend extends React.Component {
     }
 
     async addFriend(e) {
-        await this.sendData(e)
+        await this.sendDataForNewFriendRequest(e)
     }
 
-    async sendData(e) {
+    async sendDataForNewFriendRequest(e) {
         console.log("sendData")
-        let data = await axios.post(BASE_URL + "/add-new-friend", {"data": this.state}) // TODO : add user email to send
+
+        // let data = await axios.post(BASE_URL + "/add-new-friend", {"data": this.state}) // TODO : add user email to send
+        let data_to_send = {
+            "user_id": this.state.logged_in_user_id,
+            "friend_email": this.state.new_friend_email,
+        };
+
+
+        let url = BASE_URL + "/add-new-friend"
+        const options = {
+            method: 'POST',
+            headers: BUILD_HEADER("", ""),
+            data: data_to_send,
+            url,
+        };
+        let data = await axios(options);
+
         console.log(data)
         if (data.data.status !== 200) {
             // this.messages.show({severity: 'error', summary: 'ERROR', detail: 'NOT ADDED'});
@@ -79,23 +95,27 @@ export class AddFriend extends React.Component {
     }
 
     async fetch_friend_requests() {
-        let data = await axios.get(BASE_URL + "/friend-requests?user_id="+this.state.logged_in_user_id, {headers: BUILD_HEADER("API_TOKEN", this.state.logged_in_user_id)})
-        console.log("Data : ", data);
-        let requests = data.data["requests"]
+        let data = await axios.get(BASE_URL + "/friend-requests?user_id=" + this.state.logged_in_user_id, {headers: BUILD_HEADER("", "")})
+
+        // console.log("Data : ", data);
+        let requests = data.data["friend_requests"]
         this.setState({friend_requests: requests});
+        console.log("requests")
         console.log(requests)
     }
 
-    async accept_friend_request(email) {
-        let data_to_send = [];
+    async accept_friend_request(request_id) {
+        let data_to_send = {
+            "request_id": request_id
+        };
 
-        data_to_send["accepted_email"] = email
+        // data_to_send["request_id"] = request_id
 
-        let url = BASE_URL + "/add-new-friend"
+        let url = BASE_URL + "/accept-new-friend"
         const options = {
             method: 'POST',
-            headers: {'content-type': 'application/x-www-form-urlencoded', "google_token": this.state.logged_in_user_id},
-            data: qs.stringify(data_to_send),
+            headers: BUILD_HEADER("", ""),
+            data: data_to_send,
             url,
         };
         let response = await axios(options);
@@ -107,16 +127,17 @@ export class AddFriend extends React.Component {
         }
     }
 
-    async decline_friend_request(email) {
-        let data_to_send = [];
+    async decline_friend_request(request_id) {
+        let data_to_send = {
+            "request_id": request_id
+        };
 
-        data_to_send["declined_email"] = email
 
-        let url = BASE_URL + "/decline-new-friend"
+        let url = BASE_URL + "/reject-new-friend"
         const options = {
             method: 'POST',
-            headers: {'content-type': 'application/x-www-form-urlencoded', "google_token": this.state.logged_in_user_id},
-            data: qs.stringify(data_to_send),
+            headers: BUILD_HEADER("", ""),
+            data: data_to_send,
             url,
         };
         let response = await axios(options);
@@ -134,6 +155,7 @@ export class AddFriend extends React.Component {
             tckn: null
         })
     }
+
     showSuccessAddFriend() {
         this.messages.show({severity: 'success', summary: '', detail: 'Friend request sent!'});
         this.toast.show({severity: 'success', summary: '', detail: 'Friend request sent!'});
@@ -167,16 +189,17 @@ export class AddFriend extends React.Component {
         const dynamicFriendRequests = this.state.friend_requests.map((col, i) => {
 
             // return <div key={i} ></div>;
+            let request_id = col["request_id"];
 
             let acceptButton = <Button label="Accept" icon="pi pi-check" className="p-button-success"
-                                       onClick={() => this.accept_friend_request(col["email"])}/>;
+                                       onClick={() => this.accept_friend_request(request_id)}/>;
             let declineButton = <Button label="Decline" icon="pi pi-times" className="p-button-danger"
-                                        onClick={() => this.decline_friend_request(col["email"])}/>;
+                                        onClick={() => this.decline_friend_request(request_id)}/>;
 
             return (
                 <div key={i} className="p-fluid p-formgrid p-grid">
                     <div className="p-field p-col">
-                        <label>{col["email"]}</label><br/>
+                        <label>{col["requester_email"]}</label><br/>
                     </div>
                     <div className="p-field p-col">
                         {acceptButton}<br/>
@@ -222,7 +245,6 @@ export class AddFriend extends React.Component {
                             </Panel></div>
                     </div>
                 </div>
-                This is Add friend page!!
             </div>
         );
     }

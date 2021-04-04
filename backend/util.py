@@ -72,6 +72,7 @@ def get_friend_request_dict(friend_request):
     res = {
         "request_id": friend_request.id,
         "requester_id": requestee_user.id,
+        "requester_email": "requestee_user.email",
         "requester_name": requestee_user.name,
         "created": friend_request.created,
     }

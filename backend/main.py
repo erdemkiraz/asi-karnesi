@@ -178,58 +178,57 @@ def get_user_codes():
 
     res = {"my_vaccines": get_user_all_vaccination_dicts(user_id)}
 
-    return get_response(res, 200)
+    code_data = {
+        "my_vaccines": [
+            {
+                "vaccination_id": 0,
+                "vaccine_id": 0,
+                "name": "COVID-191",
+                "date": "2021-3-3 15:12:06",
+                "dose": 1,
+                "vaccine_point": "Ankara Merkez",
+                "valid_until": "2022-3-3 15:12:06",
+            },
+            {
+                "vaccination_id": 1,
+                "vaccine_id": 1,
+                "name": "COVID-192",
+                "date": "2021-3-3 15:12:06",
+                "dose": 1,
+                "vaccine_point": "Ankara Merkez",
+                "valid_until": "2022-3-3 15:12:06",
+            },
+            {
+                "vaccination_id": 2,
+                "vaccine_id": 2,
+                "name": "COVID-139",
+                "date": "2021-3-3 15:12:06",
+                "dose": 1,
+                "vaccine_point": "Ankara Merkez",
+                "valid_until": "2022-3-3 15:12:06",
+            },
+            {
+                "vaccination_id": 3,
+                "vaccine_id": 3,
+                "name": "COVID-194",
+                "date": "2021-3-3 15:12:06",
+                "dose": 1,
+                "vaccine_point": "Ankara Merkez",
+                "valid_until": "2022-3-3 15:12:06",
+            }
+        ]
+    }
 
-    # code_data = {
-    #     "my_vaccines": [
-    # {
-    #     " ": 0,
-    #     "name": "COVID-19",
-    #     "date": "2021-3-3 15:12:06",
-    #     "dose": 1,
-    #     "vaccine_point": "Ankara Merkez",
-    #     "valid_until": "2022-3-3 15:12:06",
-    # },
-    #         {
-    #             "id": 0,
-    #             "name": "COVID-19",
-    #             "date": "15.02.2019",
-    #             "dose": "1",
-    #             "vaccine_point": "Ankara Merkez",
-    #             "expires_in": "364",
-    #         },
-    #         {
-    #             "id": 1,
-    #             "name": "COVID-20",
-    #             "date": "15.02.2020",
-    #             "dose": "1",
-    #             "vaccine_point": "Istranbul Merkez",
-    #             "expires_in": "255",
-    #         },
-    #         {
-    #             "id": 2,
-    #             "name": "COVID-21",
-    #             "date": "15.02.2021",
-    #             "dose": "1",
-    #             "vaccine_point": "Eskisehir Merkez",
-    #             "expires_in": "321",
-    #         },
-    #         {
-    #             "id": 3,
-    #             "name": "COVID-22",
-    #             "date": "15.02.2022",
-    #             "dose": "1",
-    #             "vaccine_point": "Adana Merkez",
-    #             "expires_in": "0",
-    #         },
-    #     ]
-    # }
+    return get_response(code_data, 200)
+    # return get_response(res, 200)
 
 
 @app.route("/friend-request", methods=["POST"])
 def add_friend_request():
     user_id = request.json["user_id"]
-    friend_id = request.json["friend_id"]
+    friend_id = request.json[
+        "friend_id"]  # TODO : friend id is not sent, should be removed. requests should be handled by email
+    friend_email = request.json["friend_email"]
     dbops.add_friend_request(user_id, friend_id)
 
     return get_response({}, 200)
@@ -237,20 +236,50 @@ def add_friend_request():
 
 @app.route("/friend-requests", methods=["GET"])
 def get_user_friend_requests():
-    user_id = request.json["user_id"]
-    res = {"friend_requests:": get_user_all_friend_request_dicts(user_id)}
-
-    return get_response(res, 200)
+    user_id = request.args["user_id"]
+    res = {"friend_requests": get_user_all_friend_request_dicts(user_id)}  # TODO : requester_email should be provided, example data is given
 
 
-@app.route("/accept-friend-request", methods=["PUSH"])
+    temp_data = {
+        "friend_requests": [
+            {
+                "request_id": "friend_request.id1",
+                "requester_id": "requestee_user.id1",
+                "requester_email": "requestee_user.email1",
+                "requester_name": "requestee_user.name1",
+                "created": "friend_request.created1"
+            },
+            {
+                "request_id": "friend_request.id2",
+                "requester_id": "requestee_user.id2",
+                "requester_email": "requestee_user.email2",
+                "requester_name": "requestee_user.name2",
+                "created": "friend_request.created2"
+            },
+            {
+                "request_id": "friend_request.id3",
+                "requester_id": "requestee_user.id3",
+                "requester_email": "requestee_user.emai3",
+                "requester_name": "requestee_user.name3",
+                "created": "friend_request.created3"
+            }
+        ]
+    }
+
+
+
+    return get_response(temp_data, 200)
+    # return get_response(res, 200)
+
+
+@app.route("/accept-friend-request", methods=["POST"])
 def accept_friend_request():
     request_id = request.json["request_id"]
     accept_friend_request(request_id)
     return get_response({}, 200)
 
 
-@app.route("/reject-friend-request", methods=["PUSH"])
+@app.route("/reject-friend-request", methods=["POST"])
 def reject_friend_request():
     request_id = request.json["request_id"]
     reject_friend_request(request_id)
@@ -259,8 +288,10 @@ def reject_friend_request():
 
 @app.route("/set-privacy", methods=["POST"])
 def set_vaccine_privacy():
-    user_id = request.json["user_id"]
+    # user_id = request.json["user_id"]
+    vaccination_id = request.json["vaccination_id"]  # TODO : set privacy by vaccination_id, not user_id
     new_privacy = request.json["new_privacy"]
+    user_id = request.json["user_id"]
     user = dbops.get_user(user_id)
     user.visilibty = new_privacy
 
@@ -269,7 +300,8 @@ def set_vaccine_privacy():
 
 @app.route("/get-privacy", methods=["GET"])
 def get_vaccine_privacy():
-    user_id = request.args["user_id"]
+    user_id = request.args["vaccination_id"]  # TODO : get privacy by vaccination_id, not user_id
+    # user_id = request.args["user_id"]
     user = dbops.get_user(user_id)
     res = {"privacy_setting": user.visibility}
     return get_response(res, 200)
