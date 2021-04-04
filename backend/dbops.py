@@ -56,6 +56,7 @@ def add_friend_request(user_id1, user_id2):
     session.add(row)
     session.commit()
 
+
 def delete_friend_request(request_id):
     session.query(FriendRequest).filter(request_id).delete()
     session.commit()
