@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 
-import {BASE_URL, HEADER, BUILD_HEADER, getEmail} from "../../services/base_service";
+import {BASE_URL, HEADER, BUILD_HEADER, getUserId} from "../../services/base_service";
 
 // import {clientId} from "../../services/base_service";
 import {Button} from "primereact/button";
@@ -52,17 +52,22 @@ export class MyCodes extends React.Component {
 
     componentDidMount() {
         let google_user = get_storage("google_user");
-        let email = getEmail(google_user)
 
+        // con
+
+
+        let user_id = getUserId(google_user)
+
+        console.log("google_user id : ", user_id)
         console.log(google_user)
 
-        this.fetchData(email).then(user_codes => this.setState({my_vaccines: user_codes}))
+        this.fetchData(user_id).then(user_codes => this.setState({my_vaccines: user_codes}))
     }
 
 
-    async fetchData(email) {
+    async fetchData(user_id) {
 
-        let data = await axios.get(BASE_URL + "/user/codes", {headers: BUILD_HEADER("API_TOKEN", email)})
+        let data = await axios.get(BASE_URL + "/user/codes?user_id="+user_id, {headers: BUILD_HEADER("API_TOKEN", user_id)})
         console.log("Data : ", data);
         let user_codes = data.data["my_vaccines"]
         console.log("User Friends ", user_codes)
