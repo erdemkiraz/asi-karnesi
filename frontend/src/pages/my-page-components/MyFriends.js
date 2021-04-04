@@ -1,6 +1,6 @@
 import React from 'react';
 // import GoogleLogin from "react-google-login";
-import {BASE_URL, BUILD_HEADER, getEmail} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER, getUserId} from "../../services/base_service";
 import {Button} from "primereact/button";
 import {put_storage, get_storage} from "../../services/StorageUtil";
 import {TreeTable} from "primereact/treetable";
@@ -34,21 +34,22 @@ export class MyFriends extends React.Component {
 
      async componentDidMount() {
     let google_user = await get_storage("google_user");
-    let email = getEmail(google_user)
+
+    let user_id = getUserId(google_user)
 
     console.log(google_user)
 
-    this.fetchData(email).then(user_friends => this.setState({friends: user_friends}))
+    this.fetchData(user_id).then(user_friends => this.setState({friends: user_friends}))
 
 
     }
 
 
-   async fetchData(email){
+   async fetchData(user_id){
 
-        let data = await axios.get(BASE_URL+"/user/friends", {headers: BUILD_HEADER("API_TOKEN",email)})
+        let data = await axios.get(BASE_URL+"/user/friends?user_id="+user_id, {headers: BUILD_HEADER("API_TOKEN",user_id)})
         console.log("Data : ",data);
-        console.log("email :",email )
+        console.log("UserId :",user_id )
         let user_friends = data.data["friends"]
         console.log("User Friends ", user_friends)
         return user_friends;
@@ -116,7 +117,7 @@ export class MyFriends extends React.Component {
                     <Column  expander></Column>
                     <Column field="id" header="ID" ></Column>
                     <Column field="name" header="Name" filter filterPlaceholder="Search by name" filterMatchMode="contains"></Column>
-                    <Column field="surname" header="Size"></Column>
+                    <Column field="surname" header="Surname" filter filterPlaceholder="Search by surname" filterMatchMode="contains"></Column>
                     {/*<Column field="type" header="Type"></Column>*/}
                 </DataTable>
             {/*</div>*/}
