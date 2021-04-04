@@ -59,7 +59,7 @@ def get_user_all_vaccination_dicts(user_id):
 
 def get_user_dict(user_id):
     user = dbops.get_user(user_id)
-    vaccination_dicts = get_user_all_vaccination_dicts
+    vaccination_dicts = get_user_all_vaccination_dicts(user.id)
     res = {
         "id": user.id,
         "name": user.name,
@@ -112,5 +112,5 @@ def get_friend_dict(user_id, friend_id):
 
 def get_user_all_friend_dicts(user_id):
     friend_ids = dbops.get_friend_ids(user_id)
-    friend_dicts = [get_friend_dict[user_id, friend_id] for friend_id in friend_ids]
+    friend_dicts = [get_friend_dict(user_id, friend_id) for friend_id in friend_ids]
     return friend_dicts
