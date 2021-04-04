@@ -34,9 +34,7 @@ export class MyFriends extends React.Component {
 
      async componentDidMount() {
     let google_user = await get_storage("google_user");
-
-    // let user_id = getUserId(google_user);
-    //
+    
     let user_id = getUserId(google_user)
 
     console.log(google_user)
