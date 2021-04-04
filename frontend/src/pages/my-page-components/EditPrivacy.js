@@ -49,11 +49,8 @@ class EditPrivacy extends React.Component {
         let vaccine_current_privacy = payload["privacy_setting"];
         this.setState({privacy_setting:vaccine_current_privacy})
 
-        // this.setState({answers: ""});
-        // this.setState({questions: ""});
 
     }
-
 
     printState() {
         console.log("State :", this.state);
