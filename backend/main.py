@@ -275,7 +275,7 @@ def get_user_friend_requests():
 @app.route("/login", methods=["GET"])
 def get_user_friend_requests():
     email = request.args["email"]
-    res = {"user_id": get_or_create_user(email)}
+    res = {"google_id": get_or_create_user(email)}
 
     return get_response(res, 200)
 
