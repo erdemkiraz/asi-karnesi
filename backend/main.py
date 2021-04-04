@@ -215,7 +215,7 @@ def get_user_codes():
                 "dose": 1,
                 "vaccine_point": "Ankara Merkez",
                 "valid_until": "2022-3-3 15:12:06",
-            }
+            },
         ]
     }
 
@@ -227,7 +227,8 @@ def get_user_codes():
 def add_friend_request():
     user_id = request.json["user_id"]
     friend_id = request.json[
-        "friend_id"]  # TODO : friend id is not sent, should be removed. requests should be handled by email
+        "friend_id"
+    ]  # TODO : friend id is not sent, should be removed. requests should be handled by email
     friend_email = request.json["friend_email"]
     dbops.add_friend_request(user_id, friend_id)
 
@@ -237,8 +238,9 @@ def add_friend_request():
 @app.route("/friend-requests", methods=["GET"])
 def get_user_friend_requests():
     user_id = request.args["user_id"]
-    res = {"friend_requests": get_user_all_friend_request_dicts(user_id)}  # TODO : requester_email should be provided, example data is given
-
+    res = {
+        "friend_requests": get_user_all_friend_request_dicts(user_id)
+    }  # TODO : requester_email should be provided, example data is given
 
     temp_data = {
         "friend_requests": [
@@ -247,29 +249,35 @@ def get_user_friend_requests():
                 "requester_id": "requestee_user.id1",
                 "requester_email": "requestee_user.email1",
                 "requester_name": "requestee_user.name1",
-                "created": "friend_request.created1"
+                "created": "friend_request.created1",
             },
             {
                 "request_id": "friend_request.id2",
                 "requester_id": "requestee_user.id2",
                 "requester_email": "requestee_user.email2",
                 "requester_name": "requestee_user.name2",
-                "created": "friend_request.created2"
+                "created": "friend_request.created2",
             },
             {
                 "request_id": "friend_request.id3",
                 "requester_id": "requestee_user.id3",
                 "requester_email": "requestee_user.emai3",
                 "requester_name": "requestee_user.name3",
-                "created": "friend_request.created3"
-            }
+                "created": "friend_request.created3",
+            },
         ]
     }
 
-
-
     return get_response(temp_data, 200)
     # return get_response(res, 200)
+
+
+@app.route("/login", methods=["GET"])
+def get_user_friend_requests():
+    email = request.args["email"]
+    res = {"user_id:": get_or_create_user(email)}
+
+    return get_response(res, 200)
 
 
 @app.route("/accept-friend-request", methods=["POST"])
@@ -289,7 +297,9 @@ def reject_friend_request():
 @app.route("/set-privacy", methods=["POST"])
 def set_vaccine_privacy():
     # user_id = request.json["user_id"]
-    vaccination_id = request.json["vaccination_id"]  # TODO : set privacy by vaccination_id, not user_id
+    vaccination_id = request.json[
+        "vaccination_id"
+    ]  # TODO : set privacy by vaccination_id, not user_id
     new_privacy = request.json["new_privacy"]
     user_id = request.json["user_id"]
     user = dbops.get_user(user_id)
@@ -300,7 +310,9 @@ def set_vaccine_privacy():
 
 @app.route("/get-privacy", methods=["GET"])
 def get_vaccine_privacy():
-    user_id = request.args["vaccination_id"]  # TODO : get privacy by vaccination_id, not user_id
+    user_id = request.args[
+        "vaccination_id"
+    ]  # TODO : get privacy by vaccination_id, not user_id
     # user_id = request.args["user_id"]
     user = dbops.get_user(user_id)
     res = {"privacy_setting": user.visibility}
