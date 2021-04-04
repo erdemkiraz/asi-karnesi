@@ -81,7 +81,7 @@ export class MyCodes extends React.Component {
 
     async editPrivacy(row) {
 
-        await this.setState({vaccine_id_to_be_changed: row["id"] ?? "error"});
+        await this.setState({vaccine_id_to_be_changed: row["vaccination_id"] ?? "error"});
         //
         await this.setState({displayEditPrivacy: true});
     }
@@ -155,7 +155,7 @@ export class MyCodes extends React.Component {
                         onHide={() => this.onHide('displayEditPrivacy')}>
 
                     <EditPrivacy
-                        vaccine_id={this.state.vaccine_id_to_be_changed}
+                        vaccination_id={this.state.vaccine_id_to_be_changed}
                     />
                 </Dialog>
 
@@ -167,10 +167,11 @@ export class MyCodes extends React.Component {
                         <DataTable value={this.state.my_vaccines}
                                    selection={this.state.selected_vaccines}
                                    onSelectionChange={e => this.setState({selected_vaccines: e.value})}
-                                   dataKey="id"
+                                   dataKey="vaccination_id"
                                    footer={footer_my_vaccines}>
                             <Column selectionMode="multiple" headerStyle={{width: '3em'}}></Column>
-                            <Column field="id" header="Code"></Column>
+                            {/*<Column field="vaccination_id" header="Code"  ></Column>*/}
+                            <Column field="vaccine_id" header="Vaccine ID"></Column>
                             <Column field="name" header="Name"></Column>
                             <Column field="date" header="Date"></Column>
                             <Column field="dose" header="Dose"></Column>
