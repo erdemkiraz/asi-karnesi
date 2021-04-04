@@ -3,5 +3,34 @@
   "python.autoComplete.extraPaths": ["./"],
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
-  "python.analysis.extraPaths": ["."]
+  "python.analysis.extraPaths": [
+    ".",
+    "backend/"
+  ],
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "asi-karnesi",
+      "database": "${workspaceFolder:asi-karnesi}/backend/database.db"
+    },
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "asi-karnesi",
+      "database": "${workspaceFolder:asi-karnesi}/backend/database.db"
+    },
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "asi-karnesi",
+      "database": "${workspaceFolder:asi-karnesi}/backend/database.db"
+    },
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "asi-karnesi",
+      "database": "${workspaceFolder:asi-karnesi}/backend/database.db"
+    }
+  ]
 }

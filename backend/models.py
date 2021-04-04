@@ -2,12 +2,13 @@ import datetime
 from sqlalchemy.sql.sqltypes import Boolean, DateTime
 from sqlalchemy import Column, Integer, String, ForeignKey
 
-from backend.dbconf import Base, engine
-from backend.util import UserVisibility, AdminPrivilege
+from dbconf import Base, engine
+from enums import UserVisibility, AdminPrivilege
 
 
 class User(Base):
     __tablename__ = "user"
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
@@ -21,6 +22,7 @@ class User(Base):
 
 class Country(Base):
     __tablename__ = "country"
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
@@ -31,6 +33,7 @@ class Country(Base):
 
 class Vaccine(Base):
     __tablename__ = "vaccine"
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
@@ -39,6 +42,7 @@ class Vaccine(Base):
 
 class Vaccination(Base):
     __tablename__ = "vaccination"
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("user.id"))
@@ -50,6 +54,7 @@ class Vaccination(Base):
 
 class VaccinationStatusRequest(Base):
     __tablename__ = "vaccination_status_request"
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
     requested_id = Column(Integer, ForeignKey("user.id"))
@@ -57,8 +62,28 @@ class VaccinationStatusRequest(Base):
     has_granted = Column(Boolean, default=False)
 
 
+class VaccinationLink(Base):
+    __tablename__ = "vaccination_link"
+    __table_args__ = {"extend_existing": True}
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("user.id"))
+    link = Column(String, nullable=False)
+
+
+class LinkVaccinationPair(Base):
+    __tablename__ = "link_vaccination_pair"
+    __table_args__ = {"extend_existing": True}
+
+    id = Column(Integer, primary_key=True)
+    link_id = Column(Integer, ForeignKey("vaccination_link.id"))
+    vaccination_id = Column(Integer, ForeignKey("vaccination.id"))
+
+
 class FriendRequest(Base):
     __tablename__ = "friend_request"
+    __table_args__ = {"extend_existing": True}
+
     id = Column(Integer, primary_key=True)
     requester_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     requestee_id = Column(Integer, ForeignKey("user.id"), nullable=False)
@@ -67,6 +92,8 @@ class FriendRequest(Base):
 
 class Friendship(Base):
     __tablename__ = "friendship"
+    __table_args__ = {"extend_existing": True}
+
     id = Column(Integer, primary_key=True)
     user_id1 = Column(Integer, ForeignKey("user.id"), nullable=False)
     user_id2 = Column(Integer, ForeignKey("user.id"), nullable=False)
@@ -75,9 +102,11 @@ class Friendship(Base):
 
 class Admin(Base):
     __tablename__ = "admin"
+    __table_args__ = {"extend_existing": True}
+
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
-    privilege = Column(Integer, default=AdminPrivilege.BASIC.value)
+    privilege = Column(Integer, default=AdminPrivilege.ONLY_SAME_COUNTRY.value)
 
 
 Base.metadata.create_all(engine)
