@@ -243,14 +243,14 @@ def get_user_friend_requests():
     return get_response(res, 200)
 
 
-@app.route("/accept-friend-request", methods=["PUSH"])
+@app.route("/accept-friend-request", methods=["POST"])
 def accept_friend_request():
     request_id = request.json["request_id"]
     accept_friend_request(request_id)
     return get_response({}, 200)
 
 
-@app.route("/reject-friend-request", methods=["PUSH"])
+@app.route("/reject-friend-request", methods=["POST"])
 def reject_friend_request():
     request_id = request.json["request_id"]
     reject_friend_request(request_id)
