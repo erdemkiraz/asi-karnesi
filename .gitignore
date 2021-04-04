@@ -156,3 +156,5 @@ dmypy.json
 **/.DS_Store
 
 **/settings.json
+
+backend/flask/
