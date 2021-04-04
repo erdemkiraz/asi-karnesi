@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import {BASE_URL, BUILD_HEADER, getEmail} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER, getUserId} from "../../services/base_service";
 import {Button} from "primereact/button";
 import {Messages} from "primereact/messages";
 import {Toast} from "primereact/toast";
@@ -15,9 +15,9 @@ class EditPrivacy extends React.Component {
 
         this.state = {
 
-            vaccine_id: this.props.vaccine_id,
+            vaccination_id: this.props.vaccination_id,
             privacy_setting: "",
-            user_email:"",
+            user_id:"",
 
         };
 
@@ -36,14 +36,14 @@ class EditPrivacy extends React.Component {
 
         this.setState({privacy_setting: "2"})
         let google_user = await get_storage("google_user");
-        let email = getEmail(google_user)
-        this.setState({user_email:email})
-        await this.fetchData(this.state.vaccine_id);
+        let user_id = getUserId(google_user)
+        this.setState({user_email:user_id})
+        await this.fetchData(this.state.vaccination_id);
     }
 
-    async fetchData(vaccine_id) {
-        let url = BASE_URL + "/get-privacy?vaccine_id=" + vaccine_id;
-        let data = await axios.get(url, {headers: BUILD_HEADER("", this.state.user_email)});
+    async fetchData(vaccination_id) {
+        let url = BASE_URL + "/get-privacy?vaccination_id=" + vaccination_id;
+        let data = await axios.get(url, {headers: BUILD_HEADER("", "")});
         console.log(data)
         let payload = data.data;
         let vaccine_current_privacy = payload["privacy_setting"];
@@ -65,20 +65,21 @@ class EditPrivacy extends React.Component {
         // let answers = this.state.answers;
 
         console.log("Privacy setting is changed");
-        console.log(this.state.vaccine_id);
+        console.log(this.state.vaccination_id);
         console.log("New privacy : ", this.state.privacy_setting)
 
         let payload = {
-            "vaccine_id" : this.state.vaccine_id,
-            "setting" :this.state.privacy_setting
+            "user_id" : this.state.user_id,
+            "vaccination_id" : this.state.vaccination_id,
+            "new_privacy" : this.state.privacy_setting
         }
 
-        console.log("Payload : ", qs.stringify(payload))
+        console.log("Payload : ", payload)
         let url = BASE_URL + "/set-privacy";
         const options = {
             method: 'POST',
-            headers: BUILD_HEADER("", this.state.user_email),
-            data: qs.stringify(payload),
+            headers: BUILD_HEADER("", ""),
+            data: payload,
             url,
         };
 
@@ -112,19 +113,17 @@ class EditPrivacy extends React.Component {
 
     submissionOnChange(key, value) {
 
-        // let temp = this.state.answers;
-        //
-        // temp[key] = value;
-        // this.setState({answers : temp});
 
     }
 
     render() {
 
         const privacySettings = [
-            {label: 'Just Friends', value: '1'},
-            {label: 'Everybody (Public)', value: '2'},
-            {label: 'Nobody', value: '0'}
+            {label: 'Public', value: 4},
+            {label: 'Friends', value: 3},
+            {label: 'Permitted Users', value: 2},
+            {label: 'All Admins', value: 1},
+            {label: 'Private', value: 0}
 
         ];
 

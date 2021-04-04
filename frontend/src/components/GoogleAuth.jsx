@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import GoogleLogin from "react-google-login";
 import { clientId } from "../services/base_service";
 import { SET_USER } from "../redux/types";
+import {get_storage, put_storage} from "../services/StorageUtil";
 
 class GoogleAuth extends Component {
     state = {
@@ -11,6 +12,10 @@ class GoogleAuth extends Component {
         image: "",
     }
     onSignIn = (googleUser) => {
+
+        put_storage("google_user",googleUser);
+        console.log("googleUser loged in ")
+        console.log(googleUser)
         const profile = googleUser.getBasicProfile();
         this.setState({
             fullname: profile.getName(),
@@ -34,7 +39,7 @@ class GoogleAuth extends Component {
 				// onFailure={onFailure}
 				cookiePolicy={"single_host_origin"}
                 style={{ height: "7vh", margin: "10px" }}
-				// isSignedIn={true} // auto load
+				isSignedIn={true} // auto load
 			/>
 		);
 	}

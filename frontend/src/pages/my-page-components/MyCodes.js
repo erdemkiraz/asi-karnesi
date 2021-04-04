@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 
-import {BASE_URL, HEADER, BUILD_HEADER, getEmail} from "../../services/base_service";
+import {BASE_URL, HEADER, BUILD_HEADER, getUserId} from "../../services/base_service";
 
 // import {clientId} from "../../services/base_service";
 import {Button} from "primereact/button";
@@ -52,17 +52,22 @@ export class MyCodes extends React.Component {
 
     componentDidMount() {
         let google_user = get_storage("google_user");
-        let email = getEmail(google_user)
 
+        // con
+
+
+        let user_id = getUserId(google_user)
+
+        console.log("google_user id : ", user_id)
         console.log(google_user)
 
-        this.fetchData(email).then(user_codes => this.setState({my_vaccines: user_codes}))
+        this.fetchData(user_id).then(user_codes => this.setState({my_vaccines: user_codes}))
     }
 
 
-    async fetchData(email) {
+    async fetchData(user_id) {
 
-        let data = await axios.get(BASE_URL + "/user/codes", {headers: BUILD_HEADER("API_TOKEN", email)})
+        let data = await axios.get(BASE_URL + "/user/codes?user_id="+user_id, {headers: BUILD_HEADER("API_TOKEN", user_id)})
         console.log("Data : ", data);
         let user_codes = data.data["my_vaccines"]
         console.log("User Friends ", user_codes)
@@ -76,7 +81,7 @@ export class MyCodes extends React.Component {
 
     async editPrivacy(row) {
 
-        await this.setState({vaccine_id_to_be_changed: row["id"] ?? "error"});
+        await this.setState({vaccine_id_to_be_changed: row["vaccination_id"] ?? "error"});
         //
         await this.setState({displayEditPrivacy: true});
     }
@@ -150,7 +155,7 @@ export class MyCodes extends React.Component {
                         onHide={() => this.onHide('displayEditPrivacy')}>
 
                     <EditPrivacy
-                        vaccine_id={this.state.vaccine_id_to_be_changed}
+                        vaccination_id={this.state.vaccine_id_to_be_changed}
                     />
                 </Dialog>
 
@@ -162,10 +167,11 @@ export class MyCodes extends React.Component {
                         <DataTable value={this.state.my_vaccines}
                                    selection={this.state.selected_vaccines}
                                    onSelectionChange={e => this.setState({selected_vaccines: e.value})}
-                                   dataKey="id"
+                                   dataKey="vaccination_id"
                                    footer={footer_my_vaccines}>
                             <Column selectionMode="multiple" headerStyle={{width: '3em'}}></Column>
-                            <Column field="id" header="Code"></Column>
+                            {/*<Column field="vaccination_id" header="Code"  ></Column>*/}
+                            <Column field="vaccine_id" header="Vaccine ID"></Column>
                             <Column field="name" header="Name"></Column>
                             <Column field="date" header="Date"></Column>
                             <Column field="dose" header="Dose"></Column>
