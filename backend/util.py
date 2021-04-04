@@ -1,20 +1,8 @@
-from enum import Enum
+import dbops
+import random
+import string
 
-from backend.dbops import dbops
-
-
-class UserVisibility(Enum):
-    PRIVATE = 0
-    ALL_ADMINS = 1
-    PERMITTED_USERS = 2
-    FRIENDS = 3
-    PUBLIC = 4
-
-
-class AdminPrivilege(Enum):
-    ONLY_SAME_COUNTRY = 0
-    EVERYONE = 1
-    SUPER_ADMIN = 2  # Can assign new admins
+from enums import UserVisibility
 
 
 def can_see_vaccines(user_id, target_user_id):
@@ -42,10 +30,12 @@ def can_see_vaccines(user_id, target_user_id):
 def get_vaccination_dict(vaccination):
     vaccine = dbops.get_vaccine(vaccination.vaccine_id)
     res = {
+        "vaccination_id": vaccination.id,
         "vaccine_id": vaccination.vaccine_id,
         "name": vaccine.name,
         "date": vaccination.date,
         "dose": 1,  # this info shouldn't be here
+        "vaccine_point": vaccination.vaccinated_at,
         "valid_until": vaccination.valid_until,
     }
     return res
@@ -54,6 +44,14 @@ def get_vaccination_dict(vaccination):
 def get_user_all_vaccination_dicts(user_id):
     vaccinations = dbops.get_user_vaccinations(user_id)
     vaccination_dicts = [get_vaccination_dict(x) for x in vaccinations]
+    return vaccination_dicts
+
+
+def get_given_vaccination_dicts(vaccination_ids):
+    vaccination_dicts = []
+    for vaccination_id in vaccination_ids:
+        vaccination = dbops.get_vaccination(vaccination_id)
+        vaccination_dicts.append(get_vaccination_dict(vaccination))
     return vaccination_dicts
 
 
@@ -90,11 +88,11 @@ def get_user_all_friend_request_dicts(user_id):
 
 def accept_friend_request(request_id):
     friend_request = dbops.get_friend_request(request_id)
-    dbops.add_friend(friend_request.requester.id, friend_request.requestee_id))
+    dbops.add_friend(friend_request.requester.id, friend_request.requestee_id)
     dbops.delete_friend_request(request_id)
 
+
 def reject_friend_request(request_id):
-    friend_request = dbops.get_friend_request(request_id)
     dbops.delete_friend_request(request_id)
 
 
@@ -114,3 +112,34 @@ def get_user_all_friend_dicts(user_id):
     friend_ids = dbops.get_friend_ids(user_id)
     friend_dicts = [get_friend_dict(user_id, friend_id) for friend_id in friend_ids]
     return friend_dicts
+
+
+def get_random_string(length):
+    link = ""
+    while True:
+        link = "".join(
+            random.choice(string.ascii_letters + string.digits) for i in range(length)
+        )
+        if dbops.get_vaccination_link_from_link(link) is None:
+            break
+    return link
+
+
+def create_link_for_user(user_id, vaccination_ids):
+    link = get_random_string(40)
+    dbops.add_vaccination_link(user_id=user_id, link=link)
+    vaccination_link_row = dbops.get_vaccination_link_from_link(link)
+    assert vaccination_link_row is not None
+    link_id = vaccination_link_row.id
+    for vaccination_id in vaccination_ids:
+        dbops.add_link_vaccination_pair(link_id=link_id, vaccination_id=vaccination_id)
+    return link
+
+
+def get_link_vaccination_ids(link):
+    vaccination_link_row = dbops.get_vaccination_link_from_link(link)
+    if vaccination_link_row is None:
+        return []
+    link_id = vaccination_link_row.id
+    vaccination_ids = dbops.get_vaccination_ids_from_link_id(link_id)
+    return vaccination_ids

@@ -1,12 +1,14 @@
-from backend.dbconf import session
-from backend.models import (
+from dbconf import session
+from models import (
     FriendRequest,
     User,
     Country,
     Admin,
     Friendship,
     Vaccination,
+    VaccinationLink,
     VaccinationStatusRequest,
+    LinkVaccinationPair,
     Vaccine,
 )
 
@@ -58,7 +60,7 @@ def add_friend_request(user_id1, user_id2):
 
 
 def delete_friend_request(request_id):
-    session.query(FriendRequest).filter(request_id).delete()
+    session.query(FriendRequest).filter(FriendRequest.id == request_id).delete()
     session.commit()
 
 
@@ -106,6 +108,45 @@ def get_user_vaccinations(user_id):
     return vaccinations
 
 
+def get_vaccination(vaccination_id):
+    query = session.query(Vaccination).filter(Vaccination.id == vaccination_id)
+    return query.one()
+
+
 def get_vaccine(vaccine_id):
     query = session.query(Vaccine).filter(Vaccine.id == vaccine_id)
     return query.one_or_none()
+
+
+def get_vaccination_link(vaccination_link_id):
+    query = session.query(VaccinationLink).filter(
+        VaccinationLink.id == vaccination_link_id
+    )
+    return query.one_or_none()
+
+
+def get_vaccination_link_from_link(link):
+    query = session.query(VaccinationLink).filter(VaccinationLink.link == link)
+    return query.first()
+
+
+def add_vaccination_link(user_id, link):
+    vaccination_link = VaccinationLink(user_id=user_id, link=link)
+    session.add(vaccination_link)
+    session.commit()
+
+
+def add_link_vaccination_pair(link_id, vaccination_id):
+    link_vaccination_pair = LinkVaccinationPair(
+        link_id=link_id, vaccination_id=vaccination_id
+    )
+    session.add(link_vaccination_pair)
+    session.commit()
+
+
+def get_vaccination_ids_from_link_id(link_id):
+    query = session.query(LinkVaccinationPair.vaccination_id).filter(
+        LinkVaccinationPair.link_id == link_id
+    )
+    vaccination_ids = [x[0] for x in query.all()]
+    return vaccination_ids
