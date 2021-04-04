@@ -10,7 +10,7 @@ import Firebase
 import UIKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate  {
+class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate  {
 
     var window: UIWindow?
 
@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate  {
         // Override point for customization after application launch.
         //firebase configuresinden sonra GoogleService-info da clientID yi aldım.
         
-       // GIDSignIn.sharedInstance()?.clientID="896551858622-8jlvbqi0udknaqesp0tt9muicfm83pnd.apps.googleusercontent.com"
-        //GIDSignIn.sharedInstance()?.delegate=self
+        GIDSignIn.sharedInstance()?.clientID="896551858622-8jlvbqi0udknaqesp0tt9muicfm83pnd.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance()?.delegate = self
         return true
     }
     //emailname ve authentication idTokeni print ettiriyorum
