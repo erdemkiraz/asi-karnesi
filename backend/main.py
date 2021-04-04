@@ -1,12 +1,15 @@
 from flask import jsonify, request
 
-from backend.util import (
+from util import (
     get_user_all_friend_dicts,
     get_user_all_friend_request_dicts,
     get_user_all_vaccination_dicts,
+    create_link_for_user,
+    get_given_vaccination_dicts,
+    get_link_vaccination_ids,
 )
-from backend.hello import app
-from backend.dbops import dbops
+from hello import app
+import dbops
 
 
 def get_response(res, status):
@@ -179,6 +182,14 @@ def get_user_codes():
 
     # code_data = {
     #     "my_vaccines": [
+    # {
+    #     " ": 0,
+    #     "name": "COVID-19",
+    #     "date": "2021-3-3 15:12:06",
+    #     "dose": 1,
+    #     "vaccine_point": "Ankara Merkez",
+    #     "valid_until": "2022-3-3 15:12:06",
+    # },
     #         {
     #             "id": 0,
     #             "name": "COVID-19",
@@ -261,6 +272,23 @@ def get_vaccine_privacy():
     user_id = request.args["user_id"]
     user = dbops.get_user(user_id)
     res = {"privacy_setting": user.visibility}
+    return get_response(res, 200)
+
+
+@app.route("/create-link", methods=["POST"])
+def create_link():
+    user_id = request.json["user_id"]
+    vaccination_ids = request.json["vaccination_ids"].copy()
+    link = create_link_for_user(user_id, vaccination_ids)
+    res = {"link": link}
+    return get_response(res, 200)
+
+
+@app.route("/get-vaccinations-from-link", methods=["GET"])
+def get_vaccinations_from_link():
+    link = request.args["link"]
+    vaccination_ids = get_link_vaccination_ids(link)
+    res = {"vaccinations": get_given_vaccination_dicts(vaccination_ids)}
     return get_response(res, 200)
 
 
