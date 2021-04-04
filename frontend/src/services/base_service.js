@@ -23,8 +23,8 @@ export var HEADER = {
 
 export function BUILD_HEADER(api_key,google_token){
     return {
-        'APIKEY' : api_key,
-        'google_token' : google_token,
+        // 'APIKEY' : api_key,
+        // 'google_token' : google_token,
         'Access-Control-Allow-Origin': '*'
     };
 }
@@ -38,10 +38,16 @@ export function getCurrentDate(separator=''){
 
     return `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`
 }
+// export function getUserEmail(google_user) {
+//
+//     if (google_user == null || google_user["profileObj"] == null ) return "null";
+//     return google_user["profileObj"]["email"] ?? "null";
+// }
 
-export function getEmail(google_user) {
-    if (google_user == null || google_user["profileObj"] == null ) return "null";
-    return google_user["profileObj"]["email"] ?? "null";
+
+export function getUserId(google_user) {
+    if (google_user == null) return "null";
+    return google_user["googleId"] ?? "null";
 }
 
 // const AXIOS_CONFIG = {

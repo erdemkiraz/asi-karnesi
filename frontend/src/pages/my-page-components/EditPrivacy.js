@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import {BASE_URL, BUILD_HEADER, getEmail} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER, getUserId} from "../../services/base_service";
 import {Button} from "primereact/button";
 import {Messages} from "primereact/messages";
 import {Toast} from "primereact/toast";
@@ -36,7 +36,7 @@ class EditPrivacy extends React.Component {
 
         this.setState({privacy_setting: "2"})
         let google_user = await get_storage("google_user");
-        let email = getEmail(google_user)
+        let email = getUserId(google_user)
         this.setState({user_email:email})
         await this.fetchData(this.state.vaccine_id);
     }

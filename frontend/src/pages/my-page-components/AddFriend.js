@@ -2,7 +2,7 @@ import React from 'react';
 import {InputText} from "primereact/inputtext";
 import {Button} from "primereact/button";
 import axios from "axios";
-import {BASE_URL, BUILD_HEADER, getEmail} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER, getUserId} from "../../services/base_service";
 import {get_storage} from "../../services/StorageUtil";
 import {Panel} from "primereact/panel";
 import qs from 'qs';
@@ -18,7 +18,7 @@ export class AddFriend extends React.Component {
         this.state = {
 
             // login : new Login(),
-            logged_in_email: null,
+            logged_in_user_id: null,
             new_friend_email: "",
             new_friend_tckn: "",
             friend_requests: [],
@@ -42,11 +42,13 @@ export class AddFriend extends React.Component {
 
 
     async componentDidMount() {
-        let google_user = await get_storage("google_user");
-        let email = getEmail(google_user)
 
-        this.setState({logged_in_email: email});
-        console.log("Logged in email is : ", email);
+
+        let google_user = await get_storage("google_user");
+        let user_id = getUserId(google_user)
+
+        this.setState({logged_in_user_id: user_id});
+        console.log("Logged in email is : ", user_id);
 
         await this.fetch_friend_requests();
 
@@ -77,7 +79,7 @@ export class AddFriend extends React.Component {
     }
 
     async fetch_friend_requests() {
-        let data = await axios.get(BASE_URL + "/get-friend-requests", {headers: BUILD_HEADER("API_TOKEN", this.state.logged_in_email)})
+        let data = await axios.get(BASE_URL + "/friend-requests?user_id="+this.state.logged_in_user_id, {headers: BUILD_HEADER("API_TOKEN", this.state.logged_in_user_id)})
         console.log("Data : ", data);
         let requests = data.data["requests"]
         this.setState({friend_requests: requests});
@@ -92,7 +94,7 @@ export class AddFriend extends React.Component {
         let url = BASE_URL + "/add-new-friend"
         const options = {
             method: 'POST',
-            headers: {'content-type': 'application/x-www-form-urlencoded', "google_token": this.state.logged_in_email},
+            headers: {'content-type': 'application/x-www-form-urlencoded', "google_token": this.state.logged_in_user_id},
             data: qs.stringify(data_to_send),
             url,
         };
@@ -113,7 +115,7 @@ export class AddFriend extends React.Component {
         let url = BASE_URL + "/decline-new-friend"
         const options = {
             method: 'POST',
-            headers: {'content-type': 'application/x-www-form-urlencoded', "google_token": this.state.logged_in_email},
+            headers: {'content-type': 'application/x-www-form-urlencoded', "google_token": this.state.logged_in_user_id},
             data: qs.stringify(data_to_send),
             url,
         };
