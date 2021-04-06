@@ -1,11 +1,13 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import Loading from "../components/Loading";
 
 class PrivateRoute extends React.Component {
 	render() {
 		const {
 			isAuthenticated,
+			isLoading,
 			component: PrivateComponent,
 			...rest
 		} = this.props;
@@ -15,7 +17,7 @@ class PrivateRoute extends React.Component {
 			<Route
 				{...rest}
 				render={(props) =>
-					isAuthenticated ? <PrivateComponent /> : <Redirect to="/login" />
+					isLoading ? <Loading /> :  isAuthenticated ? <PrivateComponent /> : <Redirect to="/login" />
 				}
 			/>
 		);
@@ -24,6 +26,7 @@ class PrivateRoute extends React.Component {
 
 const mapStateToProps = (state) => ({
 	isAuthenticated: state.user.isAuthenticated,
+	isLoading: state.ui.isLoading,
 });
 
 export default connect(mapStateToProps)(PrivateRoute);

@@ -2,6 +2,7 @@ import React from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import {Provider} from "react-redux";
 import store from "./redux/store";
+import { SET_USER } from "./redux/types";
 import "./css/custom.css";
 // import axios from "axios";
 // import {BASE_URL, BUILD_HEADER} from "./services/base_service";
@@ -16,7 +17,12 @@ import NavBar from "./pages/bar-components/PersonalBar";
 
 // Routes
 import PrivateRoute from "./routes/PrivateRoute";
-import {TabMenu} from "primereact/tabmenu";
+import { TabMenu } from "primereact/tabmenu";
+
+// services
+import { get_storage } from "./services/StorageUtil";
+
+
 
 class App extends React.Component {
     constructor() {
