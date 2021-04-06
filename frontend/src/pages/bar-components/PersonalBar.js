@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import { clientId, BASE_URL } from "../../services/base_service";
-import { get_storage, put_storage } from "../../services/StorageUtil";
+import { get_storage, remove_key, put_storage} from "../../services/StorageUtil";
 import { Button } from "primereact/button";
 import "../../css/divs.css";
-import { SET_UNAUTHENTICATED } from "../../redux/types";
+import { SET_UNAUTHENTICATED, SET_USER, STOP_LOADING_UI } from "../../redux/types";
 // import axios from "axios";
 
 class PersonalBar extends React.Component {
@@ -21,9 +21,26 @@ class PersonalBar extends React.Component {
 		this.componentDidMount = this.componentDidMount.bind(this);
 		this.onSignIn = this.onSignIn.bind(this);
 		this.handleLogout = this.handleLogout.bind(this);
+		this.loadUserFromLocalStorage = this.loadUserFromLocalStorage.bind(this);
 	}
 
-	async componentDidMount() {}
+	async componentDidMount() {
+		this.loadUserFromLocalStorage()
+	}
+
+	loadUserFromLocalStorage() {
+		const dispatch = this.props.dispatch;
+		let user;
+		user = get_storage("user");
+		console.log(user)
+		if (user) {
+			dispatch({
+				type: SET_USER,
+				payload: user,
+			});
+		}
+		dispatch({ type: STOP_LOADING_UI });
+	};
 
 	// a function to logout the user
 	handleLogout() {
@@ -31,6 +48,8 @@ class PersonalBar extends React.Component {
 		dispatch({
 			type: SET_UNAUTHENTICATED,
 		});
+		// remove the user from local storage
+		remove_key('user');
 	}
 
 	getPersonalInformation() {}
