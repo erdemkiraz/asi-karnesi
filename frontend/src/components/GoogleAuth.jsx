@@ -41,7 +41,7 @@ class GoogleAuth extends Component {
 				// onFailure={onFailure}
 				cookiePolicy={"single_host_origin"}
                 style={{ height: "7vh", margin: "10px" }}
-				isSignedIn={true} // auto load
+				isSignedIn={false} // auto load
 			/>
 		);
 	}
