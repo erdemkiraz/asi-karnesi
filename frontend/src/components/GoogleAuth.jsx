@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import GoogleLogin from "react-google-login";
 import { clientId } from "../services/base_service";
 import { SET_USER } from "../redux/types";
-import {get_storage, put_storage} from "../services/StorageUtil";
+import {remove_key, put_storage} from "../services/StorageUtil";
 
 class GoogleAuth extends Component {
     state = {
@@ -27,6 +27,8 @@ class GoogleAuth extends Component {
             type: SET_USER,
             payload: this.state
         })
+        // save the user to the local storage
+        put_storage('user', this.state)
         // Redirect to the Homepage
         this.props.history.push("/")
     }
