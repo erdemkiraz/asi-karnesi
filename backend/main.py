@@ -1,5 +1,6 @@
 from flask import jsonify, request
 
+
 from util import (
     get_user_all_friend_dicts,
     get_user_all_friend_request_dicts,
@@ -272,12 +273,13 @@ def get_user_friend_requests():
     # return get_response(res, 200)
 
 
-@app.route("/login", methods=["GET"])
-def get_user_friend_requests():
-    email = request.args["email"]
-    res = {"google_id": get_or_create_user(email)}
+# @app.route("/login", methods=["GET"])
+# def get_user_friend_requests():
+#     email = request.args["email"]
+#     res = {"google_id": get_or_create_user(email)}
 
-    return get_response(res, 200)
+#     res = {"google_id": 1234234}
+#     return get_response(res, 200)
 
 
 @app.route("/accept-friend-request", methods=["POST"])
