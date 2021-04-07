@@ -2,7 +2,7 @@ import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import axios from "axios";
-import { BASE_URL, BUILD_HEADER, getUserId } from "../../services/base_service";
+import { BASE_URL, BUILD_HEADER, getGoogleId } from "../../services/base_service";
 import { get_storage } from "../../services/StorageUtil";
 import { Panel } from "primereact/panel";
 import qs from "qs";
@@ -15,7 +15,7 @@ export class AddFriend extends React.Component {
 
 		this.state = {
 			// login : new Login(),
-			logged_in_user_id: null,
+			logged_in_google_id: null,
 			new_friend_email: "",
 			new_friend_tckn: "",
 			friend_requests: [],
@@ -36,10 +36,10 @@ export class AddFriend extends React.Component {
 
 	async componentDidMount() {
 		let google_user = await get_storage("google_user");
-		let user_id = getUserId(google_user);
+		let google_id = getGoogleId(google_user);
 
-		this.setState({ logged_in_user_id: user_id });
-		console.log("Logged in email is : ", user_id);
+		this.setState({ logged_in_google_id: google_id });
+		console.log("Logged in email is : ", google_id);
 
 		await this.fetch_friend_requests();
 	}
@@ -53,14 +53,14 @@ export class AddFriend extends React.Component {
 
 		// let data = await axios.post(BASE_URL + "/add-new-friend", {"data": this.state}) // TODO : add user email to send
 		let data_to_send = {
-			user_id: this.state.logged_in_user_id,
+			google_id: this.state.logged_in_google_id,
 			friend_email: this.state.new_friend_email,
 		};
 
 		let url = BASE_URL + "/add-new-friend";
 		const options = {
 			method: "POST",
-			headers: BUILD_HEADER("", ""),
+			headers: BUILD_HEADER(),
 			data: data_to_send,
 			url,
 		};
@@ -85,8 +85,8 @@ export class AddFriend extends React.Component {
 
 	async fetch_friend_requests() {
 		let data = await axios.get(
-			BASE_URL + "/friend-requests?user_id=" + this.state.logged_in_user_id,
-			{ headers: BUILD_HEADER("", "") }
+			BASE_URL + "/friend-requests?google_id=" + this.state.logged_in_google_id,
+			{ headers: BUILD_HEADER() }
 		);
 
 		// console.log("Data : ", data);
@@ -106,7 +106,7 @@ export class AddFriend extends React.Component {
 		let url = BASE_URL + "/accept-new-friend";
 		const options = {
 			method: "POST",
-			headers: BUILD_HEADER("", ""),
+			headers: BUILD_HEADER(),
 			data: data_to_send,
 			url,
 		};
@@ -127,7 +127,7 @@ export class AddFriend extends React.Component {
 		let url = BASE_URL + "/reject-new-friend";
 		const options = {
 			method: "POST",
-			headers: BUILD_HEADER("", ""),
+			headers: BUILD_HEADER(),
 			data: data_to_send,
 			url,
 		};
@@ -268,21 +268,20 @@ export class AddFriend extends React.Component {
 									/>
 								</div>
 							</div>
-							or <br />
 							<br />
-							<div className="p-field p-grid">
-								<label className="p-col-fixed" style={{ width: "100px" }}>
-									TCKN
-								</label>
-								<div className="p-col">
-									<InputText
-										value={this.state.new_friend_tckn}
-										onChange={(e) =>
-											this.setState({ new_friend_tckn: e.target.value })
-										}
-									/>
-								</div>
-							</div>
+							{/*<div className="p-field p-grid">*/}
+							{/*	<label className="p-col-fixed" style={{ width: "100px" }}>*/}
+							{/*		TCKN*/}
+							{/*	</label>*/}
+							{/*	<div className="p-col">*/}
+							{/*		<InputText*/}
+							{/*			value={this.state.new_friend_tckn}*/}
+							{/*			onChange={(e) =>*/}
+							{/*				this.setState({ new_friend_tckn: e.target.value })*/}
+							{/*			}*/}
+							{/*		/>*/}
+							{/*	</div>*/}
+							{/*</div>*/}
 							<Button label="Add" onClick={(e) => this.addFriend(e)} />
 						</div>
 						<div className="p-col-12 p-md-6">
