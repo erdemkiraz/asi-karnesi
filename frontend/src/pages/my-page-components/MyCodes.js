@@ -1,16 +1,13 @@
 import React from 'react';
 import axios from 'axios'
 
-import {BASE_URL, HEADER, BUILD_HEADER, getUserId} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
 
-// import {clientId} from "../../services/base_service";
 import {Button} from "primereact/button";
-import {put_storage, get_storage} from "../../services/StorageUtil";
-import {TreeTable} from "primereact/treetable";
+import {get_storage} from "../../services/StorageUtil";
 import {Column} from "primereact/column";
 import {DataTable} from "primereact/datatable";
 import QRCode from "qrcode.react"
-import {TabPanel} from "primereact/tabview";
 import {Panel} from "primereact/panel";
 import {Dialog} from "primereact/dialog";
 import EditPrivacy from "./EditPrivacy";
@@ -56,18 +53,18 @@ export class MyCodes extends React.Component {
         // con
 
 
-        let user_id = getUserId(google_user)
+        let google_id = getGoogleId(google_user)
 
-        console.log("google_user id : ", user_id)
+        console.log("google_user id : ", google_id)
         console.log(google_user)
 
-        this.fetchData(user_id).then(user_codes => this.setState({my_vaccines: user_codes}))
+        this.fetchData(google_id).then(user_codes => this.setState({my_vaccines: user_codes}))
     }
 
 
-    async fetchData(user_id) {
+    async fetchData(google_id) {
 
-        let data = await axios.get(BASE_URL + "/user/codes?user_id="+user_id, {headers: BUILD_HEADER("API_TOKEN", user_id)})
+        let data = await axios.get(BASE_URL + "/user/codes?google_id="+google_id, {headers: BUILD_HEADER()})
         console.log("Data : ", data);
         let user_codes = data.data["my_vaccines"]
         console.log("User Friends ", user_codes)
@@ -121,6 +118,8 @@ export class MyCodes extends React.Component {
 
 
     generateQRCode() {
+
+        // TODO: QR LOGIC MUST BE ADD ASAP
         console.log("Generate QR Code !!!");
         this.setState({qr_hidden: false});
         let qr_new = this.state.qr_value + "/TEST";
@@ -171,12 +170,12 @@ export class MyCodes extends React.Component {
                                    footer={footer_my_vaccines}>
                             <Column selectionMode="multiple" headerStyle={{width: '3em'}}></Column>
                             {/*<Column field="vaccination_id" header="Code"  ></Column>*/}
-                            <Column field="vaccine_id" header="Vaccine ID"></Column>
-                            <Column field="name" header="Name"></Column>
-                            <Column field="date" header="Date"></Column>
-                            <Column field="dose" header="Dose"></Column>
-                            <Column field="vaccine_point" header="Vaccine Point"></Column>
-                            <Column field="expires_in" header="Expires in"></Column>
+                    <Column field="vaccine_id" header="Vaccine ID" sortable filter filterPlaceholder="Search by vaccine ID" filterMatchMode="contains"/>
+                    <Column field="name" header="Vaccine Name" sortable filter filterPlaceholder="Search by name" filterMatchMode="contains"/>
+                    <Column field="dose" header="Vaccine Dose" sortable filter filterPlaceholder="" filterMatchMode="contains"/>
+                    <Column field="vaccine_point" header="Vaccine Point" sortable filter filterPlaceholder="Search by location" filterMatchMode="contains"/>
+                    <Column field="date" header="Vaccine Date" sortable filter filterPlaceholder="Search by date" filterMatchMode="contains"/>
+                    <Column field="valid_until" header="Validation Time" sortable filter filterPlaceholder="" filterMatchMode="contains"/>
                             <Column body={this.editButton} headerStyle={{width: '8em', textAlign: 'center'}}
                                     bodyStyle={{textAlign: 'center', overflow: 'visible'}}/>
 

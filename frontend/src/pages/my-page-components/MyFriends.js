@@ -1,6 +1,6 @@
 import React from 'react';
 // import GoogleLogin from "react-google-login";
-import {BASE_URL, BUILD_HEADER, getUserId} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
 import {Button} from "primereact/button";
 import {put_storage, get_storage} from "../../services/StorageUtil";
 import {TreeTable} from "primereact/treetable";
@@ -35,21 +35,21 @@ export class MyFriends extends React.Component {
      async componentDidMount() {
     let google_user = await get_storage("google_user");
 
-    let user_id = getUserId(google_user)
+    let google_id = getGoogleId(google_user)
 
     console.log(google_user)
 
-    this.fetchData(user_id).then(user_friends => this.setState({friends: user_friends}))
+    this.fetchData(google_id).then(user_friends => this.setState({friends: user_friends}))
 
 
     }
 
 
-   async fetchData(user_id){
+   async fetchData(google_id){
 
-        let data = await axios.get(BASE_URL+"/user/friends?user_id="+user_id, {headers: BUILD_HEADER("API_TOKEN",user_id)})
+        let data = await axios.get(BASE_URL+"/user/friends?google_id="+google_id, {headers: BUILD_HEADER()})
         console.log("Data : ",data);
-        console.log("UserId :",user_id )
+        console.log("UserId :",google_id )
         let user_friends = data.data["friends"]
         console.log("User Friends ", user_friends)
         return user_friends;
@@ -59,14 +59,20 @@ export class MyFriends extends React.Component {
 
         formSubmissionsTemplate(data) {
         // let values = Object.values(data["vaccines"]);
-        let values = data["vaccines"];
-                // console.log(data["vaccines"])
+        let values = data["vaccines"]
+        // console.log(data["vaccines"])
                 // console.log("Values : ", values)
+
         return (
             <div className="orders-subtable">
                 {/*<h5>Submissions for {data.form_id}</h5>*/}
                 <DataTable value={values}>
-                    <Column field="vaccine" header="Vaccine" sortable/>
+                    <Column field="vaccine_id" header="Vaccine ID" sortable filter filterPlaceholder="Search by vaccine ID" filterMatchMode="contains"/>
+                    <Column field="name" header="Vaccine Name" sortable filter filterPlaceholder="Search by name" filterMatchMode="contains"/>
+                    <Column field="dose" header="Vaccine Dose" sortable filter filterPlaceholder="" filterMatchMode="contains"/>
+                    <Column field="vaccine_point" header="Vaccine Point" sortable filter filterPlaceholder="Search by location" filterMatchMode="contains"/>
+                    <Column field="date" header="Vaccine Date" sortable filter filterPlaceholder="Search by date" filterMatchMode="contains"/>
+                    <Column field="valid_until" header="Validation Time" sortable filter filterPlaceholder="" filterMatchMode="contains"/>
                     {/*<Column field="prettyFormat" header="Answer" sortable/>*/}
                 </DataTable>
             </div>

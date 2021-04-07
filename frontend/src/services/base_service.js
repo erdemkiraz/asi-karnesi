@@ -21,10 +21,8 @@ export var HEADER = {
     'APIKEY': APIKEY
 };
 
-export function BUILD_HEADER(api_key,google_token){
+export function BUILD_HEADER(){
     return {
-        // 'APIKEY' : api_key,
-        // 'google_token' : google_token,
         'Access-Control-Allow-Origin': '*'
     };
 }
@@ -45,7 +43,7 @@ export function getCurrentDate(separator=''){
 // }
 
 
-export function getUserId(google_user) {
+export function getGoogleId(google_user) {
     if (google_user == null) return "null";
     return google_user["googleId"] ?? "null";
 }
