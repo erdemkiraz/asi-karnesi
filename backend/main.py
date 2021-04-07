@@ -67,7 +67,7 @@ def hello_world():
 
 @app.route("/user/friends", methods=["GET"])
 def get_user_friends():
-    user_id = request.args["user_id"]
+    user_id = request.args["google_id"] # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
 
     # friend_dicts = get_user_all_friend_dicts(user_id)
     #
@@ -126,7 +126,7 @@ def get_user_friends():
 
 @app.route("/user/codes", methods=["GET"])
 def get_user_codes():
-    user_id = request.args["user_id"]
+    user_id = request.args["google_id"] # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
 
     # res = {"my_vaccines": get_user_all_vaccination_dicts(user_id)}
 
@@ -178,10 +178,8 @@ def get_user_codes():
 
 @app.route("/friend-request", methods=["POST"])
 def add_friend_request():
-    user_id = request.json["user_id"]
-    friend_id = request.json[
-        "friend_id"
-    ]  # TODO : friend id is not sent, should be removed. requests should be handled by email
+    user_id = request.json["google_id"] # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
+    friend_id = request.json["friend_id"]  # TODO : friend id is not sent, should be removed. requests should be handled by email
     friend_email = request.json["friend_email"]
     dbops.add_friend_request(user_id, friend_id)
 
@@ -190,7 +188,7 @@ def add_friend_request():
 
 @app.route("/friend-requests", methods=["GET"])
 def get_user_friend_requests():
-    user_id = request.args["user_id"]
+    user_id = request.args["google_id"]# TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
 
     # res = {
     #     "friend_requests": get_user_all_friend_request_dicts(user_id)
@@ -254,7 +252,7 @@ def set_vaccine_privacy():
     # user_id = request.json["user_id"]
     vaccination_id = request.json["vaccination_id"]  # TODO : set privacy by vaccination_id, not user_id
     new_privacy = request.json["new_privacy"]
-    user_id = request.json["user_id"]
+    user_id = request.json["google_id"] # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
     user = dbops.get_user(user_id)
     user.visilibty = new_privacy
 
@@ -280,7 +278,7 @@ def get_vaccine_privacy():
 
 @app.route("/create-link", methods=["POST"])
 def create_link():
-    user_id = request.json["user_id"]
+    user_id = request.json["google_id"] # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
     vaccination_ids = request.json["vaccination_ids"].copy()
 
     # link = create_link_for_user(user_id, vaccination_ids)
