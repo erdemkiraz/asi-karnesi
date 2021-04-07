@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import {BASE_URL, BUILD_HEADER, getUserId} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
 import {Button} from "primereact/button";
 import {Messages} from "primereact/messages";
 import {Toast} from "primereact/toast";
@@ -17,7 +17,7 @@ class EditPrivacy extends React.Component {
 
             vaccination_id: this.props.vaccination_id,
             privacy_setting: "",
-            user_id:"",
+            google_id:"",
 
         };
 
@@ -36,14 +36,14 @@ class EditPrivacy extends React.Component {
 
         this.setState({privacy_setting: "2"})
         let google_user = await get_storage("google_user");
-        let user_id = getUserId(google_user)
-        this.setState({user_email:user_id})
+        let google_id = getGoogleId(google_user)
+        this.setState({google_id:google_id})
         await this.fetchData(this.state.vaccination_id);
     }
 
     async fetchData(vaccination_id) {
         let url = BASE_URL + "/get-privacy?vaccination_id=" + vaccination_id;
-        let data = await axios.get(url, {headers: BUILD_HEADER("", "")});
+        let data = await axios.get(url, {headers: BUILD_HEADER()});
         console.log(data)
         let payload = data.data;
         let vaccine_current_privacy = payload["privacy_setting"];
@@ -59,14 +59,13 @@ class EditPrivacy extends React.Component {
 
     async changePrivacySetting() {
 
-        // let answers = this.state.answers;
 
         console.log("Privacy setting is changed");
         console.log(this.state.vaccination_id);
         console.log("New privacy : ", this.state.privacy_setting)
 
         let payload = {
-            "user_id" : this.state.user_id,
+            "google_id" : this.state.google_id,
             "vaccination_id" : this.state.vaccination_id,
             "new_privacy" : this.state.privacy_setting
         }
@@ -75,7 +74,7 @@ class EditPrivacy extends React.Component {
         let url = BASE_URL + "/set-privacy";
         const options = {
             method: 'POST',
-            headers: BUILD_HEADER("", ""),
+            headers: BUILD_HEADER(),
             data: payload,
             url,
         };
