@@ -14,7 +14,7 @@ from models import (
 
 
 def add_user(name, *, country_id=None, visibility=None):
-    user = User(name=name, country_id=country_id, visibility=visibility)
+    user = User(name=name)
     session.add(user)
     session.commit()
 
@@ -22,6 +22,7 @@ def add_user(name, *, country_id=None, visibility=None):
 def get_user(user_id):
     query = session.query(User).filter(User.id == user_id)
     user = query.one_or_none()
+    # user = User.query.filter_by(id=user_id).first()
     return user
 
 

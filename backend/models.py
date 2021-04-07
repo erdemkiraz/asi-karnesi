@@ -12,9 +12,9 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    age = Column(Integer)
     country_id = Column(Integer, ForeignKey("country.id"))
     visibility = Column(Integer, default=UserVisibility.PRIVATE.value)
+    email = Column(String)
 
     def __repr__(self):
         return "<User(name='%s')>" % (self.name)

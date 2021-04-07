@@ -1,4 +1,7 @@
 from flask import jsonify, request
+import json
+
+from util import *
 
 from util import (
     get_user_all_friend_dicts,
@@ -56,13 +59,28 @@ def get_user():
 
 @app.route("/basic_test")
 def hello_world():
-    dbops.add_country("turkeyq")
-    turkey = dbops.get_country_by_name("turkeyq")
-    print("id:", turkey)
-    dbops.add_user("erdemsu", country_id=turkey.id)
-    erdem = dbops.get_user_by_name("erdem")
-    print(erdem.id, erdem)
+    try:
+        # dbops.add_country("turkeyq")
+        # turkey = dbops.get_country_by_name("turkeyq")
+        # print("id:", turkey)
+        dbops.add_user(name="from-db-development-testing")
+        user = dbops.get_user_by_name("Korili Pokybird")
+    except Exception as e:
+        print("Oops!", e.__class__, "occurred.")
+        return get_response("error", 500)
+
     return get_response("Hello Worldqqqasd!", 200)
+
+
+@app.route("/development_test")
+def test_development():
+    try:
+        res = get_user_dict(2)
+    except Exception as e:
+        print("Oops!", e.__class__, "occurred.")
+        return get_response("error", 500)
+
+    return get_response(res, 200)
 
 
 @app.route("/user/friends", methods=["GET"])

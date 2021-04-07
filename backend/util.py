@@ -57,12 +57,10 @@ def get_given_vaccination_dicts(vaccination_ids):
 
 def get_user_dict(user_id):
     user = dbops.get_user(user_id)
-    vaccination_dicts = get_user_all_vaccination_dicts(user.id)
     res = {
         "id": user.id,
         "name": user.name,
-        "age": user.age,
-        "vaccines": vaccination_dicts,
+        "email": user.email,
     }
     return res
 
