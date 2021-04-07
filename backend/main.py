@@ -69,9 +69,9 @@ def hello_world():
 def get_user_friends():
     user_id = request.args["user_id"]
 
-    friend_dicts = get_user_all_friend_dicts(user_id)
-
-    res = {"friends": friend_dicts}
+    # friend_dicts = get_user_all_friend_dicts(user_id)
+    #
+    # res = {"friends": friend_dicts}
 
     # TODO : when real data is avaliable, use "res" and comment static data.
     static_friends_data = {"friends": [{
@@ -128,8 +128,9 @@ def get_user_friends():
 def get_user_codes():
     user_id = request.args["user_id"]
 
-    res = {"my_vaccines": get_user_all_vaccination_dicts(user_id)}
+    # res = {"my_vaccines": get_user_all_vaccination_dicts(user_id)}
 
+#TODO : use real data when it is available. comment the code data and uncomment the res
     code_data = {
         "my_vaccines": [
             {
@@ -190,9 +191,10 @@ def add_friend_request():
 @app.route("/friend-requests", methods=["GET"])
 def get_user_friend_requests():
     user_id = request.args["user_id"]
-    res = {
-        "friend_requests": get_user_all_friend_request_dicts(user_id)
-    }  # TODO : requester_email should be provided, example data is given
+
+    # res = {
+    #     "friend_requests": get_user_all_friend_request_dicts(user_id)
+    # }  # TODO : requester_email should be provided, example data is given
 
     temp_data = {
         "friend_requests": [
@@ -250,9 +252,7 @@ def reject_friend_request():
 @app.route("/set-privacy", methods=["POST"])
 def set_vaccine_privacy():
     # user_id = request.json["user_id"]
-    vaccination_id = request.json[
-        "vaccination_id"
-    ]  # TODO : set privacy by vaccination_id, not user_id
+    vaccination_id = request.json["vaccination_id"]  # TODO : set privacy by vaccination_id, not user_id
     new_privacy = request.json["new_privacy"]
     user_id = request.json["user_id"]
     user = dbops.get_user(user_id)
@@ -263,12 +263,12 @@ def set_vaccine_privacy():
 
 @app.route("/get-privacy", methods=["GET"])
 def get_vaccine_privacy():
-    user_id = request.args[
-        "vaccination_id"
-    ]  # TODO : get privacy by vaccination_id, not user_id
+    user_id = request.args["vaccination_id"]  # TODO : get privacy by vaccination_id, not user_id
     # user_id = request.args["user_id"]
-    user = dbops.get_user(user_id)
-    res = {"privacy_setting": user.visibility}
+
+
+    # user = dbops.get_user(user_id)
+    # res = {"privacy_setting": user.visibility}
 
 # TODO : when real data is avaliable, comment this static data, and use "res"
     static_data = {
@@ -282,8 +282,9 @@ def get_vaccine_privacy():
 def create_link():
     user_id = request.json["user_id"]
     vaccination_ids = request.json["vaccination_ids"].copy()
-    link = create_link_for_user(user_id, vaccination_ids)
-    res = {"link": link}
+
+    # link = create_link_for_user(user_id, vaccination_ids)
+    # res = {"link": link}
 
     # TODO : when real data is avaliable, comment this static data, and use "res"
     static_data = {
@@ -299,6 +300,7 @@ def get_vaccinations_from_link():
     link = request.args["link"]
     vaccination_ids = get_link_vaccination_ids(link)
     res = {"vaccinations": get_given_vaccination_dicts(vaccination_ids)}
+
 
     return get_response(res, 200)
 
