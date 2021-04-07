@@ -1,6 +1,5 @@
 from flask import jsonify, request
 
-
 from util import (
     get_user_all_friend_dicts,
     get_user_all_friend_request_dicts,
@@ -74,103 +73,55 @@ def get_user_friends():
 
     res = {"friends": friend_dicts}
 
-    return get_response(res, 200)
+    # TODO : when real data is avaliable, use "res" and comment static data.
+    static_friends_data = {"friends": [{
+        "id": "123",
+        "name": "Ayberk Uslu",
+        "age": 20,
+        "vaccines": [
+            {
+                "vaccination_id": 1234,
+                "vaccine_id": 0,
+                "name": "COVID-191",
+                "date": "2021-3-3 15:12:06",
+                "dose": 1,
+                "vaccine_point": "Ankara Merkez",
+                "valid_until": "2022-3-3 15:12:06"
+            },
+            {
+                "vaccination_id": 1235,
+                "vaccine_id": 1,
+                "name": "COVID-192",
+                "date": "2021-3-3 15:12:06",
+                "dose": 1,
+                "vaccine_point": "Ankara Merkez",
+                "valid_until": "2022-3-3 15:12:06"
+            },
+            {
+                "vaccination_id": 1236,
+                "vaccine_id": 2,
+                "name": "COVID-139",
+                "date": "2021-3-3 15:12:06",
+                "dose": 1,
+                "vaccine_point": "Ankara Merkez",
+                "valid_until": "2022-3-3 15:12:06"
+            },
+            {
+                "vaccination_id": 1237,
+                "vaccine_id": 3,
+                "name": "COVID-194",
+                "date": "2021-3-3 15:12:06",
+                "dose": 1,
+                "vaccine_point": "Ankara Merkez",
+                "valid_until": "2022-3-3 15:12:06"
+            }
+        ]
+    }
+    ]
+    }
 
-    # friend_data = {
-    #     "friends": [
-    #         {
-    #             "id": 0,
-    #             "name": "Ayberk",
-    #             "surname": "Uslu",
-    #             "Age": 22,
-    #             "withFriendsSince": "15.02.2021",
-    #             "vaccines": [
-    #                 {"vaccine": "covid19Ayberk"},
-    #                 {"vaccine": "asi1Ayberk"},
-    #                 {"vaccine": "asi2Ayberk"},
-    #                 {"vaccine": "asi3Ayberk"},
-    #             ],
-    #         },
-    #         {
-    #             "id": 1,
-    #             "name": "Burcu",
-    #             "surname": "Kose",
-    #             "Age": 22,
-    #             "withFriendsSince": "15.02.2021",
-    #             "vaccines": [
-    #                 {"vaccine": "covid19Burcu"},
-    #                 {"vaccine": "asi1Burcu"},
-    #                 {"vaccine": "asi2Burcu"},
-    #                 {"vaccine": "asi3Burcu"},
-    #             ],
-    #         },
-    #         {
-    #             "id": 2,
-    #             "name": "Ceyda",
-    #             "surname": "Keskin",
-    #             "Age": 22,
-    #             "withFriendsSince": "15.02.2021",
-    #             "vaccines": [
-    #                 {"vaccine": "covid19Ceyda"},
-    #                 {"vaccine": "asi1Ceyda"},
-    #                 {"vaccine": "asi2Ceyda"},
-    #                 {"vaccine": "asi3Ceyda"},
-    #             ],
-    #         },
-    #         {
-    #             "id": 3,
-    #             "name": "Derya",
-    #             "surname": "Dincer",
-    #             "Age": 22,
-    #             "withFriendsSince": "15.02.2021",
-    #             "vaccines": [
-    #                 {"vaccine": "covid19"},
-    #                 {"vaccine": "asi1"},
-    #                 {"vaccine": "asi2"},
-    #                 {"vaccine": "asi3"},
-    #             ],
-    #         },
-    #         {
-    #             "id": 3,
-    #             "name": "Emre",
-    #             "surname": "Demir",
-    #             "Age": 22,
-    #             "withFriendsSince": "15.02.2021",
-    #             "vaccines": [
-    #                 {"vaccine": "covid19Emre"},
-    #                 {"vaccine": "asi1Emre"},
-    #                 {"vaccineEmre": "asi2"},
-    #                 {"vaccine": "asi3Emre"},
-    #             ],
-    #         },
-    #         {
-    #             "id": 3,
-    #             "name": "Ferhat",
-    #             "surname": "Koc",
-    #             "Age": 22,
-    #             "withFriendsSince": "15.02.2021",
-    #             "vaccines": [
-    #                 {"vaccine": "covid19Ferhat"},
-    #                 {"vaccine": "asi1Ferhat"},
-    #                 {"vaccine": "asi2Ferhat"},
-    #                 {"vaccine": "asi3Ferhat"},
-    #                 {"vaccine": "asi4Ferhat"},
-    #             ],
-    #         },
-    #         {
-    #             "id": 3,
-    #             "name": "Gokhan",
-    #             "surname": "Mutlu",
-    #             "Age": 22,
-    #             "withFriendsSince": "15.02.2021",
-    #             "vaccines": [
-    #                 {"vaccine": "covid19Gokhan"},
-    #                 {"vaccine": "asi1Gokhan"},
-    #                 {"vaccine": "asi2Gokhan"},
-    #             ],
-    #         },
-    #     ]
-    # }
+    return get_response(static_friends_data, 200)
+    # return get_response(res, 200)
 
 
 @app.route("/user/codes", methods=["GET"])
@@ -318,7 +269,13 @@ def get_vaccine_privacy():
     # user_id = request.args["user_id"]
     user = dbops.get_user(user_id)
     res = {"privacy_setting": user.visibility}
-    return get_response(res, 200)
+
+# TODO : when real data is avaliable, comment this static data, and use "res"
+    static_data = {
+        "privacy_setting": 2
+    }
+    # return get_response(res, 200)
+    return get_response(static_data, 200)
 
 
 @app.route("/create-link", methods=["POST"])
@@ -327,7 +284,14 @@ def create_link():
     vaccination_ids = request.json["vaccination_ids"].copy()
     link = create_link_for_user(user_id, vaccination_ids)
     res = {"link": link}
-    return get_response(res, 200)
+
+    # TODO : when real data is avaliable, comment this static data, and use "res"
+    static_data = {
+        "link": "vaccination_link.com"
+    }
+
+    return get_response(static_data, 200)
+    # return get_response(res, 200)
 
 
 @app.route("/get-vaccinations-from-link", methods=["GET"])
@@ -335,6 +299,7 @@ def get_vaccinations_from_link():
     link = request.args["link"]
     vaccination_ids = get_link_vaccination_ids(link)
     res = {"vaccinations": get_given_vaccination_dicts(vaccination_ids)}
+
     return get_response(res, 200)
 
 
