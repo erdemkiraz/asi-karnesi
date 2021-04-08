@@ -35,10 +35,12 @@ def get_response(res, status):
 
 @app.route("/add_user", methods=["POST"])
 def add_user():
-    name = request.json.get("name")
-    country_id = request.json.get("country_id")
-    dbops.add_user(name, country_id=country_id)
-    return get_response({}, 200)
+    print(request.json)
+    name = request.json.get("data").get("fullname")
+    email = request.json.get("data").get("email")
+    google_id = request.json.get("data").get("google_id")
+    dbops.add_user(name=name, email=email, google_id=google_id)
+    return get_response("success", 200)
 
 
 @app.route("/user", methods=["GET"])

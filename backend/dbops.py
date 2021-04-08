@@ -13,8 +13,8 @@ from models import (
 )
 
 
-def add_user(name, *, country_id=None, visibility=None):
-    user = User(name=name)
+def add_user(name, *, email=None, google_id=None):
+    user = User(name=name, email=email, google_id=google_id)
     session.add(user)
     session.commit()
 
