@@ -64,6 +64,7 @@ def get_user_dict(user_id):
         "id": user.id,
         "name": user.name,
         "email": user.email,
+        "google_id": user.google_id
     }
     return res
 
