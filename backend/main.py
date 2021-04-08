@@ -76,7 +76,8 @@ def hello_world():
 def test_development():
     try:
         res = {
-            "test_user": get_user_dict(2)
+            "test_user": get_user_dict(2),
+            "test_vaccine": get_vaccine_dict(1)
         }
     except Exception as e:
         print("Oops!", e.__class__, "occurred.")

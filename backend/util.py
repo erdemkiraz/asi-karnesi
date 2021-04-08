@@ -65,6 +65,16 @@ def get_user_dict(user_id):
     return res
 
 
+def get_vaccine_dict(vaccine_id):
+    vaccine = dbops.get_vaccine(vaccine_id)
+    res = {
+        "id": vaccine.id,
+        "name": vaccine.name,
+        "required_dose": vaccine.required_dose,
+    }
+    return res
+
+
 def get_friend_request_dict(friend_request):
     requestee_user = dbops.get_user(friend_request.requestee_id)
     res = {
