@@ -27,14 +27,17 @@ def can_see_vaccines(user_id, target_user_id):
     return False
 
 
-def get_vaccination_dict(vaccination):
-    vaccine = dbops.get_vaccine(vaccination.vaccine_id)
+def get_vaccination_dict(vaccination_id):
+    vaccination = dbops.get_vaccination(vaccination_id)
+    vaccine = get_vaccine_dict(vaccination.vaccine_id)
+    user = get_user_dict(vaccination.user_id)
     res = {
         "vaccination_id": vaccination.id,
-        "vaccine_id": vaccination.vaccine_id,
-        "name": vaccine.name,
+        "vaccine": vaccine,
+        "user": user,
         "date": vaccination.date,
-        "dose": 1,  # this info shouldn't be here
+        # "dose": 1,  # this info shouldn't be here
+        # "dose": vaccination.dose,
         "vaccine_point": vaccination.vaccinated_at,
         "valid_until": vaccination.valid_until,
     }

@@ -50,7 +50,8 @@ class Vaccination(Base):
     vaccine_id = Column(Integer, ForeignKey("vaccine.id"))
     vaccinated_at = Column(String)
     date = Column(DateTime, default=datetime.datetime.now)
-    valid_until = date = Column(DateTime, default=datetime.datetime.now)
+    dose = Column(Integer)
+    valid_until = Column(DateTime, default=datetime.datetime.now)
 
 
 class VaccinationStatusRequest(Base):
