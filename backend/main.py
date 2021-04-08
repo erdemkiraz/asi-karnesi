@@ -78,7 +78,8 @@ def test_development():
         res = {
             "test_user": get_user_dict(2),
             "test_vaccine": get_vaccine_dict(1),
-            "test_vaccination": get_vaccination_dict(1)
+            "test_vaccination": get_vaccination_dict(1),
+            "test_all_vaccinations_of_user": get_user_all_vaccination_dicts(2)
         }
     except Exception as e:
         print("Oops!", e.__class__, "occurred.")

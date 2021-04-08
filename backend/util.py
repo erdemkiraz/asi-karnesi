@@ -46,7 +46,7 @@ def get_vaccination_dict(vaccination_id):
 
 def get_user_all_vaccination_dicts(user_id):
     vaccinations = dbops.get_user_vaccinations(user_id)
-    vaccination_dicts = [get_vaccination_dict(x) for x in vaccinations]
+    vaccination_dicts = [get_vaccination_dict(x.id) for x in vaccinations]
     return vaccination_dicts
 
 
