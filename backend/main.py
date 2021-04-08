@@ -75,7 +75,9 @@ def hello_world():
 @app.route("/development_test")
 def test_development():
     try:
-        res = get_user_dict(2)
+        res = {
+            "test_user": get_user_dict(2)
+        }
     except Exception as e:
         print("Oops!", e.__class__, "occurred.")
         return get_response("error", 500)

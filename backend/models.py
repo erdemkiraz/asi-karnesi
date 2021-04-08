@@ -15,6 +15,7 @@ class User(Base):
     country_id = Column(Integer, ForeignKey("country.id"))
     visibility = Column(Integer, default=UserVisibility.PRIVATE.value)
     email = Column(String)
+    #google_id = Column(String)
 
     def __repr__(self):
         return "<User(name='%s')>" % (self.name)
