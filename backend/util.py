@@ -37,7 +37,7 @@ def get_vaccination_dict(vaccination_id):
         "user": user,
         "date": vaccination.date,
         # "dose": 1,  # this info shouldn't be here
-        # "dose": vaccination.dose,
+        "dose": vaccination.dose,
         "vaccine_point": vaccination.vaccinated_at,
         "valid_until": vaccination.valid_until,
     }
