@@ -35,11 +35,15 @@ def get_response(res, status):
 
 @app.route("/add_user", methods=["POST"])
 def add_user():
-    print(request.json)
     name = request.json.get("data").get("fullname")
     email = request.json.get("data").get("email")
     google_id = request.json.get("data").get("google_id")
-    dbops.add_user(name=name, email=email, google_id=google_id)
+
+    if not dbops.check_if_user_exists(google_id=google_id):
+        print(name, " not exists")
+        dbops.add_user(name=name, email=email, google_id=google_id)
+    else:
+        print(name, " already exists")
     return get_response("success", 200)
 
 

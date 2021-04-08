@@ -19,6 +19,13 @@ def add_user(name, *, email=None, google_id=None):
     session.commit()
 
 
+def check_if_user_exists(google_id):
+    query = session.query(User).filter(User.google_id == google_id)
+    if bool(query.first()):
+        return True
+    return False
+
+
 def get_user(user_id):
     query = session.query(User).filter(User.id == user_id)
     user = query.one_or_none()
