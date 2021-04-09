@@ -236,14 +236,14 @@ def get_user_friend_requests():
 @app.route("/accept-friend-request", methods=["POST"])
 def accept_friend_request():
     request_id = request.json["request_id"]
-    accept_friend_request(request_id)
+    # accept_friend_request(request_id) # TODO : accept request in db
     return get_response({}, 200)
 
 
 @app.route("/reject-friend-request", methods=["POST"])
 def reject_friend_request():
     request_id = request.json["request_id"]
-    reject_friend_request(request_id)
+    # reject_friend_request(request_id) # TODO : reject request in db
     return get_response({}, 200)
 
 
