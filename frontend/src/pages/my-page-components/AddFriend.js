@@ -5,7 +5,6 @@ import axios from "axios";
 import { BASE_URL, BUILD_HEADER, getGoogleId } from "../../services/base_service";
 import { get_storage } from "../../services/StorageUtil";
 import { Panel } from "primereact/panel";
-import qs from "qs";
 import { Messages } from "primereact/messages";
 import { Toast } from "primereact/toast";
 
