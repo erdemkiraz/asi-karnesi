@@ -319,5 +319,10 @@ def populate_demo_db():
     return get_response({}, 200)
 
 
+@app.route("/health-check", methods=["GET"])
+def health_check():
+    return get_response({}, 200)
+
+
 if __name__ == "__main__":
     app.run()
