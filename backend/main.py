@@ -67,57 +67,61 @@ def hello_world():
 
 @app.route("/user/friends", methods=["GET"])
 def get_user_friends():
-    user_id = request.args["google_id"] # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
+    user_id = request.args[
+        "google_id"
+    ]  # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
 
     # friend_dicts = get_user_all_friend_dicts(user_id)
     #
     # res = {"friends": friend_dicts}
 
     # TODO : when real data is avaliable, use "res" and comment static data.
-    static_friends_data = {"friends": [{
-        "id": "123",
-        "name": "Ayberk Uslu",
-        "age": 20,
-        "vaccines": [
+    static_friends_data = {
+        "friends": [
             {
-                "vaccination_id": 1234,
-                "vaccine_id": 0,
-                "name": "COVID-191",
-                "date": "2021-3-3 15:12:06",
-                "dose": 1,
-                "vaccine_point": "Ankara Merkez",
-                "valid_until": "2022-3-3 15:12:06"
-            },
-            {
-                "vaccination_id": 1235,
-                "vaccine_id": 1,
-                "name": "COVID-192",
-                "date": "2021-3-3 15:12:06",
-                "dose": 1,
-                "vaccine_point": "Ankara Merkez",
-                "valid_until": "2022-3-3 15:12:06"
-            },
-            {
-                "vaccination_id": 1236,
-                "vaccine_id": 2,
-                "name": "COVID-139",
-                "date": "2021-3-3 15:12:06",
-                "dose": 1,
-                "vaccine_point": "Ankara Merkez",
-                "valid_until": "2022-3-3 15:12:06"
-            },
-            {
-                "vaccination_id": 1237,
-                "vaccine_id": 3,
-                "name": "COVID-194",
-                "date": "2021-3-3 15:12:06",
-                "dose": 1,
-                "vaccine_point": "Ankara Merkez",
-                "valid_until": "2022-3-3 15:12:06"
+                "id": "123",
+                "name": "Ayberk Uslu",
+                "age": 20,
+                "vaccines": [
+                    {
+                        "vaccination_id": 1234,
+                        "vaccine_id": 0,
+                        "name": "COVID-191",
+                        "date": "2021-3-3 15:12:06",
+                        "dose": 1,
+                        "vaccine_point": "Ankara Merkez",
+                        "valid_until": "2022-3-3 15:12:06",
+                    },
+                    {
+                        "vaccination_id": 1235,
+                        "vaccine_id": 1,
+                        "name": "COVID-192",
+                        "date": "2021-3-3 15:12:06",
+                        "dose": 1,
+                        "vaccine_point": "Ankara Merkez",
+                        "valid_until": "2022-3-3 15:12:06",
+                    },
+                    {
+                        "vaccination_id": 1236,
+                        "vaccine_id": 2,
+                        "name": "COVID-139",
+                        "date": "2021-3-3 15:12:06",
+                        "dose": 1,
+                        "vaccine_point": "Ankara Merkez",
+                        "valid_until": "2022-3-3 15:12:06",
+                    },
+                    {
+                        "vaccination_id": 1237,
+                        "vaccine_id": 3,
+                        "name": "COVID-194",
+                        "date": "2021-3-3 15:12:06",
+                        "dose": 1,
+                        "vaccine_point": "Ankara Merkez",
+                        "valid_until": "2022-3-3 15:12:06",
+                    },
+                ],
             }
         ]
-    }
-    ]
     }
 
     return get_response(static_friends_data, 200)
@@ -126,11 +130,13 @@ def get_user_friends():
 
 @app.route("/user/codes", methods=["GET"])
 def get_user_codes():
-    user_id = request.args["google_id"] # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
+    user_id = request.args[
+        "google_id"
+    ]  # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
 
     # res = {"my_vaccines": get_user_all_vaccination_dicts(user_id)}
 
-#TODO : use real data when it is available. comment the code data and uncomment the res
+    # TODO : use real data when it is available. comment the code data and uncomment the res
     code_data = {
         "my_vaccines": [
             {
@@ -178,8 +184,12 @@ def get_user_codes():
 
 @app.route("/friend-request", methods=["POST"])
 def add_friend_request():
-    user_id = request.json["google_id"] # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
-    friend_id = request.json["friend_id"]  # TODO : friend id is not sent, should be removed. requests should be handled by email
+    user_id = request.json[
+        "google_id"
+    ]  # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
+    friend_id = request.json[
+        "friend_id"
+    ]  # TODO : friend id is not sent, should be removed. requests should be handled by email
     friend_email = request.json["friend_email"]
     dbops.add_friend_request(user_id, friend_id)
 
@@ -188,7 +198,9 @@ def add_friend_request():
 
 @app.route("/friend-requests", methods=["GET"])
 def get_user_friend_requests():
-    user_id = request.args["google_id"]# TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
+    user_id = request.args[
+        "google_id"
+    ]  # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
 
     # res = {
     #     "friend_requests": get_user_all_friend_request_dicts(user_id)
@@ -250,9 +262,13 @@ def reject_friend_request():
 @app.route("/set-privacy", methods=["POST"])
 def set_vaccine_privacy():
     # user_id = request.json["user_id"]
-    vaccination_id = request.json["vaccination_id"]  # TODO : set privacy by vaccination_id, not user_id
+    vaccination_id = request.json[
+        "vaccination_id"
+    ]  # TODO : set privacy by vaccination_id, not user_id
     new_privacy = request.json["new_privacy"]
-    user_id = request.json["google_id"] # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
+    user_id = request.json[
+        "google_id"
+    ]  # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
     user = dbops.get_user(user_id)
     user.visilibty = new_privacy
 
@@ -261,33 +277,32 @@ def set_vaccine_privacy():
 
 @app.route("/get-privacy", methods=["GET"])
 def get_vaccine_privacy():
-    user_id = request.args["vaccination_id"]  # TODO : get privacy by vaccination_id, not user_id
+    user_id = request.args[
+        "vaccination_id"
+    ]  # TODO : get privacy by vaccination_id, not user_id
     # user_id = request.args["user_id"]
-
 
     # user = dbops.get_user(user_id)
     # res = {"privacy_setting": user.visibility}
 
-# TODO : when real data is avaliable, comment this static data, and use "res"
-    static_data = {
-        "privacy_setting": 2
-    }
+    # TODO : when real data is avaliable, comment this static data, and use "res"
+    static_data = {"privacy_setting": 2}
     # return get_response(res, 200)
     return get_response(static_data, 200)
 
 
 @app.route("/create-link", methods=["POST"])
 def create_link():
-    user_id = request.json["google_id"] # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
+    user_id = request.json[
+        "google_id"
+    ]  # TODO : check the parameter name, frontend sends google_id as an user _id, so backend should convert google_id to user_id
     vaccination_ids = request.json["vaccination_ids"].copy()
 
     # link = create_link_for_user(user_id, vaccination_ids)
     # res = {"link": link}
 
     # TODO : when real data is avaliable, comment this static data, and use "res"
-    static_data = {
-        "link": "vaccination_link.com"
-    }
+    static_data = {"link": "vaccination_link.com"}
 
     return get_response(static_data, 200)
     # return get_response(res, 200)
@@ -298,7 +313,6 @@ def get_vaccinations_from_link():
     link = request.args["link"]
     vaccination_ids = get_link_vaccination_ids(link)
     res = {"vaccinations": get_given_vaccination_dicts(vaccination_ids)}
-
 
     return get_response(res, 200)
 
