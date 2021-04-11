@@ -111,4 +111,3 @@ def populate():
     )
 
     add(Friendship(id=1, user_id1=1, user_id2=2, is_facebook=True))
-    pass

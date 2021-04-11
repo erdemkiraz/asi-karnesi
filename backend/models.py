@@ -13,7 +13,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     google_id = Column(String, unique=True, nullable=False)
     facebook_id = Column(String, unique=True, nullable=True)
-    email = Column(String, unique=True, nullable=False)
+    email = Column(String, unique=True)
     name = Column(String)
     age = Column(Integer)
     country_id = Column(Integer, ForeignKey("country.id"))
