@@ -1,5 +1,5 @@
 # asi-karnesi
-![Heroku](https://heroku-badge.herokuapp.com/?app=asi-karnesi)
+![Heroku](http://heroku-badge.herokuapp.com/?app=asi-karnesi&style=flat&svg=1&root=health-check)
 
 International vaccine passport that can be easily ported
 
