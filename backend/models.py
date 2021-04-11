@@ -3,7 +3,7 @@ from sqlalchemy.sql.sqltypes import Boolean, DateTime
 from sqlalchemy import Column, Integer, String, ForeignKey
 
 from dbconf import Base, engine
-from enums import UserVisibility, AdminPrivilege
+from enums import VaccinationVisibility, AdminPrivilege
 
 
 class User(Base):
@@ -11,10 +11,11 @@ class User(Base):
     __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
+    google_id = Column(String, unique=True, nullable=False)
+    facebook_id = Column(String, unique=True, nullable=True)
     name = Column(String)
     age = Column(Integer)
     country_id = Column(Integer, ForeignKey("country.id"))
-    visibility = Column(Integer, default=UserVisibility.PRIVATE.value)
 
     def __repr__(self):
         return "<User(name='%s')>" % (self.name)
@@ -50,6 +51,7 @@ class Vaccination(Base):
     vaccinated_at = Column(String)
     date = Column(DateTime, default=datetime.datetime.now)
     valid_until = date = Column(DateTime, default=datetime.datetime.now)
+    visibility = Column(Integer, default=VaccinationVisibility.PRIVATE.value)
 
 
 class VaccinationStatusRequest(Base):
