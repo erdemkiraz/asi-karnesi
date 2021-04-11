@@ -1,12 +1,13 @@
 from enum import Enum
 
 
-class UserVisibility(Enum):
+class VaccinationVisibility(Enum):
     PRIVATE = 0
     ALL_ADMINS = 1
     PERMITTED_USERS = 2
     FRIENDS = 3
-    PUBLIC = 4
+    FACEBOOK_FRIENDS = 4
+    PUBLIC = 5
 
 
 class AdminPrivilege(Enum):
