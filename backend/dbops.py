@@ -13,16 +13,28 @@ from models import (
 )
 
 
-def add_user(name, *, country_id=None, visibility=None):
-    user = User(name=name, country_id=country_id, visibility=visibility)
-    session.add(user)
-    session.commit()
-
-
 def get_user(user_id):
     query = session.query(User).filter(User.id == user_id)
     user = query.one_or_none()
     return user
+
+
+def get_user_from_google_id(google_id):
+    query = session.query(User).filter(User.google_id == google_id)
+    user = query.one_or_none()
+    return user
+
+
+def get_user_from_email(email):
+    query = session.query(User).filter(User.email == email)
+    user = query.one_or_none()
+    return user
+
+
+def create_user(google_id):
+    user = User(google_id=google_id)
+    session.add(user)
+    session.commit()
 
 
 def get_user_by_name(name):
@@ -48,6 +60,14 @@ def get_country_by_name(name):
 def add_friend(user_id1, user_id2):
     row1 = Friendship(user_id1=user_id1, user_id2=user_id2)
     row2 = Friendship(user_id1=user_id2, user_id2=user_id1)
+    session.add(row1)
+    session.add(row2)
+    session.commit()
+
+
+def add_facebook_friend(user_id1, user_id2):
+    row1 = Friendship(user_id1=user_id1, user_id2=user_id2, is_facebook=True)
+    row2 = Friendship(user_id1=user_id2, user_id2=user_id1, is_facebook=True)
     session.add(row1)
     session.add(row2)
     session.commit()
@@ -79,6 +99,14 @@ def is_friend(user_id1, user_id2):
         Friendship.user_id1 == user_id1, Friendship.user_id2 == user_id2
     )
     return query.first() is not None
+
+
+def is_facebook_friend(user_id1, user_id2):
+    query = session.query(Friendship).filter(
+        Friendship.user_id1 == user_id1, Friendship.user_id2 == user_id2
+    )
+    friendship = query.first()
+    return friendship is not None and friendship.is_facebook
 
 
 def get_admin_from_user_safe(user_id):
