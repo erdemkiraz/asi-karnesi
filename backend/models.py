@@ -13,6 +13,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     google_id = Column(String, unique=True, nullable=False)
     facebook_id = Column(String, unique=True, nullable=True)
+    email = Column(String, unique=True, nullable=False)
     name = Column(String)
     age = Column(Integer)
     country_id = Column(Integer, ForeignKey("country.id"))
@@ -38,7 +39,7 @@ class Vaccine(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    required_dose = Column(Integer)
+    required_dose = Column(Integer, default=1)
 
 
 class Vaccination(Base):
@@ -50,7 +51,7 @@ class Vaccination(Base):
     vaccine_id = Column(Integer, ForeignKey("vaccine.id"))
     vaccinated_at = Column(String)
     date = Column(DateTime, default=datetime.datetime.now)
-    valid_until = date = Column(DateTime, default=datetime.datetime.now)
+    valid_until = Column(DateTime, default=datetime.datetime.now)
     visibility = Column(Integer, default=VaccinationVisibility.PRIVATE.value)
 
 
@@ -99,6 +100,7 @@ class Friendship(Base):
     id = Column(Integer, primary_key=True)
     user_id1 = Column(Integer, ForeignKey("user.id"), nullable=False)
     user_id2 = Column(Integer, ForeignKey("user.id"), nullable=False)
+    is_facebook = Column(Boolean, default=False)
     created = Column(DateTime, default=datetime.datetime.now)
 
 
