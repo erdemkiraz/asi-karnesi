@@ -2,7 +2,7 @@
 //  QRScanView.swift
 //  AsiKarnesiMobil
 //
-//  Created by Elif Başak Yıldırım on 5.04.2021.
+//  Created by Kerem Cesme on 5.04.2021.
 //
 
 import SwiftUI

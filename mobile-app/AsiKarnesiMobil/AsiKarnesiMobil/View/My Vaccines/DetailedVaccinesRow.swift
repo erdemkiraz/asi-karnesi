@@ -2,7 +2,7 @@
 //  DetailedVaccinesRow.swift
 //  AsiKarnesiMobil
 //
-//  Created by Elif Başak Yıldırım on 5.04.2021.
+//  Created by Elif Basak  Yildirim on 5.04.2021.
 //
 
 import SwiftUI
@@ -11,11 +11,13 @@ struct DetailedVaccinesRow: View {
     
     var customBlue = Color.init(red: 144.0/255.0, green: 163.0/255.0, blue: 184.0/255.0)
     
-    var name: String
-    var vaccinePoint: String
     var date: String
-    var dose: String
-    var expiresIn: String
+    var dose: Int
+    var name: String
+    var vaccination_id: Int
+    var vaccine_id: Int
+    var vaccine_point: String
+    var valid_until: String
     
     var body: some View {
         VStack(alignment: .leading, spacing:  15){
@@ -31,7 +33,7 @@ struct DetailedVaccinesRow: View {
                 Text("Aşı Merkezi")
                     .foregroundColor(customBlue)
                     .font(.system(size: 14, weight: .regular, design: .default))
-                Text(vaccinePoint)
+                Text(vaccine_point)
                     .font(.system(size: 26, weight: .bold, design: .default))
             }
             Divider()
@@ -47,7 +49,7 @@ struct DetailedVaccinesRow: View {
                 Text("Aşı Dozu")
                     .foregroundColor(customBlue)
                     .font(.system(size: 14, weight: .regular, design: .default))
-                Text(dose)
+                Text("\(dose)")
                     .font(.system(size: 26, weight: .bold, design: .default))
             }
             Divider()
@@ -55,7 +57,7 @@ struct DetailedVaccinesRow: View {
                 Text("Aşı Geçerlilik Süresi")
                     .foregroundColor(customBlue)
                     .font(.system(size: 14, weight: .regular, design: .default))
-                Text(expiresIn)
+                Text("\(valid_until)")
                     .font(.system(size: 26, weight: .bold, design: .default))
             }
             Spacer()
