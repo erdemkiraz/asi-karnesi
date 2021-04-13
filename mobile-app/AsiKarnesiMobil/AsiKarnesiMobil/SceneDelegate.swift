@@ -2,11 +2,12 @@
 //  SceneDelegate.swift
 //  AsiKarnesiMobil
 //
-//  Created by Elif Başak Yıldırım on 5.04.2021.
+//  Created by Elif Basak  Yildirim on 5.04.2021.
 //
 
 import UIKit
 import SwiftUI
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,12 +20,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = HomeView()
+        let homeView = HomeView()
+        let loginView = LoginView()
 
+        /// Giriş yapmış kullanıcı:
+        let currentUser = Auth.auth().currentUser
+        
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
+            
+            // Uygulama ilk açıldığında gösterilecek olan görünüm.
+            // Mevcut kullanıcının kontrolü:
+            if currentUser != nil {
+                window.rootViewController = UIHostingController(rootView: homeView)
+            } else {
+                window.rootViewController = UIHostingController(rootView: loginView)
+            }
+            
             self.window = window
             window.makeKeyAndVisible()
         }

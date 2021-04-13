@@ -2,7 +2,7 @@
 //  HomeViewButtonsView.swift
 //  AsiKarnesiMobil
 //
-//  Created by Elif Başak Yıldırım on 5.04.2021.
+//  Created by Elif Basak  Yildirim on 5.04.2021.
 //
 
 import SwiftUI
