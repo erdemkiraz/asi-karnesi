@@ -55,11 +55,11 @@ export class Home extends React.Component {
 				<h2>{fullname}</h2>
 				<h3>{email}</h3>
 				<img src={image} />
-				<div style={{ display: "flex", flexDirection: "column" }}>
-					<Link to="/login">Login</Link>
-					<Link to="/me">Me Page</Link>
-					<Link to="/page-2">Page 2</Link>
-				</div>
+				{/*<div style={{ display: "flex", flexDirection: "column" }}>*/}
+				{/*	<Link to="/login">Login</Link>*/}
+				{/*	<Link to="/me">Me Page</Link>*/}
+				{/*	<Link to="/page-2">Page 2</Link>*/}
+				{/*</div>*/}
 			</div>
 		);
 	}
