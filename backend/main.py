@@ -285,7 +285,7 @@ def set_vaccine_privacy():
     vaccination_id = request.json["vaccination_id"]
     new_privacy = request.json["new_privacy"]
     vaccination = dbops.get_vaccination(vaccination_id)
-    vaccination.visilibty = new_privacy
+    vaccination.visibility = new_privacy
 
     return get_response({}, 200)
 
