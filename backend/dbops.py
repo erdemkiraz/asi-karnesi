@@ -65,6 +65,13 @@ def add_friend(user_id1, user_id2):
     session.commit()
 
 
+def get_friendship(user_id, friend_id):
+    query = session.query(Friendship).filter(
+        Friendship.user_id1 == user_id, Friendship.user_id2 == friend_id
+    )
+    return query.one()
+
+
 def add_facebook_friend(user_id1, user_id2):
     row1 = Friendship(user_id1=user_id1, user_id2=user_id2, is_facebook=True)
     row2 = Friendship(user_id1=user_id2, user_id2=user_id1, is_facebook=True)
