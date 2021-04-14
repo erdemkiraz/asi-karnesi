@@ -17,7 +17,7 @@ def can_see_vaccines(user_id, target_user_id, vaccination_id):
         if is_user_admin:
             return True
 
-    if visibility >= VaccinationVisibility.PERMITTED_USER.value:
+    if visibility >= VaccinationVisibility.PERMITTED_USERS.value:
         if dbops.has_granted_vaccination_request(user_id, target_user_id):
             return True
 
