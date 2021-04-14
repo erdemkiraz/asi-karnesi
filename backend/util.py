@@ -6,7 +6,8 @@ from enums import VaccinationVisibility
 
 
 def can_see_vaccines(user_id, target_user_id, vaccination_id):
-    visibility = dbops.get_vaccination(vaccination_id)
+    vaccination = dbops.get_vaccination(vaccination_id)
+    visibility = vaccination.visibility
 
     if visibility == VaccinationVisibility.PUBLIC.value:
         return True
