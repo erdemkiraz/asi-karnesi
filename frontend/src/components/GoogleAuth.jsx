@@ -15,30 +15,11 @@ class GoogleAuth extends Component {
 
     checkNewUser = (googleUser) => {
 
-        let google_id = googleUser["googleId"]
-        // axios.get(BASE_URL + "/user?google_id=" + google_id, {headers: BUILD_HEADER()}).then(data => {
-        //
-        //     console.log(google_id);
-        //     console.log(data.data);
-        //     console.log(data.data["status"]);
-        //     if (data.data["status"] === 500) {
-        //         console.log("Open new user pop up!")
-        //     } else {
-        //         console.log("Existing user!")
-        //     }
-        //
-        // })
-    // google_id = request.json["google_id"]
-    // facebook_id = request.json.get("facebook_id")
-    // email = request.json.get("email")
-    // name = request.json.get("name")
-    // age = request.json.get("age")
-    // country_name = request.json.get("country_name")
+
         let payload = {
             "google_id": googleUser["googleId"],
             "email": googleUser["profileObj"]["email"],
             "name": googleUser["profileObj"]["name"],
-            // "name": this.state.privacy_setting
         }
         console.log(payload)
 
@@ -52,12 +33,18 @@ class GoogleAuth extends Component {
 
         axios(options).then(data => {
             console.log(data);
+            if(data.data["new_user"]){
+
+            }
+            else{
+                this.props.history.push("/home")
+            }
         })
 
     }
 
 
-    onSignIn = (googleUser) => {
+        onSignIn = (googleUser) => {
 
         put_storage("google_user", googleUser);
         console.log("googleUser loged in ")
@@ -80,7 +67,6 @@ class GoogleAuth extends Component {
         // save the user to the local storage
         put_storage('user', this.state)
         // Redirect to the Homepage
-        this.props.history.push("/")
     }
 
     render() {

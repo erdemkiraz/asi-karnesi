@@ -7,6 +7,10 @@ import {get_storage} from "../../services/StorageUtil";
 import {Panel} from "primereact/panel";
 import {Messages} from "primereact/messages";
 import {Toast} from "primereact/toast";
+import {TabPanel, TabView} from "primereact/tabview";
+import MyFriends from "./MyFriends";
+import MyCodes from "./MyCodes";
+import AddFriend from "./AddFriend";
 
 export class UpdateMyInfo extends React.Component {
     constructor() {
@@ -105,76 +109,95 @@ export class UpdateMyInfo extends React.Component {
 
     render() {
 
+        const baseStyle = {width: "100%"}
         return (
-            <div>
-                <Messages ref={(el) => (this.messages = el)}/>
-                <Toast ref={(el) => (this.toast = el)}/>
-                <div style={{height: "300px", margin: "10px"}}>
-                    <div className="p-grid p-fluid">
-                        <div className="p-col-12 p-md-6">
-                            <div className="p-field p-grid">
-                                <label className="p-col-fixed" style={{width: "100px"}}>
-                                    Facebook ID
-                                </label>
-                                <div className="p-col">
-                                    <InputText
-                                        value={this.state.facebook_id}
-                                        onChange={(e) =>
-                                            this.setState({facebook_id: e.target.value})
-                                        }
-                                    />
+            <div style={baseStyle}>
+                <div className="card" style={baseStyle}>
+                    <TabView className="tabview-custom">
+                        <TabPanel header="Update My Information" leftIcon="pi pi-user">
+
+                            <div className="p-grid p-fluid">
+                                <div className="p-col-12 p-md-6">
+                                    <div className="p-field p-grid">
+                                        <label className="p-col-fixed" style={{width: "100px"}}>
+                                            Facebook ID
+                                        </label>
+                                        <div className="p-col">
+                                            <InputText
+                                                value={this.state.facebook_id}
+                                                onChange={(e) =>
+                                                    this.setState({facebook_id: e.target.value})
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="p-field p-grid">
+                                        <label className="p-col-fixed" style={{width: "100px"}}>
+                                            Name
+                                        </label>
+                                        <div className="p-col">
+                                            <InputText
+                                                value={this.state.name}
+                                                onChange={(e) =>
+                                                    this.setState({name: e.target.value})
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="p-field p-grid">
+                                        <label className="p-col-fixed" style={{width: "100px"}}>
+                                            Age
+                                        </label>
+                                        <div className="p-col">
+                                            <InputText
+                                                value={this.state.age}
+                                                onChange={(e) =>
+                                                    this.setState({age: e.target.value})
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="p-field p-grid">
+                                        <label className="p-col-fixed" style={{width: "100px"}}>
+                                            Country Name
+                                        </label>
+                                        <div className="p-col">
+                                            <InputText
+                                                value={this.state.country_name}
+                                                onChange={(e) =>
+                                                    this.setState({country_name: e.target.value})
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+
+
+                                    <Button label="Update" onClick={() => this.sendUpdatedData()}/>
                                 </div>
-                            </div>
-                            <div className="p-field p-grid">
-                                <label className="p-col-fixed" style={{width: "100px"}}>
-                                    Name
-                                </label>
-                                <div className="p-col">
-                                    <InputText
-                                        value={this.state.name}
-                                        onChange={(e) =>
-                                            this.setState({name: e.target.value})
-                                        }
-                                    />
-                                </div>
-                            </div>
-                            <div className="p-field p-grid">
-                                <label className="p-col-fixed" style={{width: "100px"}}>
-                                    Age
-                                </label>
-                                <div className="p-col">
-                                    <InputText
-                                        value={this.state.age}
-                                        onChange={(e) =>
-                                            this.setState({age: e.target.value})
-                                        }
-                                    />
+                                <div className="p-col-12 p-md-6">
                                 </div>
                             </div>
 
-                            <div className="p-field p-grid">
-                                <label className="p-col-fixed" style={{width: "100px"}}>
-                                    Country Name
-                                </label>
-                                <div className="p-col">
-                                    <InputText
-                                        value={this.state.country_name}
-                                        onChange={(e) =>
-                                            this.setState({country_name: e.target.value})
-                                        }
-                                    />
-                                </div>
-                            </div>
 
-
-                            <Button label="Update" onClick={() => this.sendUpdatedData()}/>
-                        </div>
-                        <div className="p-col-12 p-md-6">
-                        </div>
-                    </div>
+                        </TabPanel>
+                    </TabView>
                 </div>
             </div>
         );
+        //
+        // return (
+        //     <div>
+        //         <Messages ref={(el) => (this.messages = el)}/>
+        //         <Toast ref={(el) => (this.toast = el)}/>
+        //         <TabView className="tabview-custom">
+        //             <TabPanel header="My Friends" leftIcon="pi pi-user">
+        //                 <div style={{height: "300px", margin: "10px"}}>
+        //                 </div>
+        //             </TabPanel>
+        //         </TabView>
+        //     </div>
+        // );
     }
 }
 
