@@ -107,7 +107,7 @@ def get_user_all_friend_request_dicts(user_id):
 def update_friend_request(request_id, accept):
     if accept:
         friend_request = dbops.get_friend_request(request_id)
-        dbops.add_friend(friend_request.requester.id, friend_request.requestee_id)
+        dbops.add_friend(friend_request.requester_id, friend_request.requestee_id)
     dbops.delete_friend_request(request_id)
 
 

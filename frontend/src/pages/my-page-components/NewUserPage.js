@@ -66,13 +66,13 @@ export class NewUserPage extends React.Component {
 		let data = await axios(options);
 
 		console.log(data);
-		if (data.data.status !== 200) {
-			// this.messages.show({severity: 'error', summary: 'ERROR', detail: 'NOT ADDED'});
-			console.log("Error! not added");
-		} else {
-			// this.messages.show({severity: 'success', summary: 'Success', detail: 'add submitted'});
-			console.log("Add submitted");
-		}
+		// if (data.data.status !== 200) {
+		// 	this.messages.show({severity: 'error', summary: 'ERROR', detail: 'NOT ADDED'});
+		// 	console.log("Error! not added");
+		// } else {
+		// 	this.messages.show({severity: 'success', summary: 'Success', detail: 'add submitted'});
+		// 	console.log("Add submitted");
+		// }
 		console.log(data.data.status);
 		if (data.data.status === 200) {
 			this.showSuccessAddFriend();
