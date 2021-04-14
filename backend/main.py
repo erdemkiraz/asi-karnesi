@@ -8,6 +8,7 @@ from util import (
     create_link_for_user,
     get_given_vaccination_dicts,
     get_link_vaccination_ids,
+    get_user_dict,
     update_friend_request,
 )
 from hello import app
@@ -15,8 +16,10 @@ import dbops
 
 
 def get_response(res, status):
+    res["status"] = status
+
     result = jsonify(res)
-    result.status_code = status
+    result.status_code = 200
 
     result.headers.add(
         "Access-Control-Allow-Origin", "*"
@@ -221,29 +224,35 @@ def get_user_friend_requests():
     return get_response(res, 200)
 
 
-@app.route("/login", methods=["GET"])
-def login():
+@app.route("/user-info", methods=["GET"])
+def user_info():
     google_id = request.args["google_id"]
-    res = {"new_user": create_user(google_id)}
+    user = dbops.get_user_from_google_id(google_id)
+
+    res = {"info": get_user_dict(user.id)}
+
     return get_response(res, 200)
 
 
 @app.route("/update-user-info", methods=["POST"])
 def fill_user_info():
-    google_id = request.json["google_id"]
+    google_id = request.args["google_id"]
+    res = {"new_user": create_user(google_id)}
+
+    email = request.json["email"]
     facebook_id = request.json.get("facebook_id")
-    email = request.json.get("email")
     name = request.json.get("name")
     age = request.json.get("age")
     country_name = request.json.get("country_name")
+    is_update = request.args.get("is_update")
 
     user = dbops.get_user_from_google_id(google_id)
 
+    user.email = email
+
     if facebook_id:
         user.facebook_id = facebook_id
-    if email:
-        user.email = email
-    if name:
+    if name and (not user.name or is_update):
         user.name = name
     if age:
         user.age = age
@@ -254,7 +263,7 @@ def fill_user_info():
 
     dbops.session.commit()
 
-    return get_response({}, 200)
+    return get_response(res, 200)
 
 
 @app.route("/accept-friend-request", methods=["POST"])
