@@ -69,7 +69,7 @@ def get_friendship(user_id, friend_id):
     query = session.query(Friendship).filter(
         Friendship.user_id1 == user_id, Friendship.user_id2 == friend_id
     )
-    return query.one()
+    return query.first()
 
 
 def add_facebook_friend(user_id1, user_id2):
