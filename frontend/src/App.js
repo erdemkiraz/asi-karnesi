@@ -44,7 +44,7 @@ class App extends React.Component {
         const items = [
             // {label: 'Home', icon: 'pi pi-fw pi-home', url: '/'},
             {label: 'Home', icon: 'pi pi-fw pi-calendar', url: 'home'},
-            {label: 'Statistics', icon: 'pi pi-fw pi-calendar', url: 'statistics'},
+            {label: 'Statistics', icon: 'pi pi-fw pi-chevron-left', url: 'statistics'},
             {label: 'My Profile', icon: 'pi pi-fw pi-calendar', url: 'me'},
             // {label: 'Page2', icon: 'pi pi-fw pi-pencil', url: 'page2'},
             // {label: 'Add Person', icon: 'pi pi-fw pi-pencil',url : 'AddPerson'},
