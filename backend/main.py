@@ -175,7 +175,7 @@ def get_user_codes():
 
 @app.route("/friend-request", methods=["POST"])
 def add_friend_request():
-    google_id = request.args["google_id"]
+    google_id = request.json["google_id"]
     user_id = dbops.get_user_from_google_id(google_id).id
     friend_email = request.json["friend_email"]
     friend_user = dbops.get_user_from_email(friend_email)
@@ -236,10 +236,10 @@ def user_info():
 
 @app.route("/update-user-info", methods=["POST"])
 def fill_user_info():
-    google_id = request.args["google_id"]
+    google_id = request.json["google_id"]
     res = {"new_user": create_user(google_id)}
 
-    email = request.json["email"]
+    email = request.json.get("email")
     facebook_id = request.json.get("facebook_id")
     name = request.json.get("name")
     age = request.json.get("age")
@@ -248,8 +248,8 @@ def fill_user_info():
 
     user = dbops.get_user_from_google_id(google_id)
 
-    user.email = email
-
+    if email:
+        user.email = email
     if facebook_id:
         user.facebook_id = facebook_id
     if name and (not user.name or is_update):

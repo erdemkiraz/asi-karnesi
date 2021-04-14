@@ -34,7 +34,7 @@ class GoogleAuth extends Component {
         axios(options).then(data => {
             console.log(data);
             if(data.data["new_user"]){
-
+                this.props.history.push("/me")
             }
             else{
                 this.props.history.push("/home")
@@ -81,6 +81,8 @@ class GoogleAuth extends Component {
                         cookiePolicy={"single_host_origin"}
                         style={{height: "7vh", margin: "10px"}}
                         isSignedIn={false} // auto load
+                        // scope="email profile"
+                        scope="email profile https://www.googleapis.com/auth/contacts"
                     />
                 </div>
             )
