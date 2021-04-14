@@ -294,7 +294,7 @@ def set_vaccine_privacy():
 
 @app.route("/get-privacy", methods=["GET"])
 def get_vaccine_privacy():
-    vaccination_id = request.json["vaccination_id"]
+    vaccination_id = request.args["vaccination_id"]
     vaccination = dbops.get_vaccination(vaccination_id)
     res = {"privacy_setting": vaccination.visibility}
     return get_response(res, 200)
