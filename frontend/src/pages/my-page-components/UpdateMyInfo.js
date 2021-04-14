@@ -11,6 +11,7 @@ import {TabPanel, TabView} from "primereact/tabview";
 import MyFriends from "./MyFriends";
 import MyCodes from "./MyCodes";
 import AddFriend from "./AddFriend";
+import {Dropdown} from "primereact/dropdown";
 
 export class UpdateMyInfo extends React.Component {
     constructor() {
@@ -43,7 +44,7 @@ export class UpdateMyInfo extends React.Component {
 
 
         let payload = {
-            "is_update" : true,
+            "is_update": true,
             "google_id": this.state.logged_in_google_id,
             "name": this.state.name,
             "facebook_id": this.state.facebook_id,
@@ -74,7 +75,7 @@ export class UpdateMyInfo extends React.Component {
             {headers: BUILD_HEADER()}
         );
 
-        let data  = response.data["info"];
+        let data = response.data["info"];
         let current_name = data["name"]
         let current_age = data["age"]
         let current_country_name = data["country_name"]
@@ -116,11 +117,11 @@ export class UpdateMyInfo extends React.Component {
 
     render() {
         const countryOptions = [
-            {label: 'Public', value: 4},
-            {label: 'Friends', value: 3},
-            {label: 'Permitted Users', value: 2},
-            {label: 'All Admins', value: 1},
-            {label: 'Private', value: 0}
+            {label: 'Not Given', value: ""},
+            {label: 'Turkey', value: "Turkey"},
+            {label: 'USA', value: "USA"},
+            {label: 'UK', value: "UK"},
+            {label: 'Germany', value: "Germany"},
 
         ];
         const baseStyle = {width: "100%"}
@@ -183,6 +184,9 @@ export class UpdateMyInfo extends React.Component {
                                                     this.setState({country_name: e.target.value})
                                                 }
                                             />
+                                            <Dropdown value={this.state.country_name} options={countryOptions}
+                                                      onChange={(e) => this.setState({country_name: e.value})}
+                                                      placeholder="Select a country"/>
                                         </div>
                                     </div>
 
