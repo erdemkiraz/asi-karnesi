@@ -121,9 +121,11 @@ export class MyFriends extends React.Component {
                     emptyMessage="There is no friends yet!"
                 >
                     <Column  expander></Column>
-                    <Column field="id" header="ID" ></Column>
+                    {/*<Column field="id" header="ID" ></Column>*/}
                     <Column field="name" header="Name" filter filterPlaceholder="Search by name" filterMatchMode="contains"></Column>
-                    <Column field="surname" header="Surname" filter filterPlaceholder="Search by surname" filterMatchMode="contains"></Column>
+                    <Column field="age" header="Age" filter filterPlaceholder="Age" filterMatchMode="contains"></Column>
+                    <Column field="country_name" header="Country" filter filterPlaceholder="Search by country name" filterMatchMode="contains"></Column>
+                    {/*<Column field="surname" header="Surname" filter filterPlaceholder="Search by surname" filterMatchMode="contains"></Column>*/}
                     <Column field="with_friends_since" header="Friends with Since" ></Column>
                     {/*<Column field="type" header="Type"></Column>*/}
                 </DataTable>
