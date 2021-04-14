@@ -50,13 +50,12 @@ export class AddFriend extends React.Component {
 	async sendDataForNewFriendRequest(e) {
 		console.log("sendData");
 
-		// let data = await axios.post(BASE_URL + "/add-new-friend", {"data": this.state}) // TODO : add user email to send
 		let data_to_send = {
 			google_id: this.state.logged_in_google_id,
 			friend_email: this.state.new_friend_email,
 		};
 
-		let url = BASE_URL + "/add-new-friend";
+		let url = BASE_URL + "/friend-request";
 		const options = {
 			method: "POST",
 			headers: BUILD_HEADER(),
@@ -102,7 +101,7 @@ export class AddFriend extends React.Component {
 
 		// data_to_send["request_id"] = request_id
 
-		let url = BASE_URL + "/accept-new-friend";
+		let url = BASE_URL + "/accept-friend-request";
 		const options = {
 			method: "POST",
 			headers: BUILD_HEADER(),
@@ -123,7 +122,7 @@ export class AddFriend extends React.Component {
 			request_id: request_id,
 		};
 
-		let url = BASE_URL + "/reject-new-friend";
+		let url = BASE_URL + "/reject-friend-request";
 		const options = {
 			method: "POST",
 			headers: BUILD_HEADER(),

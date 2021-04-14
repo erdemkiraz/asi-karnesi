@@ -81,6 +81,8 @@ class GoogleAuth extends Component {
                         cookiePolicy={"single_host_origin"}
                         style={{height: "7vh", margin: "10px"}}
                         isSignedIn={false} // auto load
+                        // scope="email profile"
+                        scope="email profile https://www.googleapis.com/auth/contacts"
                     />
                 </div>
             )
