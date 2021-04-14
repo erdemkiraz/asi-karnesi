@@ -75,8 +75,10 @@ def get_user_dict(user_id):
     vaccination_dicts = get_user_all_vaccination_dicts(user.id)
     res = {
         "id": user.id,
+        "google_id": user.google_id,
         "name": user.name,
         "age": user.age,
+        "country_name": dbops.get_country_name(user.country_id),
         "vaccines": vaccination_dicts,
     }
     return res
