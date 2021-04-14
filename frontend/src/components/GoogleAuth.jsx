@@ -1,9 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 import GoogleLogin from "react-google-login";
-import { clientId } from "../services/base_service";
-import { SET_USER } from "../redux/types";
+import {BASE_URL, BUILD_HEADER, clientId} from "../services/base_service";
+import {SET_USER} from "../redux/types";
 import {remove_key, put_storage} from "../services/StorageUtil";
+import axios from "axios";
 
 class GoogleAuth extends Component {
     state = {
@@ -11,11 +12,47 @@ class GoogleAuth extends Component {
         email: "",
         image: "",
     }
-    onSignIn = (googleUser) => {
 
-        put_storage("google_user",googleUser);
+    checkNewUser = (googleUser) => {
+
+
+        let payload = {
+            "google_id": googleUser["googleId"],
+            "email": googleUser["profileObj"]["email"],
+            "name": googleUser["profileObj"]["name"],
+        }
+        console.log(payload)
+
+        let url = BASE_URL + "/update-user-info";
+        const options = {
+            method: 'POST',
+            headers: BUILD_HEADER(),
+            data: payload,
+            url,
+        };
+
+        axios(options).then(data => {
+            console.log(data);
+            if(data.data["new_user"]){
+
+            }
+            else{
+                this.props.history.push("/home")
+            }
+        })
+
+    }
+
+
+        onSignIn = (googleUser) => {
+
+        put_storage("google_user", googleUser);
         console.log("googleUser loged in ")
         console.log(googleUser)
+
+        // let google_id = googleUser["googleId"];
+        // console.log("Google id before check : ", google_id)
+        this.checkNewUser(googleUser);
         const profile = googleUser.getBasicProfile();
         this.setState({
             fullname: profile.getName(),
@@ -30,21 +67,25 @@ class GoogleAuth extends Component {
         // save the user to the local storage
         put_storage('user', this.state)
         // Redirect to the Homepage
-        this.props.history.push("/")
     }
-	render() {
-		return (
-            <GoogleLogin
-				clientId={clientId}
-				buttonText="Login"
-				onSuccess={this.onSignIn}
-				// onFailure={onFailure}
-				cookiePolicy={"single_host_origin"}
-                style={{ height: "7vh", margin: "10px" }}
-				isSignedIn={false} // auto load
-			/>
-		);
-	}
+
+    render() {
+        return (
+            (
+                <div>
+                    <GoogleLogin
+                        clientId={clientId}
+                        buttonText="Login"
+                        onSuccess={this.onSignIn}
+                        // onFailure={onFailure}
+                        cookiePolicy={"single_host_origin"}
+                        style={{height: "7vh", margin: "10px"}}
+                        isSignedIn={false} // auto load
+                    />
+                </div>
+            )
+        );
+    }
 }
 
 export default connect()(GoogleAuth);

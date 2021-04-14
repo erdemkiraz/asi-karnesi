@@ -9,10 +9,12 @@ import "./css/custom.css";
 // import PersonalBar from "./pages/bar-components/PersonalBar";
 
 // pages
-import HomePage from "./pages/Home";
+import Welcome from "./pages/Welcome";
+import Home from "./pages/Home";
 import LoginPage from "./pages/auth/LoginPage";
-import MePage from "./pages/MyPage";
-import Page2 from "./pages/Page2";
+import Statistics from "./pages/Statistics";
+
+import UpdateMyInfo from "./pages/my-page-components/UpdateMyInfo";
 import NavBar from "./pages/bar-components/PersonalBar";
 
 // Routes
@@ -42,8 +44,9 @@ class App extends React.Component {
         const items = [
             // {label: 'Home', icon: 'pi pi-fw pi-home', url: '/'},
             {label: 'Home', icon: 'pi pi-fw pi-calendar', url: 'home'},
+            {label: 'Statistics', icon: 'pi pi-fw pi-calendar', url: 'statistics'},
             {label: 'My Profile', icon: 'pi pi-fw pi-calendar', url: 'me'},
-            {label: 'Page2', icon: 'pi pi-fw pi-pencil', url: 'page2'},
+            // {label: 'Page2', icon: 'pi pi-fw pi-pencil', url: 'page2'},
             // {label: 'Add Person', icon: 'pi pi-fw pi-pencil',url : 'AddPerson'},
         ]
 
@@ -61,9 +64,11 @@ class App extends React.Component {
                         alignItems: "center"
                     }}>
                         <Switch>
-                            <Route path="/" exact component={HomePage}/>
-                            <PrivateRoute path="/me" exact component={MePage}/>
-                            <PrivateRoute path="/page-2" exact component={Page2}/>
+                            <Route path="/" exact component={Welcome}/>
+                            <PrivateRoute path="/home" exact component={Home}/>
+                            <PrivateRoute path="/me" exact component={UpdateMyInfo}/>
+                            <PrivateRoute path="/statistics" exact component={Statistics}/>
+                            {/*<PrivateRoute path="/page-2" exact component={Page2}/>*/}
                             <Route path="/login" exact component={LoginPage}/>
                         </Switch>
                     </div>

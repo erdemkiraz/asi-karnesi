@@ -45,7 +45,7 @@ export function getCurrentDate(separator=''){
 
 export function getGoogleId(google_user) {
     if (google_user == null) return "null";
-    return google_user["googleId"] ?? "null";
+    return google_user["googleId"]+"" ?? "null";
 }
 
 // const AXIOS_CONFIG = {
