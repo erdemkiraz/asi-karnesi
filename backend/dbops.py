@@ -178,3 +178,9 @@ def get_vaccination_ids_from_link_id(link_id):
     )
     vaccination_ids = [x[0] for x in query.all()]
     return vaccination_ids
+
+
+def get_country_name(country_id):
+    query = session.query(Country).filter(Country.id == country_id)
+    country = query.first()
+    return country.name
