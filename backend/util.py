@@ -85,12 +85,12 @@ def get_user_dict(user_id):
 
 
 def get_friend_request_dict(friend_request):
-    requestee_user = dbops.get_user(friend_request.requestee_id)
+    requester_user = dbops.get_user(friend_request.requester_id)
     res = {
         "request_id": friend_request.id,
-        "requester_id": requestee_user.id,
-        "requester_email": requestee_user.email,
-        "requester_name": requestee_user.name,
+        "requester_id": requester_user.id,
+        "requester_email": requester_user.email,
+        "requester_name": requester_user.name,
         "created": get_datetime_str(friend_request.created),
     }
     return res
