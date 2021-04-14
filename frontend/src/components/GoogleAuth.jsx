@@ -34,7 +34,7 @@ class GoogleAuth extends Component {
         axios(options).then(data => {
             console.log(data);
             if(data.data["new_user"]){
-
+                this.props.history.push("/me")
             }
             else{
                 this.props.history.push("/home")

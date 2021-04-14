@@ -66,18 +66,18 @@ export class AddFriend extends React.Component {
 		let data = await axios(options);
 
 		console.log(data);
-		if (data.data.status !== 200) {
-			// this.messages.show({severity: 'error', summary: 'ERROR', detail: 'NOT ADDED'});
-			console.log("Error! not added");
-		} else {
-			// this.messages.show({severity: 'success', summary: 'Success', detail: 'add submitted'});
-			console.log("Add submitted");
-		}
+		// if (data.data.status !== 200) {
+		// 	// this.messages.show({severity: 'error', summary: 'ERROR', detail: 'NOT ADDED'});
+		// 	console.log("Error! not added");
+		// } else {
+		// 	// this.messages.show({severity: 'success', summary: 'Success', detail: 'add submitted'});
+		// 	console.log("Add submitted");
+		// }
 		console.log(data.data.status);
 		if (data.data.status === 200) {
 			this.showSuccessAddFriend();
 		} else {
-			this.showErrorAddFriend();
+			this.showErrorAddFriend(data.data["error"]);
 		}
 		// this.reset_state()
 	}
@@ -159,16 +159,16 @@ export class AddFriend extends React.Component {
 		});
 	}
 
-	showErrorAddFriend() {
+	showErrorAddFriend(msg) {
 		this.messages.show({
 			severity: "error",
 			summary: "",
-			detail: "Friend request failed",
+			detail: msg,
 		});
 		this.toast.show({
 			severity: "error",
 			summary: "",
-			detail: "Friend request failed",
+			detail: msg,
 		});
 	}
 
