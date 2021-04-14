@@ -20,6 +20,8 @@ export class MyCodes extends React.Component {
 
         this.state = {
 
+
+            logged_in_google_id : "",
             my_vaccines: [],
             selected_vaccines: [],
             qr_hidden: true,
@@ -55,6 +57,7 @@ export class MyCodes extends React.Component {
 
         let google_id = getGoogleId(google_user)
 
+        this.setState({logged_in_google_id : google_id})
         console.log("google_user id : ", google_id)
         console.log(google_user)
 
@@ -64,13 +67,14 @@ export class MyCodes extends React.Component {
 
     async fetchData(google_id) {
 
-        let data = await axios.get(BASE_URL + "/user/codes?google_id="+google_id, {headers: BUILD_HEADER()})
+        let data = await axios.get(BASE_URL + "/user/codes?google_id=" + google_id, {headers: BUILD_HEADER()})
         console.log("Data : ", data);
         let user_codes = data.data["my_vaccines"]
         console.log("User Friends ", user_codes)
         return user_codes;
     }
-        onHide(name) {
+
+    onHide(name) {
         this.setState({
             [`${name}`]: false
         });
@@ -117,12 +121,33 @@ export class MyCodes extends React.Component {
     }
 
 
-    generateQRCode() {
+    async generateQRCode() {
 
-        // TODO: QR LOGIC MUST BE ADD ASAP
-        console.log("Generate QR Code !!!");
+        let vaccines = [];
+        for(let i = 0; i < this.state.selected_vaccines.length ; i++){
+            vaccines.push(this.state.selected_vaccines[i]["vaccination_id"]);
+        }
+        // let vaccines = this.state.selected_vaccines
+        let payload = {
+            "google_id": this.state.logged_in_google_id,
+            "vaccination_ids": vaccines,
+        }
+
+        console.log("Payload : ", payload)
+        let url = BASE_URL + "/create-link";
+        const options = {
+            method: 'POST',
+            headers: BUILD_HEADER(),
+            data: payload,
+            url,
+        };
+
+        let response = await axios(options);
+
+        // console.log("Generated QR Code !!!");
         this.setState({qr_hidden: false});
-        let qr_new = this.state.qr_value + "/TEST";
+        let qr_new = response.data["link"]
+        // console.log("QR : ", qr_new);
         this.setState({qr_value: qr_new})
 
         this.setState({panelCollapsed: true})
@@ -170,12 +195,18 @@ export class MyCodes extends React.Component {
                                    footer={footer_my_vaccines}>
                             <Column selectionMode="multiple" headerStyle={{width: '3em'}}></Column>
                             {/*<Column field="vaccination_id" header="Code"  ></Column>*/}
-                    <Column field="vaccine_id" header="Vaccine ID" sortable filter filterPlaceholder="Search by vaccine ID" filterMatchMode="contains"/>
-                    <Column field="name" header="Vaccine Name" sortable filter filterPlaceholder="Search by name" filterMatchMode="contains"/>
-                    <Column field="dose" header="Vaccine Dose" sortable filter filterPlaceholder="" filterMatchMode="contains"/>
-                    <Column field="vaccine_point" header="Vaccine Point" sortable filter filterPlaceholder="Search by location" filterMatchMode="contains"/>
-                    <Column field="date" header="Vaccine Date" sortable filter filterPlaceholder="Search by date" filterMatchMode="contains"/>
-                    <Column field="valid_until" header="Validation Time" sortable filter filterPlaceholder="" filterMatchMode="contains"/>
+                            <Column field="vaccine_id" header="Vaccine ID" sortable filter
+                                    filterPlaceholder="Search by vaccine ID" filterMatchMode="contains"/>
+                            <Column field="name" header="Vaccine Name" sortable filter
+                                    filterPlaceholder="Search by name" filterMatchMode="contains"/>
+                            <Column field="dose" header="Vaccine Dose" sortable filter filterPlaceholder=""
+                                    filterMatchMode="contains"/>
+                            <Column field="vaccine_point" header="Vaccine Point" sortable filter
+                                    filterPlaceholder="Search by location" filterMatchMode="contains"/>
+                            <Column field="date" header="Vaccine Date" sortable filter
+                                    filterPlaceholder="Search by date" filterMatchMode="contains"/>
+                            <Column field="valid_until" header="Validation Time" sortable filter filterPlaceholder=""
+                                    filterMatchMode="contains"/>
                             <Column body={this.editButton} headerStyle={{width: '8em', textAlign: 'center'}}
                                     bodyStyle={{textAlign: 'center', overflow: 'visible'}}/>
 

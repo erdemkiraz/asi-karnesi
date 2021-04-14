@@ -10,7 +10,7 @@ db_url = os.environ.get("POSTGRE_DATABASE_URL", local_db_url)
 
 engine = create_engine(
     db_url,
-    echo=True,  # connect_args={"check_same_thread": False}
+    echo=True,   connect_args={"check_same_thread": False}
 )
 
 Session = sessionmaker(bind=engine)

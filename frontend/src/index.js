@@ -16,7 +16,7 @@ import * as serviceWorker from './services/serviceWorker';
             // {label: 'Home', icon: 'pi pi-fw pi-home', url: '/'},
             {label: 'Home', icon: 'pi pi-fw pi-calendar', url: 'home'},
             {label: 'My Profile', icon: 'pi pi-fw pi-calendar', url: 'me'},
-            {label: 'Page2', icon: 'pi pi-fw pi-pencil',url : 'page2'},
+            // {label: 'Page2', icon: 'pi pi-fw pi-pencil',url : 'page2'},
             // {label: 'Add Person', icon: 'pi pi-fw pi-pencil',url : 'AddPerson'},
         ]
 

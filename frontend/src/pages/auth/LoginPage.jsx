@@ -8,7 +8,7 @@ class LoginPage extends Component {
             <div>
                 <h1>Login Page</h1>
                 <GoogleAuth history={this.props.history} />
-                <Link to="/">Home Page</Link>
+                {/*<Link to="/">Home Page</Link>*/}
             </div>
         )
     }
