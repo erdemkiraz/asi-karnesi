@@ -115,8 +115,11 @@ def get_friend_dict(user_id, friend_id):
     friendship = dbops.get_friendship(user_id, friend_id)
     friend_dict = get_user_dict(friend_id)
 
-    if not can_see_vaccines(user_id, friend_id):
-        friend_dict["vaccines"] = []
+    friend_dict["vaccines"] = [
+        vaccination_dict
+        for vaccination_dict in friend_dict["vaccines"]
+        if can_see_vaccines(user_id, friend_id, vaccination_dict["vaccination_id"])
+    ]
 
     friend_dict["with_friends_since"] = get_datetime_str(friendship.created)
 
