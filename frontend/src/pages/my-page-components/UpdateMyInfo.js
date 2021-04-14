@@ -184,12 +184,6 @@ export class UpdateMyInfo extends React.Component {
                                             Country Name
                                         </label>
                                         <div className="p-col">
-                                            <InputText
-                                                value={this.state.country_name}
-                                                onChange={(e) =>
-                                                    this.setState({country_name: e.target.value})
-                                                }
-                                            />
                                             <Dropdown value={this.state.country_name} options={countryOptions}
                                                       onChange={(e) => this.setState({country_name: e.value})}
                                                       placeholder="Select a country"/>

@@ -3,9 +3,9 @@ import axios from 'axios'
 
 function createUrl() {
     let port = 5000;
-    // console.log(window.location.protocol)
-    // return `${window.location.protocol}//${window.location.hostname}:${port}`;
-    return `${window.location.protocol}//127.0.0.1:${port}`;
+
+    // return `${window.location.protocol}//127.0.0.1:${port}`;
+    return "https://asi-karnesi.herokuapp.com";
 }
 
 
