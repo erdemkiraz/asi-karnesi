@@ -47,6 +47,8 @@ class EditPrivacy extends React.Component {
         console.log(data)
         let payload = data.data;
         let vaccine_current_privacy = payload["privacy_setting"];
+        console.log("vaccine_current_privacy")
+        console.log(vaccine_current_privacy)
         this.setState({privacy_setting:vaccine_current_privacy})
 
 
@@ -115,11 +117,19 @@ class EditPrivacy extends React.Component {
     render() {
 
         const privacySettings = [
-            {label: 'Public', value: 4},
+            {label: 'Public', value: 5},
+            {label: 'Fb friends', value: 4},
             {label: 'Friends', value: 3},
             {label: 'Permitted Users', value: 2},
             {label: 'All Admins', value: 1},
             {label: 'Private', value: 0}
+
+    //             PRIVATE = 0
+    // ALL_ADMINS = 1
+    // PERMITTED_USERS = 2
+    // FRIENDS = 3
+    // FACEBOOK_FRIENDS = 4
+    // PUBLIC = 5
 
         ];
 
