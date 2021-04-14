@@ -6,12 +6,16 @@ import os
 Base = declarative_base()
 
 local_db_url = "sqlite:///database.db"
-db_url = os.environ.get("POSTGRE_DATABASE_URL", local_db_url)
+postgre_url = os.environ.get("POSTGRE_DATABASE_URL")
 
-engine = create_engine(
-    db_url,
-    echo=True,   connect_args={"check_same_thread": False}
-)
+is_production = bool(postgre_url)
+
+db_url = postgre_url or local_db_url
+
+if is_production:
+    engine = create_engine(db_url, echo=True)
+else:
+    engine = create_engine(db_url, echo=True, connect_args={"check_same_thread": False})
 
 Session = sessionmaker(bind=engine)
 session = Session()
