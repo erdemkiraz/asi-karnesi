@@ -11,6 +11,7 @@ import {TabPanel, TabView} from "primereact/tabview";
 import MyFriends from "./MyFriends";
 import MyCodes from "./MyCodes";
 import AddFriend from "./AddFriend";
+import {Dropdown} from "primereact/dropdown";
 
 export class UpdateMyInfo extends React.Component {
     constructor() {
@@ -43,9 +44,11 @@ export class UpdateMyInfo extends React.Component {
 
 
         let payload = {
+            "is_update": true,
             "google_id": this.state.logged_in_google_id,
             "name": this.state.name,
-            "facebook_id": this.state.facebook_id,
+
+            // "facebook_id": this.state.facebook_id,
             "age": this.state.age,
             "country_name": this.state.country_name,
         }
@@ -68,15 +71,23 @@ export class UpdateMyInfo extends React.Component {
     }
 
     async fetch_current_infos() {
-        let data = await axios.get(
-            BASE_URL + "/friend-requests?google_id=" + this.state.logged_in_google_id,
+        let response = await axios.get(
+            BASE_URL + "/user-info?google_id=" + this.state.logged_in_google_id,
             {headers: BUILD_HEADER()}
         );
 
-        let requests = data.data["friend_requests"];
-        this.setState({friend_requests: requests});
-        console.log("requests");
-        console.log(requests);
+        let data = response.data["info"];
+        console.log("response.data")
+        console.log(response.data)
+        let current_name = data["name"]
+        let current_age = data["age"]
+        let current_country_name = data["country_name"]
+        this.setState({name: current_name})
+        this.setState({age: current_age})
+        this.setState({country_name: current_country_name})
+        // this.setState({friend_requests: requests});
+        // console.log("requests");
+        // console.log(requests);
     }
 
 
@@ -108,10 +119,20 @@ export class UpdateMyInfo extends React.Component {
 
 
     render() {
+        const countryOptions = [
+            {label: 'Not Given', value: ""},
+            {label: 'Turkey', value: "Turkey"},
+            {label: 'USA', value: "USA"},
+            {label: 'UK', value: "UK"},
+            {label: 'Germany', value: "Germany"},
 
+        ];
         const baseStyle = {width: "100%"}
         return (
+
             <div style={baseStyle}>
+                <Messages ref={(el) => this.messages = el}/>
+                <Toast ref={(el) => this.toast = el}/>
                 <div className="card" style={baseStyle}>
                     <TabView className="tabview-custom">
                         <TabPanel header="Update My Information" leftIcon="pi pi-user">
@@ -169,6 +190,9 @@ export class UpdateMyInfo extends React.Component {
                                                     this.setState({country_name: e.target.value})
                                                 }
                                             />
+                                            <Dropdown value={this.state.country_name} options={countryOptions}
+                                                      onChange={(e) => this.setState({country_name: e.value})}
+                                                      placeholder="Select a country"/>
                                         </div>
                                     </div>
 

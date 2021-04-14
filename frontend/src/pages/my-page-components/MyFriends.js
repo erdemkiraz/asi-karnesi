@@ -100,7 +100,7 @@ export class MyFriends extends React.Component {
                 {/*<h5>Multiple with MetaKey</h5>*/}
                 <DataTable
                     value={this.state.friends}
-                    selectionMode="multiple"
+                    selectionMode="single"
                     // selectionKeys={this.state.selected_friends}
                     selection={this.state.selected_friends}
                     onSelectionChange={e => this.setState({selected_friends : e.value})}
@@ -124,6 +124,7 @@ export class MyFriends extends React.Component {
                     <Column field="id" header="ID" ></Column>
                     <Column field="name" header="Name" filter filterPlaceholder="Search by name" filterMatchMode="contains"></Column>
                     <Column field="surname" header="Surname" filter filterPlaceholder="Search by surname" filterMatchMode="contains"></Column>
+                    <Column field="with_friends_since" header="Friends with Since" ></Column>
                     {/*<Column field="type" header="Type"></Column>*/}
                 </DataTable>
             {/*</div>*/}

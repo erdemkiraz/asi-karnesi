@@ -50,13 +50,12 @@ export class AddFriend extends React.Component {
 	async sendDataForNewFriendRequest(e) {
 		console.log("sendData");
 
-		// let data = await axios.post(BASE_URL + "/add-new-friend", {"data": this.state}) // TODO : add user email to send
 		let data_to_send = {
 			google_id: this.state.logged_in_google_id,
 			friend_email: this.state.new_friend_email,
 		};
 
-		let url = BASE_URL + "/add-new-friend";
+		let url = BASE_URL + "/friend-request";
 		const options = {
 			method: "POST",
 			headers: BUILD_HEADER(),
@@ -66,18 +65,18 @@ export class AddFriend extends React.Component {
 		let data = await axios(options);
 
 		console.log(data);
-		if (data.data.status !== 200) {
-			// this.messages.show({severity: 'error', summary: 'ERROR', detail: 'NOT ADDED'});
-			console.log("Error! not added");
-		} else {
-			// this.messages.show({severity: 'success', summary: 'Success', detail: 'add submitted'});
-			console.log("Add submitted");
-		}
+		// if (data.data.status !== 200) {
+		// 	// this.messages.show({severity: 'error', summary: 'ERROR', detail: 'NOT ADDED'});
+		// 	console.log("Error! not added");
+		// } else {
+		// 	// this.messages.show({severity: 'success', summary: 'Success', detail: 'add submitted'});
+		// 	console.log("Add submitted");
+		// }
 		console.log(data.data.status);
 		if (data.data.status === 200) {
 			this.showSuccessAddFriend();
 		} else {
-			this.showErrorAddFriend();
+			this.showErrorAddFriend(data.data["error"]);
 		}
 		// this.reset_state()
 	}
@@ -102,7 +101,7 @@ export class AddFriend extends React.Component {
 
 		// data_to_send["request_id"] = request_id
 
-		let url = BASE_URL + "/accept-new-friend";
+		let url = BASE_URL + "/accept-friend-request";
 		const options = {
 			method: "POST",
 			headers: BUILD_HEADER(),
@@ -123,7 +122,7 @@ export class AddFriend extends React.Component {
 			request_id: request_id,
 		};
 
-		let url = BASE_URL + "/reject-new-friend";
+		let url = BASE_URL + "/reject-friend-request";
 		const options = {
 			method: "POST",
 			headers: BUILD_HEADER(),
@@ -159,16 +158,16 @@ export class AddFriend extends React.Component {
 		});
 	}
 
-	showErrorAddFriend() {
+	showErrorAddFriend(msg) {
 		this.messages.show({
 			severity: "error",
 			summary: "",
-			detail: "Friend request failed",
+			detail: msg,
 		});
 		this.toast.show({
 			severity: "error",
 			summary: "",
-			detail: "Friend request failed",
+			detail: msg,
 		});
 	}
 
