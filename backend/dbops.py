@@ -181,6 +181,8 @@ def get_vaccination_ids_from_link_id(link_id):
 
 
 def get_country_name(country_id):
+    if country_id is None:
+        return None
     query = session.query(Country).filter(Country.id == country_id)
     country = query.first()
     return country.name

@@ -255,7 +255,7 @@ def fill_user_info():
     if name and (not user.name or is_update):
         user.name = name
     if age:
-        user.age = age
+        user.age = int(age)
     if country_name:
         country = dbops.get_country_by_name(country_name)
         if country is not None:
