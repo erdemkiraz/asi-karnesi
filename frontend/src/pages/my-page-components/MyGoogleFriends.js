@@ -5,9 +5,11 @@ import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 import {Button} from "primereact/button";
 import axios from "axios";
-import {BASE_URL, BUILD_HEADER} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
+import {get_storage} from "../../services/StorageUtil";
 import {Dialog} from "primereact/dialog";
 import {Toast} from "primereact/toast";
+
 
 export class MyGoogleFriends extends React.Component {
 
@@ -35,6 +37,10 @@ export class MyGoogleFriends extends React.Component {
 
 
     async componentDidMount() {
+        let google_user = await get_storage("google_user");
+        let google_id = getGoogleId(google_user);
+
+        this.setState({logged_in_google_id: google_id});
         this.fetchInitialData();
 
     }
@@ -43,10 +49,10 @@ export class MyGoogleFriends extends React.Component {
     async fetchInitialData() {
         let response = await axios.get(BASE_URL + "/google/my-friends" + "?google_id=" + this.state.logged_in_google_id, BUILD_HEADER())
         let data = response.data;
-        //
-        // let is_auth = data["is_auth"]
-        let is_auth = false;
 
+        let is_auth = data["is_auth"]
+        // let is_auth = false;
+        console.log(data);
 
         if (is_auth) {
             this.setState({auth_icon: "pi pi-unlock"})
@@ -109,19 +115,19 @@ export class MyGoogleFriends extends React.Component {
 
         let payload = {
             "google_id": this.state.logged_in_google_id,
-            "ApiToken": this.state.api_token
+            "google_code": this.state.api_token
         }
 
         console.log("Payload : ", payload)
-        // let url = BASE_URL + "/google/auth-code";
-        // const options = {
-        //     method: 'POST',
-        //     headers: BUILD_HEADER(),
-        //     data: payload,
-        //     url,
-        // };
-        //
-        // let response = await axios(options);
+        let url = BASE_URL + "/google/auth-contact";
+        const options = {
+            method: 'POST',
+            headers: BUILD_HEADER(),
+            data: payload,
+            url,
+        };
+        
+        let response = await axios(options);
 
         this.onHide("displayModal");
         await this.fetchInitialData();
