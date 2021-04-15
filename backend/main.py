@@ -139,7 +139,7 @@ def get_google_friends():
 
     google_token = dbops.get_user_google_token(user_id)
 
-    print(f"{google_token=}")
+    # print(f"{google_token=}")
 
     creds = None
 
