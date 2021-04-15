@@ -4,7 +4,7 @@ import {InputText} from "primereact/inputtext";
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 import {Button} from "primereact/button";
-import {AxiosInstance as axios} from "axios";
+import axios from "axios";
 import {BASE_URL, BUILD_HEADER} from "../../services/base_service";
 import {Dialog} from "primereact/dialog";
 import {Toast} from "primereact/toast";
@@ -41,8 +41,8 @@ export class MyGoogleFriends extends React.Component {
 
 
     async fetchInitialData() {
-        // let response = await axios.get(BASE_URL + "/google/my-friends" + "?google_id=" + this.state.logged_in_google_id, BUILD_HEADER())
-        // let data = response.data;
+        let response = await axios.get(BASE_URL + "/google/my-friends" + "?google_id=" + this.state.logged_in_google_id, BUILD_HEADER())
+        let data = response.data;
         //
         // let is_auth = data["is_auth"]
         let is_auth = false;
@@ -50,11 +50,13 @@ export class MyGoogleFriends extends React.Component {
 
         if (is_auth) {
             this.setState({auth_icon: "pi pi-unlock"})
+            this.setState({google_friends : data["friends"] })
             this.showSuccess()
+
         } else {
             // pop up shows
             this.showWarn();
-            this.setState({auth_url: "Bu bir link!"})
+            this.setState({auth_url: data["auth_url"]})
             this.onClick('displayModal');
         }
 
