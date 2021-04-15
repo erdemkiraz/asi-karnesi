@@ -175,5 +175,8 @@ def populate():
 
 
     add(Friendship(id=1, user_id1=1, user_id2=2, is_facebook=True))
-    add(Friendship(id=2, user_id1=6, user_id2=7, is_facebook=True))
-    add(Friendship(id=3, user_id1=6, user_id2=8, is_facebook=True))
+    add(Friendship(id=2, user_id1=2, user_id2=1, is_facebook=True))
+    add(Friendship(id=3, user_id1=6, user_id2=7, is_facebook=True))
+    add(Friendship(id=4, user_id1=7, user_id2=6, is_facebook=True))
+    add(Friendship(id=5, user_id1=6, user_id2=8, is_facebook=True))
+    add(Friendship(id=6, user_id1=8, user_id2=6, is_facebook=True))
