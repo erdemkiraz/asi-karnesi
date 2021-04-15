@@ -141,19 +141,6 @@ export class UpdateMyInfo extends React.Component {
                                 <div className="p-col-12 p-md-6">
                                     <div className="p-field p-grid">
                                         <label className="p-col-fixed" style={{width: "100px"}}>
-                                            Facebook ID
-                                        </label>
-                                        <div className="p-col">
-                                            <InputText
-                                                value={this.state.facebook_id}
-                                                onChange={(e) =>
-                                                    this.setState({facebook_id: e.target.value})
-                                                }
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="p-field p-grid">
-                                        <label className="p-col-fixed" style={{width: "100px"}}>
                                             Name
                                         </label>
                                         <div className="p-col">
