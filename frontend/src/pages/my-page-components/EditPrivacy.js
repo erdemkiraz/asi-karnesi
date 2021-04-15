@@ -123,7 +123,7 @@ class EditPrivacy extends React.Component {
             {label: 'Permitted Users', value: 2},
             {label: 'All Admins', value: 1},
             {label: 'Private', value: 0}
-            
+
         ];
 
 

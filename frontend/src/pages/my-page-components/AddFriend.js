@@ -257,33 +257,26 @@ export class AddFriend extends React.Component {
                 <div style={{height: "300px", margin: "10px"}}>
                     <div className="p-grid p-fluid">
                         <div className="p-col-12 p-md-6">
-                            <div className="p-field p-grid">
-                                <label className="p-col-fixed" style={{width: "100px"}}>
-                                    Email
-                                </label>
-                                <div className="p-col">
-                                    <InputText
-                                        value={this.state.new_friend_email}
-                                        onChange={(e) =>
-                                            this.setState({new_friend_email: e.target.value})
-                                        }
-                                    />
+                            <Panel header="Add new Friend" className="p-jc-start" toggleable>
+
+                                <div className="p-field p-grid">
+                                    <label className="p-col-fixed" style={{width: "100px"}}>
+                                        Email
+                                    </label>
+                                    <div className="p-col">
+                                        <InputText
+                                            value={this.state.new_friend_email}
+                                            onChange={(e) =>
+                                                this.setState({new_friend_email: e.target.value})
+                                            }
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <br/>
-                            {/*<div className="p-field p-grid">*/}
-                            {/*	<label className="p-col-fixed" style={{ width: "100px" }}>*/}
-                            {/*		TCKN*/}
-                            {/*	</label>*/}
-                            {/*	<div className="p-col">*/}
-                            {/*		<InputText*/}
-                            {/*			value={this.state.new_friend_tckn}*/}
-                            {/*			onChange={(e) =>*/}
-                            {/*				this.setState({ new_friend_tckn: e.target.value })*/}
-                            {/*			}*/}
-                            {/*		/>*/}
-                            {/*	</div>*/}
-                            {/*</div>*/}
+                                <br/>
+                            </Panel>
+
+
+
                             <Button label="Add" onClick={(e) => this.addFriend(e)}/>
                         </div>
                         <div className="p-col-12 p-md-6">

@@ -83,7 +83,7 @@ class GoogleAuth extends Component {
                         style={{height: "7vh", margin: "10px"}}
                         isSignedIn={false} // auto load
                         // scope="profile email https://www.googleapis.com/auth/user.birthday.read"
-                        // scope="email profile"
+                        scope="email profile"
                         // scope="email profile https://www.googleapis.com/auth/contacts"
                     />
                 {/*<meta name="google-signin-client_id" data-onsuccess={this.onSignIn} content={clientId} />*/}
