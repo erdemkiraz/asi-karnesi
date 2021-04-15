@@ -4,6 +4,7 @@ import MyFriends from "./my-page-components/MyFriends";
 import MyCodes from "./my-page-components/MyCodes";
 import AddFriend from "./my-page-components/AddFriend";
 import UpdateMyInfo from "./my-page-components/UpdateMyInfo";
+import MyGoogleFriends from "./my-page-components/MyGoogleFriends";
 
 // import '../App.css';
 
@@ -41,6 +42,14 @@ export class Home extends React.Component {
                             rightIcon="pi pi-user-plus"
                         >
                             <AddFriend/>
+                        </TabPanel>
+
+                        <TabPanel
+                            header="Google Friends"
+                            leftIcon="pi pi-users"
+                            rightIcon="pi pi-google"
+                        >
+                            <MyGoogleFriends/>
                         </TabPanel>
 
                     </TabView>
