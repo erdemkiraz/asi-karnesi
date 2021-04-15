@@ -185,27 +185,43 @@ def get_google_friends():
     )
     connections = results.get("connections", [])
 
+    contacts = []
+
     for person in connections:
         names = person.get("names", [])
+        name = None
+        email = None
+        phone = None
         if names:
             name = names[0].get("displayName")
-            print(name)
         emails = person.get("emailAddresses", [])
         if emails:
             email = emails[0].get("value")
-            print(email)
         phones = person.get("phoneNumbers", [])
         if phones:
             phone = phones[0].get("value")
-            print(phone)
-        print()
+
+        if name and (email or phone):
+            friendship = None
+            contact_user = None
+            if email:
+                contact_user = dbops.get_user_from_email(email)
+                friendship = dbops.get_friendship(user_id, contact_user.id)
+            if friendship is None:
+                contacts.append(
+                    {
+                        "name": name,
+                        "email": email or "",
+                        "phone": phone or "",
+                        "is_user": contact_user is not None,
+                    }
+                )
 
     data = {
         "is_auth": True,
         "auth_url": "",
-        "friends": [],
+        "friends": contacts,
     }
-    # res = {"friends": {}}
 
     return get_response(data, 200)
 
