@@ -137,6 +137,18 @@ def get_google_friends():
 
     return get_response(data, 200)
 
+@app.route("/google/auth-contact", methods=["POST"])
+def get_google_auth_contact():
+    google_id = request.json["google_id"]
+    api_token = request.json["ApiToken"]
+    # user_id = dbops.get_user_from_google_id(google_id).id
+    #
+    # friend_dicts = get_user_all_friend_dicts(user_id)
+    #
+    data = {"status": 200}
+
+    return get_response(data, 200)
+
 
 @app.route("/user/codes", methods=["GET"])
 def get_user_codes():
