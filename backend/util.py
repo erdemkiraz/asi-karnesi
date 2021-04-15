@@ -129,7 +129,7 @@ def get_friend_dict(user_id, friend_id):
 
 def get_user_all_friend_dicts(user_id):
     friend_ids = dbops.get_friend_ids(user_id)
-    print(f'{friend_ids=}')
+    # print(f'{friend_ids=}')
     friend_dicts = [get_friend_dict(user_id, friend_id) for friend_id in friend_ids]
     return friend_dicts
 
