@@ -121,6 +121,23 @@ def get_user_friends():
     return get_response(res, 200)
 
 
+@app.route("/google/my-friends", methods=["GET"])
+def get_google_friends():
+    google_id = request.args["google_id"]
+    # user_id = dbops.get_user_from_google_id(google_id).id
+    #
+    # friend_dicts = get_user_all_friend_dicts(user_id)
+    #
+    data = {"is_auth": False,
+            "auth_url": "https://www.google.com",
+            "friends": [],
+
+            }
+    # res = {"friends": {}}
+
+    return get_response(data, 200)
+
+
 @app.route("/user/codes", methods=["GET"])
 def get_user_codes():
     google_id = request.args["google_id"]
