@@ -60,7 +60,7 @@ class VaccinationStatusRequest(Base):
     __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
-    requested_id = Column(Integer, ForeignKey("user.id"))
+    requester_id = Column(Integer, ForeignKey("user.id"))
     requestee_id = Column(Integer, ForeignKey("user.id"))
     has_granted = Column(Boolean, default=False)
 
