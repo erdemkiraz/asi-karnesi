@@ -109,7 +109,7 @@ export class MyGoogleFriends extends React.Component {
 
         let payload = {
             "google_id": this.state.logged_in_google_id,
-            "AuthCode": this.state.api_token
+            "ApiToken": this.state.api_token
         }
 
         console.log("Payload : ", payload)
