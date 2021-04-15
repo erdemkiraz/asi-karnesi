@@ -1,4 +1,12 @@
+from __future__ import print_function
+import json
 from flask import jsonify, request
+
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 
 from util import (
     create_user,
@@ -13,6 +21,8 @@ from util import (
 )
 from hello import app
 import dbops
+
+SCOPES = ["https://www.googleapis.com/auth/contacts.readonly"]
 
 
 def get_response(res, status):
@@ -125,30 +135,115 @@ def get_user_friends():
 @app.route("/google/my-friends", methods=["GET"])
 def get_google_friends():
     google_id = request.args["google_id"]
-    # user_id = dbops.get_user_from_google_id(google_id).id
-    #
-    # friend_dicts = get_user_all_friend_dicts(user_id)
-    #
-    data = {"is_auth": False,
-            "auth_url": "https://www.google.com",
-            "friends": [],
+    user_id = dbops.get_user_from_google_id(google_id).id
 
+    google_token = dbops.get_user_google_token(user_id)
+
+    print(f"{google_token=}")
+
+    creds = None
+
+    if google_token is not None:
+        creds = Credentials.from_authorized_user_info(json.loads(google_token), SCOPES)
+
+    print("creds:", creds)
+
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+            dbops.add_user_google_token(user_id, creds.to_json())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                "client_secret.json", SCOPES
+            )
+
+            kwargs = {}
+            kwargs.setdefault("prompt", "consent")
+            flow.redirect_uri = flow._OOB_REDIRECT_URI
+            auth_url, _ = flow.authorization_url(**kwargs)
+
+            res = {
+                "is_auth": False,
+                "auth_url": auth_url,
+                "friends": [],
             }
+            return get_response(res, 200)
+
+    service = build("people", "v1", credentials=creds)
+
+    # Call the People API
+    print("List 10 connection names")
+    results = (
+        service.people()
+        .connections()
+        .list(
+            resourceName="people/me",
+            pageSize=1000,
+            personFields="names,emailAddresses,phoneNumbers",
+        )
+        .execute()
+    )
+    connections = results.get("connections", [])
+
+    for person in connections:
+        names = person.get("names", [])
+        if names:
+            name = names[0].get("displayName")
+            print(name)
+        emails = person.get("emailAddresses", [])
+        if emails:
+            email = emails[0].get("value")
+            print(email)
+        phones = person.get("phoneNumbers", [])
+        if phones:
+            phone = phones[0].get("value")
+            print(phone)
+        print()
+
+    data = {
+        "is_auth": True,
+        "auth_url": "",
+        "friends": [],
+    }
     # res = {"friends": {}}
 
     return get_response(data, 200)
 
+
+@app.route("/google/remove-auth-contact", methods=["GET"])
+def remove_google_auth_contact():
+    google_id = request.args["google_id"]
+    user_id = dbops.get_user_from_google_id(google_id).id
+
+    dbops.add_user_google_token(user_id, None)
+    return get_response({}, 200)
+
+
 @app.route("/google/auth-contact", methods=["POST"])
 def get_google_auth_contact():
     google_id = request.json["google_id"]
-    api_token = request.json["ApiToken"]
-    # user_id = dbops.get_user_from_google_id(google_id).id
-    #
-    # friend_dicts = get_user_all_friend_dicts(user_id)
-    #
-    data = {"status": 200}
+    google_code = request.json["google_code"]
 
-    return get_response(data, 200)
+    user_id = dbops.get_user_from_google_id(google_id).id
+
+    flow = InstalledAppFlow.from_client_secrets_file("client_secret.json", SCOPES)
+
+    flow.redirect_uri = flow._OOB_REDIRECT_URI
+
+    code = google_code
+
+    try:
+        flow.fetch_token(code=code)
+    except Exception:
+        return get_response({"error": "The code you pasted is invalid"}, 400)
+
+    creds = flow.credentials
+
+    print("user_id, creds:", user_id, creds)
+
+    dbops.add_user_google_token(user_id, creds.to_json())
+
+    return get_response({}, 200)
 
 
 @app.route("/user/codes", methods=["GET"])
