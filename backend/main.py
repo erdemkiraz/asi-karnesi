@@ -67,6 +67,7 @@ def get_user_friends():
     friend_dicts = get_user_all_friend_dicts(user_id)
     #
     res = {"friends": friend_dicts}
+    print(res)
 
     # static_friends_data = {
     #     "friends": [
