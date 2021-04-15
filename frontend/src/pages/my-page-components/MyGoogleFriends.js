@@ -78,6 +78,15 @@ export class MyGoogleFriends extends React.Component {
 
     takeActionButton(row) {
 
+        // if(row["i"]) {
+        //             return (
+        //     <div>
+        //         <Button type="button" onClick={() => {
+        //         }} label="Send email" icon="pi pi-file-excel" className="p-button-secondary"/>
+        //         {/*<Button type="button"   label="Excel" icon="pi pi-google" className="p-button-secondary"   />*/}
+        //     </div>);
+        // }
+
         console.log("Row", row)
 
         // console.log(form["id"], bool)
