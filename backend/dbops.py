@@ -1,4 +1,4 @@
-from dbconf import session
+from conf import session
 from models import (
     FriendRequest,
     User,

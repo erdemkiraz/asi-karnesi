@@ -2,7 +2,7 @@ import datetime
 from sqlalchemy.sql.sqltypes import Boolean, DateTime, JSON
 from sqlalchemy import Column, Integer, String, ForeignKey
 
-from dbconf import Base, engine
+from conf import Base, engine
 from enums import VaccinationVisibility, AdminPrivilege
 
 
