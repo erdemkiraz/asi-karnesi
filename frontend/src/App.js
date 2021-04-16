@@ -4,11 +4,7 @@ import {Provider} from "react-redux";
 import store from "./redux/store";
 import { SET_USER } from "./redux/types";
 import "./css/custom.css";
-// import axios from "axios";
-// import {BASE_URL, BUILD_HEADER} from "./services/base_service";
-// import PersonalBar from "./pages/bar-components/PersonalBar";
 
-// pages
 import Welcome from "./pages/Welcome";
 import Home from "./pages/Home";
 import LoginPage from "./pages/auth/LoginPage";
@@ -22,7 +18,6 @@ import PrivateRoute from "./routes/PrivateRoute";
 import { TabMenu } from "primereact/tabmenu";
 
 // services
-import { get_storage } from "./services/StorageUtil";
 
 
 
@@ -43,8 +38,8 @@ class App extends React.Component {
 
         const items = [
             // {label: 'Home', icon: 'pi pi-fw pi-home', url: '/'},
-            {label: 'Home', icon: 'pi pi-fw pi-calendar', url: 'home'},
-            {label: 'Statistics', icon: 'pi pi-fw pi-chevron-left', url: 'statistics'},
+            {label: 'Home', icon: 'pi pi-home', url: 'home'},
+            {label: 'Statistics', icon: 'pi pi-table', url: 'statistics'},
             {label: 'My Profile', icon: 'pi pi-fw pi-calendar', url: 'me'},
             // {label: 'Page2', icon: 'pi pi-fw pi-pencil', url: 'page2'},
             // {label: 'Add Person', icon: 'pi pi-fw pi-pencil',url : 'AddPerson'},

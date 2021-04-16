@@ -28,6 +28,9 @@ export class MyGoogleFriends extends React.Component {
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.addFriendOrInviteMailButton = this.addFriendOrInviteMailButton.bind(this);
+
+
+        this.inviteMailButton = this.inviteMailButton.bind(this);
         this.sendSMSInviteButton = this.sendSMSInviteButton.bind(this);
         this.sendAuthCode = this.sendAuthCode.bind(this);
         this.sendDataForNewFriendRequest = this.sendDataForNewFriendRequest.bind(this);
@@ -145,33 +148,43 @@ export class MyGoogleFriends extends React.Component {
     addFriendOrInviteMailButton(row) {
         console.log("Add Frient or Invite Mail Row", row)
 
-        if (row["is_user"]) {
-            console.log("isUSer")
+        let bool = row["is_user"]
+        if (bool) {
             return (
                 <div>
                     <Button type="button" onClick={() => this.sendDataForNewFriendRequest(row["email"])}
                             label="Add Friend" icon="pi pi-user-plus" className="p-button-secondary"/>
                 </div>);
-        } else {
-            return (
-                <div>
-                    <Button type="button" onClick={() => this.sendEmailInvite(row["email"], row["name"])} label="Invite"
-                            icon="pi pi-user-plus" className="p-button-secondary"/>
-                </div>
-            )
-                ;
-        }
+        } else
+            return <div></div>;
+
 
     }
 
+    inviteMailButton(row) {
+
+        let bool = !row["email"]
+        let bool2 = row["is_user"]
+        return (
+            <div>
+                <Button type="button" onClick={() => this.sendEmailInvite(row["email"], row["name"])}
+                        label="Invite" disabled={bool | bool2}
+                        icon="pi pi-inbox" className="p-button-secondary"/>
+            </div>
+        )
+            ;
+
+    }
+
+
     sendSMSInviteButton(row) {
-        console.log("Text Invite Row", row)
+        // console.log("Text Invite Row", row)
 
         let bool = row["phone"].length <= 0 || row["is_user"];
         return (
             <div>
-                <Button type="button" onClick={() => this.sendSMSInvite(row["phone"], row["name"])} label="Text Invite"
-                        icon="pi pi-user-plus" className="p-button-secondary" disabled={bool}/>
+                <Button type="button" onClick={() => this.sendSMSInvite(row["phone"], row["name"])} label="Invite"
+                        icon="pi pi-send" className="p-button-secondary" disabled={bool}/>
             </div>);
         ;
     }
@@ -322,6 +335,7 @@ export class MyGoogleFriends extends React.Component {
                             <Column field="email" header="Email" sortable filter
                                     filterPlaceholder="Search by email"
                                     filterMatchMode="contains"></Column>
+                            <Column header="" body={this.inviteMailButton}/>
                             <Column header="" body={this.addFriendOrInviteMailButton}/>
 
                         </DataTable>
