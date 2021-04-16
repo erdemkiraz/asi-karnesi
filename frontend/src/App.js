@@ -37,12 +37,10 @@ class App extends React.Component {
     render() {
 
         const items = [
-            // {label: 'Home', icon: 'pi pi-fw pi-home', url: '/'},
             {label: 'Home', icon: 'pi pi-home', url: 'home'},
             {label: 'Statistics', icon: 'pi pi-table', url: 'statistics'},
             {label: 'My Profile', icon: 'pi pi-user-edit', url: 'me'},
-            // {label: 'Page2', icon: 'pi pi-fw pi-pencil', url: 'page2'},
-            // {label: 'Add Person', icon: 'pi pi-fw pi-pencil',url : 'AddPerson'},
+
         ]
 
         let activeItem = 1;
@@ -63,7 +61,6 @@ class App extends React.Component {
                             <PrivateRoute path="/home" exact component={Home}/>
                             <PrivateRoute path="/me" exact component={UpdateMyInfo}/>
                             <PrivateRoute path="/statistics" exact component={Statistics}/>
-                            {/*<PrivateRoute path="/page-2" exact component={Page2}/>*/}
                             <Route path="/login" exact component={LoginPage}/>
                         </Switch>
                     </div>
