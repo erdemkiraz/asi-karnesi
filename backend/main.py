@@ -204,9 +204,11 @@ def get_google_friends():
         if name and (email or phone):
             friendship = None
             contact_user = None
+
             if email:
                 contact_user = dbops.get_user_from_email(email)
-                friendship = dbops.get_friendship(user_id, contact_user.id)
+                if contact_user is not None:
+                    friendship = dbops.get_friendship(user_id, contact_user.id)
             if friendship is None:
                 contacts.append(
                     {
