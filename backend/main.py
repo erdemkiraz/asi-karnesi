@@ -155,8 +155,10 @@ def get_google_friends():
             creds.refresh(Request())
             dbops.add_user_google_token(user_id, creds.to_json())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                "client_secret.json", SCOPES
+            client_secret = os.environ["GOOGLE_CLIENT_SECRET"]
+
+            flow = InstalledAppFlow.from_client_config(
+                json.loads(client_secret), SCOPES
             )
 
             kwargs = {}
