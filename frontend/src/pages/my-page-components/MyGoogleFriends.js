@@ -47,7 +47,6 @@ export class MyGoogleFriends extends React.Component {
 
         this.setState({logged_in_google_id: google_id});
         this.fetchInitialData();
-
     }
 
     async sendDataForNewFriendRequest(email) {
