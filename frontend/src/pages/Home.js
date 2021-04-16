@@ -45,9 +45,9 @@ export class Home extends React.Component {
                         </TabPanel>
 
                         <TabPanel
-                            header="Google Friends"
-                            leftIcon="pi pi-users"
-                            rightIcon="pi pi-google"
+                            header="oogle Friends"
+                            // leftIcon="pi pi-users"
+                            leftIcon="pi pi-google"
                         >
                             <MyGoogleFriends/>
                         </TabPanel>

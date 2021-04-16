@@ -117,7 +117,7 @@ class PersonalBar extends React.Component {
                 <div className="nav-right">
                     {user.isAuthenticated ? (
                         <>
-                            {this.capitalize(this.state.name)}
+                            {this.state.name}
                             {/*<Text style={{textTransform: 'capitalize'}}>test</Text>*/}
                             <img
                                 style={{height: "7vh", borderRadius: "55%"}}
