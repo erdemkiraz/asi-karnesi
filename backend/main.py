@@ -464,6 +464,22 @@ def get_vaccinations_from_link():
     return get_response(res, 200)
 
 
+@app.route("/invite-email", methods=["POST"])
+def invite_email():
+    google_id = request.json["google_id"]
+    email = request.json["friend_email"]
+
+    return get_response({}, 200)
+
+
+@app.route("/invite-sms", methods=["POST"])
+def invite_sms():
+    google_id = request.json["google_id"]
+    phone = request.json["friend_phone"]
+
+    return get_response({}, 200)
+
+
 @app.route("/populate-demo-db", methods=["GET"])
 def populate_demo_db():
     import demo_db
