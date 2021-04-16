@@ -10,7 +10,10 @@ def send_email(recipient, name, body):
         data = {
             "Messages": [
                 {
-                    "From": {"Email": "hello@asikarnesi.com", "Name": "Asi Karnesi"},
+                    "From": {
+                        "Email": "hello@asi-karnesi.herokuapp.com",
+                        "Name": "Asi Karnesi",
+                    },
                     "To": [
                         {
                             "Email": recipient,
