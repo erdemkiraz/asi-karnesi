@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 
 function createUrl() {
     let port = 5000;
@@ -7,9 +5,6 @@ function createUrl() {
     return `${window.location.protocol}//127.0.0.1:${port}`;
     // return "https://asi-karnesi.herokuapp.com";
 }
-
-
-
 
 
 export const BASE_URL = createUrl()
@@ -36,11 +31,6 @@ export function getCurrentDate(separator=''){
 
     return `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`
 }
-// export function getUserEmail(google_user) {
-//
-//     if (google_user == null || google_user["profileObj"] == null ) return "null";
-//     return google_user["profileObj"]["email"] ?? "null";
-// }
 
 
 export function getGoogleId(google_user) {
