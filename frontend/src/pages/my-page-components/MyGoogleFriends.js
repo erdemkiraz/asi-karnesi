@@ -9,6 +9,7 @@ import {BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
 import {get_storage} from "../../services/StorageUtil";
 import {Dialog} from "primereact/dialog";
 import {Toast} from "primereact/toast";
+import {Messages} from "primereact/messages";
 
 
 export class MyGoogleFriends extends React.Component {
@@ -26,8 +27,12 @@ export class MyGoogleFriends extends React.Component {
             auth_icon: "pi pi-lock"
         };
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.takeActionButton = this.takeActionButton.bind(this);
+        this.addFriendOrInviteMailButton = this.addFriendOrInviteMailButton.bind(this);
+        this.sendSMSInviteButton = this.sendSMSInviteButton.bind(this);
         this.sendAuthCode = this.sendAuthCode.bind(this);
+        this.sendDataForNewFriendRequest = this.sendDataForNewFriendRequest.bind(this);
+        this.sendEmailInvite = this.sendEmailInvite.bind(this);
+        this.sendSMSInvite = this.sendSMSInvite.bind(this);
 
         this.onHide = this.onHide.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -45,6 +50,51 @@ export class MyGoogleFriends extends React.Component {
 
     }
 
+    async sendDataForNewFriendRequest(email) {
+        console.log("sendData");
+
+        let data_to_send = {
+            google_id: this.state.logged_in_google_id,
+            friend_email: email,
+        };
+
+        let url = BASE_URL + "/friend-request";
+        const options = {
+            method: "POST",
+            headers: BUILD_HEADER(),
+            data: data_to_send,
+            url,
+        };
+        let data = await axios(options);
+
+        console.log(data);
+
+        console.log(data.data.status);
+        if (data.data.status === 200) {
+            this.showSuccessAddFriend();
+        } else {
+            this.showErrorAddFriend(data.data["error"]);
+        }
+    }
+
+    showSuccessAddFriend() {
+        this.messages.show({
+            severity: "success",
+            summary: "",
+            detail: "Friend request sent!",
+        });
+
+    }
+
+    showErrorAddFriend(msg) {
+        this.messages.show({
+            severity: "error",
+            summary: "",
+            detail: msg,
+        });
+
+    }
+
 
     async fetchInitialData() {
         let response = await axios.get(BASE_URL + "/google/my-friends" + "?google_id=" + this.state.logged_in_google_id, BUILD_HEADER())
@@ -56,7 +106,7 @@ export class MyGoogleFriends extends React.Component {
 
         if (is_auth) {
             this.setState({auth_icon: "pi pi-unlock"})
-            this.setState({google_friends : data["friends"] })
+            this.setState({google_friends: data["friends"]})
             this.showSuccess()
 
         } else {
@@ -69,34 +119,126 @@ export class MyGoogleFriends extends React.Component {
     }
 
     showSuccess() {
-        this.toast.show({severity: 'success', summary: 'Authorize Success', detail: 'Access token acquired'});
+        try {
+            this.messages.show({severity: 'success', summary: 'Authorize Success', detail: 'Access token acquired'});
+
+        } catch (e) {
+
+        }
     }
 
     showWarn() {
-        this.toast.show({severity: 'warn', summary: 'Authorize Needed', detail: 'Access token could not acquired'});
+        try {
+            this.messages.show({
+                severity: 'warn',
+                summary: 'Authorize Needed',
+                detail: 'Access token could not acquired'
+            });
+
+        } catch (e) {
+
+        }
     }
 
-    takeActionButton(row) {
+    addFriendOrInviteMailButton(row) {
+        console.log("Add Frient or Invite Mail Row", row)
 
-        // if(row["i"]) {
-        //             return (
-        //     <div>
-        //         <Button type="button" onClick={() => {
-        //         }} label="Send email" icon="pi pi-file-excel" className="p-button-secondary"/>
-        //         {/*<Button type="button"   label="Excel" icon="pi pi-google" className="p-button-secondary"   />*/}
-        //     </div>);
-        // }
+        if (row["is_user"]) {
+            console.log("isUSer")
+            return (
+                <div>
+                    <Button type="button" onClick={() => this.sendDataForNewFriendRequest(row["email"])}
+                            label="Add Friend" icon="pi pi-user-plus" className="p-button-secondary"/>
+                </div>);
+        } else {
+            return (
+                <div>
+                    <Button type="button" onClick={() => this.sendEmailInvite(row["email"])} label="Invite"
+                            icon="pi pi-user-plus" className="p-button-secondary"/>
+                </div>
+            )
+                ;
+        }
 
-        console.log("Row", row)
+    }
 
-        // console.log(form["id"], bool)
+    sendSMSInviteButton(row) {
+        console.log("Text Invite Row", row)
+
+        let bool = row["phone"].length <= 0 || row["is_user"];
         return (
             <div>
-                <Button type="button" onClick={() => {
-                }} label="Download" icon="pi pi-file-excel" className="p-button-secondary"/>
-                {/*<Button type="button"   label="Excel" icon="pi pi-google" className="p-button-secondary"   />*/}
+                <Button type="button" onClick={() => this.sendSMSInvite(row["phone"])} label="Text Invite"
+                        icon="pi pi-user-plus" className="p-button-secondary" disabled={bool}/>
             </div>);
+        ;
+    }
 
+    async sendEmailInvite(email) {
+        let data_to_send = {
+            google_id: this.state.logged_in_google_id,
+            friend_email: email,
+        };
+
+        let url = BASE_URL + "/invite-email";
+        const options = {
+            method: "POST",
+            headers: BUILD_HEADER(),
+            data: data_to_send,
+            url,
+        };
+        let data = await axios(options);
+
+        if (data.data.status === 200) {
+            this.messages.show({
+                severity: "success",
+                summary: "",
+                detail: "Invite request sent!",
+            });
+
+        } else {
+            this.messages.show({
+                severity: "error",
+                summary: "",
+                detail: data.data["error"],
+            });
+
+        }
+    }
+
+
+    async sendSMSInvite(phone) {
+
+        console.log("SendSmsInmvite")
+        let data_to_send = {
+            google_id: this.state.logged_in_google_id,
+            friend_phone: phone,
+        };
+
+        let url = BASE_URL + "/invite-sms";
+        const options = {
+            method: "POST",
+            headers: BUILD_HEADER(),
+            data: data_to_send,
+            url,
+        };
+        let data = await axios(options);
+
+        if (data.data.status === 200) {
+            this.messages.show({
+                severity: "success",
+                summary: "",
+                detail: "Invite request sent!",
+            });
+
+        } else {
+            this.messages.show({
+                severity: "error",
+                summary: "",
+                detail: data.data["error"],
+            });
+
+        }
     }
 
     onHide(name) {
@@ -135,37 +277,12 @@ export class MyGoogleFriends extends React.Component {
             data: payload,
             url,
         };
-        
+
         let response = await axios(options);
 
         this.onHide("displayModal");
         await this.fetchInitialData();
-        //
-        // let data = await axios.get(BASE_URL + "/google/authenticate", {
-        //     headers: {
-        //         "AuthCode": "",
-        //         "FormId": this.state.form_id
-        //     }
-        // })
 
-        // check wheter user is authenticated or not
-        // if authenticated => do nothing
-        // if not authenticated => ask for a auth code from url !
-        // console.log(" Try Autherize : ", data.data);
-        // data = data.data;
-        // if (data["autherized"] === true) {
-        //     let accessToken = data["accessToken"];
-        //     this.setState({access_token: accessToken})
-        //     // accesssTokenToExport = this.state.access_token;
-        //     // console.log("Access Token : ", this.state.access_token);
-        //     this.showSuccess();
-        // } else {
-        //     console.log("Autherize fail : ", data.data);
-        //     this.showWarn();
-        //     this.setState({url: data["authUrl"]})
-        //     this.onClick('displayModal');
-        // }
-        // return data;
     }
 
 
@@ -177,10 +294,7 @@ export class MyGoogleFriends extends React.Component {
         )
 
         return (<div>
-
-
-                <Toast ref={(el) => this.toast = el}/>
-
+                <Messages ref={(el) => (this.messages = el)}/>
                 <div className="card">
 
                     <Panel header="Google Contacts" className="p-jc-start" toggleable>
@@ -195,16 +309,16 @@ export class MyGoogleFriends extends React.Component {
                             emptyMessage="There is no google friend yet!"
                         >
                             {/*<Column field="id" header="ID" ></Column>*/}
-                            <Column field="name" header="Name" filter filterPlaceholder="Search by name"
+                            <Column field="name" header="Name" sortable filter filterPlaceholder="Search by name"
                                     filterMatchMode="contains"></Column>
-                            <Column field="phone_number" header="Phone Number" filter
+                            <Column field="phone" header="Phone Number" sortable filter
                                     filterPlaceholder="Search by number"
                                     filterMatchMode="contains"></Column>
-                            <Column field="email" header="Email" filter
+                            <Column header="" body={this.sendSMSInviteButton}/>
+                            <Column field="email" header="Email" sortable filter
                                     filterPlaceholder="Search by email"
                                     filterMatchMode="contains"></Column>
-                            <Column header="Action" body={this.takeActionButton}/>
-
+                            <Column header="" body={this.addFriendOrInviteMailButton}/>
 
                         </DataTable>
 
