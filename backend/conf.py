@@ -20,16 +20,13 @@ else:
 Session = sessionmaker(bind=engine)
 session = Session()
 
-filename = "secrets.py"
+filename = "secrets.txt"
 try:
     with open(filename, mode="rb") as config_file:
         for line in config_file.readlines():
-            key, *values = line.decode("utf-8").split('=')
-            value = '='.join(values)
+            key, *values = line.decode("utf-8").split("=")
+            value = "=".join(values)
             os.environ[key] = value
             # print(key, ' --> ', value)
 except IOError as e:
     print("Unable to load configuration file (%s)" % e.strerror)
-
-import os
-print(os.environ.get("TWILIO_AUTH_TOKEN"))

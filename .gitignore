@@ -166,3 +166,4 @@ backend/.idea/misc.xml
 
 .vscode/
 backend/database.db
+backend/secrets.txt
