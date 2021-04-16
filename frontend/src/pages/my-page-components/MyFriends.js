@@ -66,8 +66,10 @@ export class MyFriends extends React.Component {
         return (
             <div className="orders-subtable">
                 {/*<h5>Submissions for {data.form_id}</h5>*/}
-                <DataTable value={values}>
-                    <Column field="vaccine_id" header="Vaccine ID" sortable filter filterPlaceholder="Search by vaccine ID" filterMatchMode="contains"/>
+                <DataTable value={values}
+                emptyMessage="Your friend has not share any vaccination record!"
+                >
+                    {/*<Column field="vaccine_id" header="Vaccine ID" sortable filter filterPlaceholder="Search by vaccine ID" filterMatchMode="contains"/>*/}
                     <Column field="name" header="Vaccine Name" sortable filter filterPlaceholder="Search by name" filterMatchMode="contains"/>
                     <Column field="dose" header="Vaccine Dose" sortable filter filterPlaceholder="" filterMatchMode="contains"/>
                     <Column field="vaccine_point" header="Vaccine Point" sortable filter filterPlaceholder="Search by location" filterMatchMode="contains"/>

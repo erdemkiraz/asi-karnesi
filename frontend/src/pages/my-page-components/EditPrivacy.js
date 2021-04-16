@@ -118,9 +118,9 @@ class EditPrivacy extends React.Component {
 
         const privacySettings = [
             {label: 'Public', value: 5},
-            {label: 'Fb friends', value: 4},
+            // {label: 'Fb friends', value: 4},
             {label: 'Friends', value: 3},
-            {label: 'Permitted Users', value: 2},
+            // {label: 'Permitted Users', value: 2},
             {label: 'All Admins', value: 1},
             {label: 'Private', value: 0}
 
@@ -130,8 +130,6 @@ class EditPrivacy extends React.Component {
         return (
 
             <div>
-
-
                 <Messages ref={(el) => this.messages = el}/>
                 <Toast ref={(el) => this.toast = el}/>
 

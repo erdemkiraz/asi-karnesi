@@ -18,7 +18,6 @@ export class UpdateMyInfo extends React.Component {
         super();
         this.state = {
             logged_in_google_id: null,
-            facebook_id: "",
             name: "",
             age: "",
             country_name: "",
@@ -42,14 +41,11 @@ export class UpdateMyInfo extends React.Component {
 
     async sendUpdatedData() {
 
-
         let payload = {
             "is_update": true,
             "google_id": this.state.logged_in_google_id,
             "name": this.state.name,
-
-            // "facebook_id": this.state.facebook_id,
-            "age": this.state.age,
+            "age": this.state.age || null,
             "country_name": this.state.country_name,
         }
         console.log(payload)
@@ -80,14 +76,12 @@ export class UpdateMyInfo extends React.Component {
         console.log("response.data")
         console.log(response.data)
         let current_name = data["name"]
-        let current_age = data["age"]
+        let current_age = data["age"] || ""
         let current_country_name = data["country_name"]
         this.setState({name: current_name})
         this.setState({age: current_age})
         this.setState({country_name: current_country_name})
-        // this.setState({friend_requests: requests});
-        // console.log("requests");
-        // console.log(requests);
+
     }
 
 
@@ -190,19 +184,7 @@ export class UpdateMyInfo extends React.Component {
                 </div>
             </div>
         );
-        //
-        // return (
-        //     <div>
-        //         <Messages ref={(el) => (this.messages = el)}/>
-        //         <Toast ref={(el) => (this.toast = el)}/>
-        //         <TabView className="tabview-custom">
-        //             <TabPanel header="My Friends" leftIcon="pi pi-user">
-        //                 <div style={{height: "300px", margin: "10px"}}>
-        //                 </div>
-        //             </TabPanel>
-        //         </TabView>
-        //     </div>
-        // );
+
     }
 }
 
