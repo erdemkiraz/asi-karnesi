@@ -535,6 +535,21 @@ def populate_demo_db():
     return get_response({}, 200)
 
 
+@app.route("/rollback", methods=["GET"])
+def rollback_db():
+    try:
+        dbops.session.rollback()
+    except Exception:
+        pass
+
+    try:
+        dbops.session.commit()
+    except Exception:
+        pass
+
+    return get_response({}, 200)
+
+
 @app.route("/health-check", methods=["GET"])
 def health_check():
     return get_response({}, 200)

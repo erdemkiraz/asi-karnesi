@@ -1,7 +1,8 @@
+import os
 from mailjet_rest import Client
 
-api_key = "a7961312c568a49d4c05a0a37a59d78d"
-api_secret = "f945f15494b6d8720e7e59255960023d"
+api_key = os.environ.get("MAILJET_KEY")
+api_secret = os.environ.get("MAILJET_SECRET")
 mailjet = Client(auth=(api_key, api_secret), version="v3.1")
 
 
