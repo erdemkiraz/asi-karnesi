@@ -17,9 +17,28 @@ from models import (
 
 START = 1000000
 
+ID_ATTRS = [
+    "id",
+    "country_id",
+    "vaccine_id",
+    "requester_id",
+    "requestee_id",
+    "user_id",
+    "link_id",
+    "user_id1",
+    "user_id2",
+]
+
+
 def add(row):
-    if hasattr(row, 'id'):
-        row.id += START
+    for attr in dir(row):
+        if attr in ID_ATTRS:
+            cur = getattr(row, attr)
+            if cur is not None:
+                setattr(row, attr, cur + START)
+    print("New Row:")
+    print(row.__dict__)
+
     try:
         dbops.session.add(row)
         dbops.session.commit()
