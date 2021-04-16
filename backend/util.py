@@ -171,3 +171,23 @@ def create_user(google_id):
         return False
     dbops.create_user(google_id)
     return True
+
+
+def pretty_name(name):
+    if not name:
+        return None
+    name = "".join([c for c in name if c.isalpha() or c in ".()[] "])
+    names = name.strip().split()
+    if len(names) > 4:
+        return None
+    for name in names:
+        if len(name) > 15:
+            return None
+
+    def capitalize(name):
+        if name[0].isalpha():
+            return name.lower().capitalize()
+        return name
+
+    name = " ".join([capitalize(name) for name in names])
+    return name
