@@ -2,11 +2,12 @@ import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import GoogleLogin from "react-google-login";
-import {clientId, BASE_URL} from "../../services/base_service";
+import {clientId, BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
 import {get_storage, remove_key, put_storage} from "../../services/StorageUtil";
 import {Button} from "primereact/button";
 import "../../css/divs.css";
 import {SET_UNAUTHENTICATED, SET_USER, STOP_LOADING_UI} from "../../redux/types";
+import axios from "axios";
 
 // import axios from "axios";
 
@@ -26,25 +27,34 @@ class PersonalBar extends React.Component {
     }
 
     async componentDidMount() {
-        this.loadUserFromLocalStorage()
+        await this.loadUserFromLocalStorage()
     }
 
     capitalize(str) {
-    	if(str === null){
-    		// console.log("Str is null")
-    		return "";
-		}
-    	if(str.length < 1){
-    		return ""
-		}
-    	else if(str.length === 1){
-    		return str.charAt(0).toUpperCase();
-		}
+        if (str === null) {
+            // console.log("Str is null")
+            return "";
+        }
+        if (str.length < 1) {
+            return ""
+        } else if (str.length === 1) {
+            return str.charAt(0).toUpperCase();
+        }
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
+    async fetchUpdatedUsername(google_id) {
 
-    loadUserFromLocalStorage() {
+        let url = BASE_URL + "/user-info?google_id=" + google_id;
+        let response = await axios.get(url, {headers: BUILD_HEADER()});
+
+        let data = response.data["info"];
+        // this.setState({name: data["name"]})
+        return data["name"];
+    }
+
+
+    async loadUserFromLocalStorage() {
         const dispatch = this.props.dispatch;
         let user;
         user = get_storage("user");
@@ -56,7 +66,11 @@ class PersonalBar extends React.Component {
                 type: SET_USER,
                 payload: user,
             });
-            this.setState({name: user["fullname"]})
+
+            let google_id = getGoogleId(get_storage("google_user"));
+            let name_from_db = await this.fetchUpdatedUsername(google_id)
+
+            this.setState({name: name_from_db})
         }
         dispatch({type: STOP_LOADING_UI});
     };
@@ -80,9 +94,7 @@ class PersonalBar extends React.Component {
 
         put_storage("google_user", googleUser);
 
-        // console.log("From storage : ")
-        // console.log(get_storage("google_user"))
-        //
+
         var profile = googleUser.getBasicProfile();
 
         let g_name = profile.getName();
@@ -91,22 +103,8 @@ class PersonalBar extends React.Component {
         this.setState({email: g_email});
         this.setState({image: profile.getImageUrl()});
 
-        // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        // put_storage('google_tokenId', googleUser.tokenId);
-        // console.log('Name: ' + profile.getName());
-        // console.log('Image URL: ' + profile.getImageUrl());
-        // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     }
 
-    testButton() {
-        // var google_tokenId = get_storage('google_tokenId');
-        // window.localStorage.removeItem('googleProfile');
-        console.log("google_tokenId from local Storage");
-        console.log(get_storage("google_user"));
-
-        // remove all
-        // window.localStorage.clear();
-    }
 
     render() {
         const {user} = this.props;
@@ -120,8 +118,8 @@ class PersonalBar extends React.Component {
                     {user.isAuthenticated ? (
                         <>
                             {this.capitalize(this.state.name)}
-					{/*<Text style={{textTransform: 'capitalize'}}>test</Text>*/}
-							<img
+                            {/*<Text style={{textTransform: 'capitalize'}}>test</Text>*/}
+                            <img
                                 style={{height: "7vh", borderRadius: "55%"}}
                                 alt={user.credentials.fullname}
                                 className="user-img"
@@ -138,56 +136,6 @@ class PersonalBar extends React.Component {
             </div>
         );
 
-        // return (
-        //     <div style={styles.personalbar}>
-
-        //         <div className="p-grid">
-        //             <div className="p-col-2">
-
-        //                 {this.state.name}
-
-        //             </div>
-        //             <div className="p-col-5">
-
-        //                 This area can include some information about logged in user!! like name picture etc...
-
-        //             </div>
-        //             <div className="p-col-3">
-
-        //                 {this.state.email}
-        //             </div>
-        //             <div className="p-col-2">
-        //                 <div className="p-grid">
-        //                     <div className="p-col-6">
-
-        //                         <img
-        //                             style={{height: "7vh", borderRadius: "55%"}}
-        //                             src={this.state.image}
-        //                             alt="new"
-        //                         />
-        //                     </div>
-        //                     <div className="p-col-6">
-        //                         <GoogleLogin
-        //                             clientId={clientId}
-        //                             buttonText="Login"
-        //                             onSuccess={this.onSignIn}
-        //                             // onFailure={onFailure}
-        //                             cookiePolicy={'single_host_origin'}
-        //                             style={{height: "7vh", margin: '10px'}}
-        //                             isSignedIn={true}
-        //                         />
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-
-        //         <br/>
-
-        //         {/*<Button label="Test button" onClick={this.testButton}/>*/}
-
-        //     </div>
-
-        // )
     }
 }
 
