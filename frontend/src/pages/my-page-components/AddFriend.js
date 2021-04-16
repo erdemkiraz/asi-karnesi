@@ -132,7 +132,7 @@ export class AddFriend extends React.Component {
         let response = await axios(options);
         console.log("POST RESPONSE", response.data);
         if (response.data["status"] === 200) {
-            this.showSuccessApproved();
+            this.showSuccessRejected();
         } else {
             this.showError();
         }
@@ -157,6 +157,7 @@ export class AddFriend extends React.Component {
             detail: "Friend request sent!",
         });
     }
+
 
     showErrorAddFriend(msg) {
         this.messages.show({
@@ -184,6 +185,19 @@ export class AddFriend extends React.Component {
         });
     }
 
+    showSuccessRejected() {
+        this.messages.show({
+            severity: "success",
+            summary: "",
+            detail: "Friend request rejected",
+        });
+        this.toast.show({
+            severity: "success",
+            summary: "",
+            detail: "Friend request rejected",
+        });
+    }
+
     showError() {
         this.messages.show({
             severity: "error",
@@ -197,14 +211,6 @@ export class AddFriend extends React.Component {
         });
     }
 
-    showGenericError(msg) {
-        this.messages.show({
-            severity: "error",
-            summary: "",
-            detail: "Error!" + msg,
-        });
-        this.toast.show({severity: "error", summary: "Error!", detail: msg});
-    }
 
     render() {
         const dynamicFriendRequests = this.state.friend_requests.map((col, i) => {
@@ -274,7 +280,6 @@ export class AddFriend extends React.Component {
                                 </div>
                                 <br/>
                             </Panel>
-
 
 
                             <Button label="Add" onClick={(e) => this.addFriend(e)}/>
