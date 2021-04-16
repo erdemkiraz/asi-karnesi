@@ -153,7 +153,7 @@ export class MyGoogleFriends extends React.Component {
         } else {
             return (
                 <div>
-                    <Button type="button" onClick={() => this.sendEmailInvite(row["email"])} label="Invite"
+                    <Button type="button" onClick={() => this.sendEmailInvite(row["email"], row["name"])} label="Invite"
                             icon="pi pi-user-plus" className="p-button-secondary"/>
                 </div>
             )
@@ -168,16 +168,17 @@ export class MyGoogleFriends extends React.Component {
         let bool = row["phone"].length <= 0 || row["is_user"];
         return (
             <div>
-                <Button type="button" onClick={() => this.sendSMSInvite(row["phone"])} label="Text Invite"
+                <Button type="button" onClick={() => this.sendSMSInvite(row["phone"], row["name"])} label="Text Invite"
                         icon="pi pi-user-plus" className="p-button-secondary" disabled={bool}/>
             </div>);
         ;
     }
 
-    async sendEmailInvite(email) {
+    async sendEmailInvite(email, name) {
         let data_to_send = {
             google_id: this.state.logged_in_google_id,
             friend_email: email,
+            name: name,
         };
 
         let url = BASE_URL + "/invite-email";
@@ -207,12 +208,13 @@ export class MyGoogleFriends extends React.Component {
     }
 
 
-    async sendSMSInvite(phone) {
+    async sendSMSInvite(phone, name) {
 
         console.log("SendSmsInmvite")
         let data_to_send = {
             google_id: this.state.logged_in_google_id,
             friend_phone: phone,
+            name: name,
         };
 
         let url = BASE_URL + "/invite-sms";

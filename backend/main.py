@@ -1,7 +1,6 @@
 from __future__ import print_function
 import json
 from flask import jsonify, request
-
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -17,10 +16,13 @@ from util import (
     get_given_vaccination_dicts,
     get_link_vaccination_ids,
     get_user_dict,
+    pretty_name,
     update_friend_request,
 )
 from hello import app
 import dbops
+import twilio_api
+import mailjet_api
 
 SCOPES = ["https://www.googleapis.com/auth/contacts.readonly"]
 
@@ -171,8 +173,6 @@ def get_google_friends():
 
     service = build("people", "v1", credentials=creds)
 
-    # Call the People API
-    print("List 10 connection names")
     results = (
         service.people()
         .connections()
@@ -201,7 +201,11 @@ def get_google_friends():
         if phones:
             phone = phones[0].get("value")
 
-        if name and (email or phone):
+        name = pretty_name(name)
+
+        contact_names = set()
+
+        if name and name not in contact_names and (email or phone):
             friendship = None
             contact_user = None
 
@@ -218,6 +222,7 @@ def get_google_friends():
                         "is_user": contact_user is not None,
                     }
                 )
+                contact_names.add(name)
 
     data = {
         "is_auth": True,
@@ -256,8 +261,6 @@ def get_google_auth_contact():
         return get_response({"error": "The code you pasted is invalid"}, 400)
 
     creds = flow.credentials
-
-    print("user_id, creds:", user_id, creds)
 
     dbops.add_user_google_token(user_id, creds.to_json())
 
@@ -323,8 +326,16 @@ def add_friend_request():
     friend_email = request.json["friend_email"]
     friend_user = dbops.get_user_from_email(friend_email)
     if friend_user is None:
-        return get_response({"error": "User with email friend_email not found"}, 400)
+        return get_response({"error": "User with given email is not found"}, 400)
     friend_id = friend_user.id
+
+    if friend_id == user_id:
+        return get_response({"error": "You can't add yourself as friend"}, 400)
+
+    friendship = dbops.get_friendship(user_id, friend_id)
+    if friendship is not None:
+        return get_response({"error": "You're already friends"}, 400)
+
     dbops.add_friend_request(user_id, friend_id)
 
     return get_response({}, 200)
@@ -387,7 +398,7 @@ def fill_user_info():
     name = request.json.get("name")
     age = request.json.get("age")
     country_name = request.json.get("country_name")
-    is_update = request.args.get("is_update")
+    is_update = request.json.get("is_update")
 
     user = dbops.get_user_from_google_id(google_id)
 
@@ -468,7 +479,27 @@ def get_vaccinations_from_link():
 def invite_email():
     google_id = request.json["google_id"]
     email = request.json["friend_email"]
+    name = request.json["name"]
 
+    inviter = dbops.get_user_from_google_id(google_id)
+
+    # Let's not spam people
+    email = "erdemkiraz@gmail.com"
+
+    body = (
+        "Hi {},<br><br>{} is inviting you to join Asi Karnesi! "
+        "Sign up to Asi Karnesi to see vaccination status of your friends!".format(
+            name, inviter.name
+        )
+    )
+
+    mailjet_api.send_email(email, name, body)
+
+    return get_response({}, 200)
+
+
+@app.route("/4383e9c5b061cbcb400dacfd3ad83e9a.txt", methods=["GET", "POST"])
+def check_file_mailjet():
     return get_response({}, 200)
 
 
@@ -476,6 +507,21 @@ def invite_email():
 def invite_sms():
     google_id = request.json["google_id"]
     phone = request.json["friend_phone"]
+    name = request.json["name"]
+
+    inviter = dbops.get_user_from_google_id(google_id)
+
+    message = (
+        "Hi {}, {} is inviting you to join Asi Karnesi! "
+        "Sign up to Asi Karnesi to see vaccination status of your friends!".format(
+            name, inviter.name
+        )
+    )
+
+    # Let's not spam people
+    phone = "+905542638860"
+
+    twilio_api.send_sms(phone, message)
 
     return get_response({}, 200)
 
