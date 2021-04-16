@@ -70,10 +70,13 @@ export class MyGoogleFriends extends React.Component {
         console.log(data);
 
         console.log(data.data.status);
-        if (data.data.status === 200) {
-            this.showSuccessAddFriend();
-        } else {
-            this.showErrorAddFriend(data.data["error"]);
+        try {
+            if (data.data.status === 200) {
+                this.showSuccessAddFriend();
+            } else {
+                this.showErrorAddFriend(data.data["error"]);
+            }
+        } catch (e) {
         }
     }
 
