@@ -166,3 +166,10 @@ def create_user(google_id):
         return False
     dbops.create_user(google_id)
     return True
+
+
+def get_vaccine_statistics_list(country_id, vaccine, age_from, age_to):
+    vaccination_dates = dbops.get_vaccination_dates(country_id, vaccine, age_from, age_to)
+    # vaccination_dates = [get_vaccination_date(vaccination_id) for vaccination_id in vaccination_ids]
+    vaccination_dates.sort()
+    return vaccination_dates
