@@ -40,7 +40,7 @@ class App extends React.Component {
             // {label: 'Home', icon: 'pi pi-fw pi-home', url: '/'},
             {label: 'Home', icon: 'pi pi-home', url: 'home'},
             {label: 'Statistics', icon: 'pi pi-table', url: 'statistics'},
-            {label: 'My Profile', icon: 'pi pi-fw pi-calendar', url: 'me'},
+            {label: 'My Profile', icon: 'pi pi-user-edit', url: 'me'},
             // {label: 'Page2', icon: 'pi pi-fw pi-pencil', url: 'page2'},
             // {label: 'Add Person', icon: 'pi pi-fw pi-pencil',url : 'AddPerson'},
         ]
