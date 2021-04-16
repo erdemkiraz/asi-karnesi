@@ -15,8 +15,11 @@ from models import (
     Vaccine,
 )
 
+START = 1000000
 
 def add(row):
+    if hasattr(row, 'id'):
+        row.id += START
     try:
         dbops.session.add(row)
         dbops.session.commit()
@@ -33,7 +36,7 @@ def populate():
 
     add(
         User(
-            id=10001,
+            id=1,
             google_id="demo_google_id_1",
             email="erdem@email1.com",
             name="Erdem Democu",
@@ -43,7 +46,7 @@ def populate():
     )
     add(
         User(
-            id=10002,
+            id=2,
             google_id="demo_google_id_2",
             email="basak@email2.com",
             name="Basak Democu",
@@ -53,7 +56,7 @@ def populate():
     )
     add(
         User(
-            id=10003,
+            id=3,
             google_id="demo_google_id_3",
             email="murat@email3.com",
             name="Murat Democu",
@@ -63,7 +66,7 @@ def populate():
     )
     add(
         User(
-            id=10004,
+            id=4,
             google_id="demo_google_id_4",
             email="ayberk@email4.com",
             name="Ayberk Democu",
@@ -73,7 +76,7 @@ def populate():
     )
     add(
         User(
-            id=10005,
+            id=5,
             google_id="demo_google_id_5",
             email="adam@german.com",
             name="Adam German",
@@ -83,7 +86,7 @@ def populate():
     )
     add(
         User(
-            id=10006,
+            id=6,
             google_id="115512136232290362553",
             email="usluayberk1998@gmail.com",
             name="Ayberk Uslu",
@@ -93,7 +96,7 @@ def populate():
     )
     add(
         User(
-            id=10007,
+            id=7,
             google_id="118071647661695719427",
             email="erdemkiraz@gmail.com",
             name="Erdem Kirez",
@@ -103,7 +106,7 @@ def populate():
     )
     add(
         User(
-            id=10008,
+            id=8,
             google_id="114491661639251135156",
             email="korilipokybird@gmail.com",
             name="Korili Pokybird",
@@ -120,7 +123,7 @@ def populate():
     add(
         Vaccination(
             id=1,
-            user_id=10001,
+            user_id=1,
             vaccine_id=1,
             vaccinated_at="Ankara",
             date=datetime.datetime(2021, 2, 3, 12),
@@ -131,7 +134,7 @@ def populate():
     add(
         Vaccination(
             id=2,
-            user_id=10002,
+            user_id=2,
             vaccine_id=1,
             vaccinated_at="Ankara",
             date=datetime.datetime(2021, 2, 22, 4),
@@ -142,7 +145,7 @@ def populate():
     add(
         Vaccination(
             id=3,
-            user_id=10006,
+            user_id=6,
             vaccine_id=1,
             vaccinated_at="Ankara",
             date=datetime.datetime(2021, 1, 3, 17),
@@ -153,7 +156,7 @@ def populate():
     add(
         Vaccination(
             id=4,
-            user_id=10007,
+            user_id=7,
             vaccine_id=1,
             vaccinated_at="Istanbul",
             date=datetime.datetime(2021, 2, 3, 17),
@@ -164,7 +167,7 @@ def populate():
     add(
         Vaccination(
             id=5,
-            user_id=10008,
+            user_id=8,
             vaccine_id=2,
             vaccinated_at="Konya",
             date=datetime.datetime(2021, 3, 4, 17),
@@ -173,9 +176,9 @@ def populate():
         )
     )
 
-    add(Friendship(id=1, user_id1=10001, user_id2=10002, is_facebook=True))
-    add(Friendship(id=2, user_id1=10002, user_id2=10001, is_facebook=True))
-    add(Friendship(id=3, user_id1=10006, user_id2=10007, is_facebook=True))
-    add(Friendship(id=4, user_id1=10007, user_id2=10006, is_facebook=True))
-    add(Friendship(id=5, user_id1=10006, user_id2=10008, is_facebook=True))
-    add(Friendship(id=6, user_id1=10008, user_id2=10006, is_facebook=True))
+    add(Friendship(id=1, user_id1=1, user_id2=2, is_facebook=True))
+    add(Friendship(id=2, user_id1=2, user_id2=1, is_facebook=True))
+    add(Friendship(id=3, user_id1=6, user_id2=7, is_facebook=True))
+    add(Friendship(id=4, user_id1=7, user_id2=6, is_facebook=True))
+    add(Friendship(id=5, user_id1=6, user_id2=8, is_facebook=True))
+    add(Friendship(id=6, user_id1=8, user_id2=6, is_facebook=True))
