@@ -19,6 +19,8 @@ class User(Base):
     age = Column(Integer)
     country_id = Column(Integer, ForeignKey("country.id"))
 
+    created = Column(DateTime, default=datetime.datetime.now)
+
     def __repr__(self):
         return "<User(name='%s')>" % (self.name)
 
@@ -29,6 +31,8 @@ class Country(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
+
+    created = Column(DateTime, default=datetime.datetime.now)
 
     def __repr__(self):
         return "<Country(name='%s')>" % (self.name)
@@ -41,6 +45,8 @@ class Vaccine(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     required_dose = Column(Integer, default=1)
+
+    created = Column(DateTime, default=datetime.datetime.now)
 
 
 class Vaccination(Base):
@@ -55,6 +61,8 @@ class Vaccination(Base):
     valid_until = Column(DateTime, default=datetime.datetime.now)
     visibility = Column(Integer, default=VaccinationVisibility.PRIVATE.value)
 
+    created = Column(DateTime, default=datetime.datetime.now)
+
 
 class VaccinationStatusRequest(Base):
     __tablename__ = "vaccination_status_request"
@@ -65,6 +73,8 @@ class VaccinationStatusRequest(Base):
     requestee_id = Column(Integer, ForeignKey("user.id"))
     has_granted = Column(Boolean, default=False)
 
+    created = Column(DateTime, default=datetime.datetime.now)
+
 
 class VaccinationLink(Base):
     __tablename__ = "vaccination_link"
@@ -73,6 +83,8 @@ class VaccinationLink(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("user.id"))
     link = Column(String, nullable=False)
+
+    created = Column(DateTime, default=datetime.datetime.now)
 
 
 class LinkVaccinationPair(Base):
@@ -83,6 +95,8 @@ class LinkVaccinationPair(Base):
     link_id = Column(Integer, ForeignKey("vaccination_link.id"))
     vaccination_id = Column(Integer, ForeignKey("vaccination.id"))
 
+    created = Column(DateTime, default=datetime.datetime.now)
+
 
 class FriendRequest(Base):
     __tablename__ = "friend_request"
@@ -91,6 +105,7 @@ class FriendRequest(Base):
     id = Column(Integer, primary_key=True)
     requester_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     requestee_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+
     created = Column(DateTime, default=datetime.datetime.now)
 
 
@@ -102,6 +117,7 @@ class Friendship(Base):
     user_id1 = Column(Integer, ForeignKey("user.id"), nullable=False)
     user_id2 = Column(Integer, ForeignKey("user.id"), nullable=False)
     is_facebook = Column(Boolean, default=False)
+
     created = Column(DateTime, default=datetime.datetime.now)
 
 
@@ -112,6 +128,8 @@ class Admin(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     privilege = Column(Integer, default=AdminPrivilege.ONLY_SAME_COUNTRY.value)
+
+    created = Column(DateTime, default=datetime.datetime.now)
 
 
 Base.metadata.create_all(engine)

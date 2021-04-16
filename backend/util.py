@@ -78,7 +78,7 @@ def get_user_dict(user_id):
         "id": user.id,
         "google_id": user.google_id,
         "name": user.name or "",
-        "age": user.age or "",
+        "age": user.age,
         "country_name": dbops.get_country_name(user.country_id) or "",
         "vaccines": vaccination_dicts,
     }
