@@ -79,7 +79,6 @@ def get_user_friends():
     friend_dicts = get_user_all_friend_dicts(user_id)
     #
     res = {"friends": friend_dicts}
-    print(res)
 
     # static_friends_data = {
     #     "friends": [
@@ -141,23 +140,20 @@ def get_google_friends():
 
     google_token = dbops.get_user_google_token(user_id)
 
-    # print(f"{google_token=}")
-
     creds = None
 
     if google_token is not None:
         creds = Credentials.from_authorized_user_info(json.loads(google_token), SCOPES)
-
-    print("creds:", creds)
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
             dbops.add_user_google_token(user_id, creds.to_json())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                "client_secret.json", SCOPES
-            )
+            client_secret_str = os.environ["GOOGLE_CLIENT_SECRET"]
+            client_secret = json.loads(client_secret_str)
+
+            flow = InstalledAppFlow.from_client_config(client_secret, SCOPES)
 
             kwargs = {}
             kwargs.setdefault("prompt", "consent")
@@ -249,7 +245,10 @@ def get_google_auth_contact():
 
     user_id = dbops.get_user_from_google_id(google_id).id
 
-    flow = InstalledAppFlow.from_client_secrets_file("client_secret.json", SCOPES)
+    client_secret_str = os.environ["GOOGLE_CLIENT_SECRET"]
+    client_secret = json.loads(client_secret_str)
+
+    flow = InstalledAppFlow.from_client_config(client_secret, SCOPES)
 
     flow.redirect_uri = flow._OOB_REDIRECT_URI
 
