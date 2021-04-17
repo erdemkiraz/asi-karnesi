@@ -49,10 +49,12 @@ def get_vaccination_dict(vaccination):
         "vaccination_id": vaccination.id,
         "vaccine_id": vaccination.vaccine_id,
         "name": vaccine.name,
-        "date": get_datetime_str(vaccination.date),
+        "date": get_datetime_str(vaccination.date) if vaccination.date else "",
         "dose": 1,  # this info shouldn't be here
         "vaccine_point": vaccination.vaccinated_at,
-        "valid_until": get_datetime_str(vaccination.valid_until),
+        "valid_until": get_datetime_str(vaccination.valid_until)
+        if vaccination.valid_until
+        else "",
     }
     return res
 
@@ -92,7 +94,9 @@ def get_friend_request_dict(friend_request):
         "requester_id": requester_user.id,
         "requester_email": requester_user.email,
         "requester_name": requester_user.name,
-        "created": get_datetime_str(friend_request.created),
+        "created": get_datetime_str(friend_request.created)
+        if friend_request.created
+        else "",
     }
     return res
 
@@ -122,7 +126,9 @@ def get_friend_dict(user_id, friend_id):
         if can_see_vaccines(user_id, friend_id, vaccination_dict["vaccination_id"])
     ]
 
-    friend_dict["with_friends_since"] = get_datetime_str(friendship.created)
+    friend_dict["with_friends_since"] = (
+        get_datetime_str(friendship.created) if friendship.created else ""
+    )
 
     return friend_dict
 
@@ -197,10 +203,7 @@ def get_countries_list():
     countries = dbops.get_all_country_list()
     data = []
     for country in countries:
-        data.append({
-            "id": country.id,
-            "name": country.name
-        })
+        data.append({"id": country.id, "name": country.name})
     return data
 
 
@@ -208,18 +211,30 @@ def get_vaccines_list():
     vaccines = dbops.get_all_vaccines_list()
     data = []
     for vaccine in vaccines:
-        data.append({
-            "id": vaccine.id,
-            "name": vaccine.name
-        })
+        data.append({"id": vaccine.id, "name": vaccine.name})
     return data
 
 
 def get_vaccine_statistics_list(country_id, vaccine, age_from, age_to):
-    vaccination_dates = dbops.get_vaccination_dates(country_id, vaccine, age_from, age_to)
+    vaccination_dates = dbops.get_vaccination_dates(
+        country_id, vaccine, age_from, age_to
+    )
     # vaccination_dates = [get_vaccination_date(vaccination_id) for vaccination_id in vaccination_ids]
     vaccination_dates.sort()
-    months = ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
+    months = [
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+    ]
     # counts = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
     data = [0 for _ in range(12)]
@@ -233,5 +248,3 @@ def get_vaccine_statistics_list(country_id, vaccine, age_from, age_to):
     data = [{"month": months[i], "total": data[i]} for i in range(len(months))]
 
     return data
-
-
