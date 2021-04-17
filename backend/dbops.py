@@ -137,6 +137,18 @@ def get_friend_ids(user_id):
     return friend_ids
 
 
+def get_vaccination_dates(country_id, vaccine_id, age_from, age_to):
+    # print("\n\n\n", country_id, "\n",vaccine_id, "\n", age_from, "\n", age_to)
+    query = session.query(Vaccination).join(User).filter(
+        User.country_id == country_id if country_id is not None else True,
+        Vaccination.vaccine_id == vaccine_id if vaccine_id is not None else True,
+        User.age >= age_from if age_from is not None else True,
+        User.age <= age_to if age_to is not None else True)
+    vaccinations = query.all()
+    vaccination_dates = [x.date for x in vaccinations]
+    return vaccination_dates
+
+
 def get_user_vaccinations(user_id):
     query = session.query(Vaccination).filter(Vaccination.user_id == user_id)
     vaccinations = query.all()

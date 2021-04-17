@@ -1,38 +1,24 @@
-import React from 'react';
+import React from "react";
 // import '../App.css';
 
 export class Page2 extends React.Component {
+	constructor() {
+		super();
 
-    constructor() {
-        super();
+		this.state = {
+			// login : new Login(),
+		};
+	}
 
-        this.state = {
+	async componentDidMount() {}
 
-         // login : new Login(),
-
-        };
-
-    }
-
-
-    async componentDidMount() {
-
-
-    }
-
-
-
-
-
-    render() {
-
-
-
-        return (<div>
-                {/*<Login />*/}
-This is Page2!
-            </div>
-        );
-    }
+	render() {
+		return (
+			<div>
+				{/*<Login />*/}
+				This is Page2!
+			</div>
+		);
+	}
 }
 export default Page2;
