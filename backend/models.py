@@ -14,6 +14,7 @@ class User(Base):
     google_id = Column(String, unique=True, nullable=False)
     facebook_id = Column(String, unique=True, nullable=True)
     google_token = Column(JSON)
+    google_mobile_access_token = Column(String)
     email = Column(String, unique=True)
     name = Column(String)
     age = Column(Integer)

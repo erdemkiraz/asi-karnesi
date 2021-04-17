@@ -207,3 +207,17 @@ def get_user_google_token(user_id):
     query = session.query(User).filter(User.id == user_id)
     user = query.one()
     return user.google_token
+
+
+def add_user_google_mobile_access_token(user_id, token):
+    query = session.query(User).filter(User.id == user_id)
+    user = query.one()
+    user.google_mobile_access_token = token
+
+    session.commit()
+
+
+def get_user_google_mobile_access_token(user_id):
+    query = session.query(User).filter(User.id == user_id)
+    user = query.one()
+    return user.google_mobile_access_token
