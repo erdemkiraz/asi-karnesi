@@ -354,7 +354,7 @@ export class MyGoogleFriends extends React.Component {
                     <h5>Click to the url and copy the Authentication Code to below. </h5>
                     <a href={this.state.auth_url} target="_blank" rel="noreferrer">
                         {" "}
-                        {this.state.auth_url}
+                        {"Link"}
                     </a>
 
                     <span className="p-float-label" style={{margin: "15px"}}>
