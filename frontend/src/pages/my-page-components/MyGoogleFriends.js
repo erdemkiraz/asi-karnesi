@@ -351,10 +351,10 @@ export class MyGoogleFriends extends React.Component {
                         style={{width: '50vw'}} onHide={() => this.onHide('displayModal')}>
 
                     <h6>Your authentication has expired or you never did. Please confirm again.</h6>
-                    <h5>Click to the url and copy the Authentication Code to below. </h5>
+                    <h5>Click to the link below and paste the Authentication Code. </h5>
                     <a href={this.state.auth_url} target="_blank" rel="noreferrer">
                         {" "}
-                        {"Link"}
+                        {"Click Here"}
                     </a>
 
                     <span className="p-float-label" style={{margin: "15px"}}>
@@ -364,7 +364,7 @@ export class MyGoogleFriends extends React.Component {
                         <label>Api Token</label>
 
                     </span>
-                    <Button label="Send Authentication Code" onClick={this.sendAuthCode}/>
+                    <Button label="Authenticate" onClick={this.sendAuthCode}/>
 
                 </Dialog>
 
