@@ -14,7 +14,7 @@ export default function Chart(props) {
 					datasets: [
 						{
 							data: vaccineData.map((vaccine) => vaccine.total),
-							label: "Vaccines",
+							label: "Vaccination Progress",
 							fill: true,
 							borderColor: "#673AB7",
 							backgroundColor: "#c8c1d4",
