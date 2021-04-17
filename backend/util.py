@@ -191,3 +191,16 @@ def pretty_name(name):
 
     name = " ".join([capitalize(name) for name in names])
     return name
+
+def get_vaccine_statistics_list(country_id, vaccine, age_from, age_to):
+    vaccination_dates = dbops.get_vaccination_dates(country_id, vaccine, age_from, age_to)
+    # vaccination_dates = [get_vaccination_date(vaccination_id) for vaccination_id in vaccination_ids]
+    vaccination_dates.sort()
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    # counts = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    
+    data = [{"month": month, "total": random.randint(0, 15)} for month in months]
+    
+    return data
+
+

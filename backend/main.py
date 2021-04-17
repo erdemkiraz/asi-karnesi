@@ -21,6 +21,7 @@ from util import (
     get_user_dict,
     pretty_name,
     update_friend_request,
+    get_vaccine_statistics_list
 )
 from hello import app
 import dbops
@@ -586,6 +587,16 @@ def rollback_db():
         pass
 
     return get_response({}, 200)
+@app.route("/get-vaccine-statistics", methods=["GET"])
+def get_vaccine_statistics():
+    country_id = request.args.get("country_id")
+    age_from = request.args.get("age_from")
+    age_to = request.args.get("age_to")
+    vaccine = request.args.get("vaccine")
+
+    vaccine_dates = get_vaccine_statistics_list(country_id, vaccine, age_from, age_to)
+
+    return get_response({"vaccines": vaccine_dates}, 200)
 
 
 @app.route("/health-check", methods=["GET"])
@@ -594,4 +605,4 @@ def health_check():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
