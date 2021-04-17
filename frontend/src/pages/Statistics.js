@@ -9,7 +9,7 @@ import {BASE_URL} from "../services/base_service";
 
 
 const url = BASE_URL+"/get-vaccine-statistics";
-const countriesUrl = BASE_URL+"/health-check";
+const countriesUrl = BASE_URL+"/get-countries";
 
 const defaultChoice = { label: "All", value: "" };
 
@@ -27,6 +27,7 @@ const Statistics = () => {
 		async function getCountries() {
 			const { status, data } = await axios.get(countriesUrl);
 			if (status == 200) {
+				console.log(data)
 				setCountries([
 					{ label: "All", value: "" },
 					{ label: "Turkey", value: "1" },
