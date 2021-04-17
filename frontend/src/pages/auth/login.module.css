@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height:  80vh;
+    justify-content: space-between;
+    align-items: space-between;
+    width: 100% !important;
+    font-family: Arial, Helvetica, sans-serif;
+    flex-wrap: wrap;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #c8c1d4;
+    padding: 40px;
+    flex-grow: 1;
+    min-width: 400px;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 50%;
+    position: relative;
+    min-width: 400px;
+}
+
+
+.h1 {
+    margin-bottom: 30px;
+}
