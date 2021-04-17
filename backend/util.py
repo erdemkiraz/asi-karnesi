@@ -168,6 +168,16 @@ def create_user(google_id):
     return True
 
 
+def get_countries_list():
+    countries = dbops.get_all_country_list()
+    data = []
+    for country in countries:
+        data.append({
+            "id": country.id,
+            "name": country.name
+        })
+    return data
+
 
 def get_vaccine_statistics_list(country_id, vaccine, age_from, age_to):
     vaccination_dates = dbops.get_vaccination_dates(country_id, vaccine, age_from, age_to)
@@ -184,7 +194,7 @@ def get_vaccine_statistics_list(country_id, vaccine, age_from, age_to):
         if i > 0:
             data[i] += data[i-1]
 
-    data = [{"month": months[i], "total": data[i]} for i in range(len(months))] 
+    data = [{"month": months[i], "total": data[i]} for i in range(len(months))]
     
     return data
 

@@ -10,7 +10,8 @@ from util import (
     get_link_vaccination_ids,
     get_user_dict,
     update_friend_request,
-    get_vaccine_statistics_list
+    get_vaccine_statistics_list,
+    get_countries_list
 )
 from hello import app
 import dbops
@@ -339,6 +340,12 @@ def get_vaccine_statistics():
     vaccine_dates = get_vaccine_statistics_list(country_id, vaccine, age_from, age_to)
 
     return get_response({"vaccines": vaccine_dates}, 200)
+
+
+@app.route("/get-countries", methods=["GET"])
+def get_countries():
+    countries = get_countries_list()
+    return get_response({"countries": countries}, 200)
 
 
 @app.route("/health-check", methods=["GET"])

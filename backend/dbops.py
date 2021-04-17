@@ -192,6 +192,9 @@ def get_vaccination_ids_from_link_id(link_id):
     return vaccination_ids
 
 
+def get_all_country_list():
+    return session.query(Country).all()
+
 def get_country_name(country_id):
     if country_id is None:
         return None
