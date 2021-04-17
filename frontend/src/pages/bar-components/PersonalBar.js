@@ -10,6 +10,7 @@ import {SET_UNAUTHENTICATED, SET_USER, STOP_LOADING_UI} from "../../redux/types"
 import axios from "axios";
 
 // import axios from "axios";
+import AppLogo from "../../imgs/vaccine_icon_64px.png"
 
 class PersonalBar extends React.Component {
     constructor() {
@@ -110,9 +111,26 @@ class PersonalBar extends React.Component {
         const {user} = this.props;
 
         return (
+
             <div className="navbar">
+
                 <div className="logo">
-                    <h1>Asi Karnesi</h1>
+                    <div className="p-grid">
+                        <div className="p-col-4">
+                            <div className="p-field p-col">
+                                <img src={AppLogo}/>
+                            </div>
+                        </div>
+                        <div className="p-col-8">
+                            <br/>
+                            <h1>Asi Karnesi</h1>
+
+                        </div>
+
+                        {/*<div className="p-col-4">4</div>*/}
+                    </div>
+
+
                 </div>
                 <div className="nav-right">
                     {user.isAuthenticated ? (
