@@ -118,9 +118,7 @@ class EditPrivacy extends React.Component {
 
         const privacySettings = [
             {label: 'Public', value: 5},
-            // {label: 'Fb friends', value: 4},
             {label: 'Friends', value: 3},
-            // {label: 'Permitted Users', value: 2},
             {label: 'All Admins', value: 1},
             {label: 'Private', value: 0}
 
