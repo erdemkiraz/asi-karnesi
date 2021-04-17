@@ -22,7 +22,8 @@ from util import (
     pretty_name,
     update_friend_request,
     get_vaccine_statistics_list,
-    get_countries_list
+    get_countries_list,
+    get_vaccines_list
 )
 from hello import app
 import dbops
@@ -606,6 +607,12 @@ def get_vaccine_statistics():
 def get_countries():
     countries = get_countries_list()
     return get_response({"countries": countries}, 200)
+
+
+@app.route("/get-vaccines", methods=["GET"])
+def get_vaccines():
+    vaccines = get_vaccines_list()
+    return get_response({"vaccines": vaccines}, 200)
 
 
 @app.route("/health-check", methods=["GET"])

@@ -203,6 +203,10 @@ def get_all_country_list():
     return session.query(Country).all()
 
 
+def get_all_vaccines_list():
+    return session.query(Vaccine).all()
+
+
 def get_country_name(country_id):
     if country_id is None:
         return None
