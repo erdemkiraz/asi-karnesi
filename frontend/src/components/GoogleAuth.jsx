@@ -75,7 +75,7 @@ class GoogleAuth extends Component {
                 <div>
                     <GoogleLogin
                         clientId={clientId}
-                        buttonText="Login"
+                        // buttonText="Login"
                         onSuccess={this.onSignIn}
                         // onFailure={onFailure}
                         cookiePolicy={"single_host_origin"}
