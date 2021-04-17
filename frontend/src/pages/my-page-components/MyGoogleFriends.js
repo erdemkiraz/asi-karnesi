@@ -125,7 +125,7 @@ export class MyGoogleFriends extends React.Component {
 
     showSuccess() {
         try {
-            this.messages.show({severity: 'success', summary: 'Authorize Success', detail: 'Access token acquired'});
+            this.messages.show({severity: 'success', summary: '', detail: 'Authorize Success! Access token acquired'});
 
         } catch (e) {
 
@@ -184,7 +184,7 @@ export class MyGoogleFriends extends React.Component {
         return (
             <div>
                 <Button type="button" onClick={() => this.sendSMSInvite(row["phone"], row["name"])} label="Invite"
-                        icon="pi pi-send" className="p-button-secondary" disabled={bool}/>
+                        icon="pi pi-comment" className="p-button-secondary" disabled={bool}/>
             </div>);
         ;
     }
@@ -325,7 +325,6 @@ export class MyGoogleFriends extends React.Component {
                             dataKey="id"
                             emptyMessage="There is no google friend yet!"
                         >
-                            {/*<Column field="id" header="ID" ></Column>*/}
                             <Column field="name" header="Name" sortable filter filterPlaceholder="Search by name"
                                     filterMatchMode="contains"></Column>
                             <Column field="phone" header="Phone Number" sortable filter

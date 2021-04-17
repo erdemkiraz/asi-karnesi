@@ -195,8 +195,8 @@ export class MyCodes extends React.Component {
                                    footer={footer_my_vaccines}>
                             <Column selectionMode="multiple" headerStyle={{width: '3em'}}></Column>
                             {/*<Column field="vaccination_id" header="Code"  ></Column>*/}
-                            <Column field="vaccine_id" header="Vaccine ID" sortable filter
-                                    filterPlaceholder="Search by vaccine ID" filterMatchMode="contains"/>
+                            {/*<Column field="vaccine_id" header="Vaccine ID" sortable filter*/}
+                            {/*        filterPlaceholder="Search by vaccine ID" filterMatchMode="contains"/>*/}
                             <Column field="name" header="Vaccine Name" sortable filter
                                     filterPlaceholder="Search by name" filterMatchMode="contains"/>
                             <Column field="dose" header="Vaccine Dose" sortable filter filterPlaceholder=""
