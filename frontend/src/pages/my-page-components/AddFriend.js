@@ -18,6 +18,7 @@ export class AddFriend extends React.Component {
             new_friend_email: "",
             new_friend_tckn: "",
             friend_requests: [],
+            answered_request_ids: [],
         };
 
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -26,6 +27,7 @@ export class AddFriend extends React.Component {
         this.addFriend = this.addFriend.bind(this);
         this.accept_friend_request = this.accept_friend_request.bind(this);
         this.decline_friend_request = this.decline_friend_request.bind(this);
+        this.hideRepliedFriendRequest = this.hideRepliedFriendRequest.bind(this);
 
         this.sendDataForNewFriendRequest = this.sendDataForNewFriendRequest.bind(
             this
@@ -63,7 +65,6 @@ export class AddFriend extends React.Component {
             url,
         };
         let data = await axios(options);
-
         console.log(data);
         // if (data.data.status !== 200) {
         // 	// this.messages.show({severity: 'error', summary: 'ERROR', detail: 'NOT ADDED'});
@@ -94,12 +95,20 @@ export class AddFriend extends React.Component {
         console.log(requests);
     }
 
+    hideRepliedFriendRequest(request_id) {
+
+        let answered_ids_new = this.state.answered_request_ids;
+
+        answered_ids_new.push(request_id)
+        this.setState({answered_request_ids: answered_ids_new})
+
+    }
+
     async accept_friend_request(request_id) {
         let data_to_send = {
             request_id: request_id,
         };
 
-        // data_to_send["request_id"] = request_id
 
         let url = BASE_URL + "/accept-friend-request";
         const options = {
@@ -108,10 +117,14 @@ export class AddFriend extends React.Component {
             data: data_to_send,
             url,
         };
+
+
         let response = await axios(options);
         console.log("POST RESPONSE", response.data);
         if (response.data["status"] === 200) {
             this.showSuccessApproved();
+            this.hideRepliedFriendRequest(request_id)
+
         } else {
             this.showError();
         }
@@ -129,10 +142,12 @@ export class AddFriend extends React.Component {
             data: data_to_send,
             url,
         };
+
         let response = await axios(options);
         console.log("POST RESPONSE", response.data);
         if (response.data["status"] === 200) {
             this.showSuccessRejected();
+            this.hideRepliedFriendRequest(request_id)
         } else {
             this.showError();
         }
@@ -216,6 +231,12 @@ export class AddFriend extends React.Component {
         const dynamicFriendRequests = this.state.friend_requests.map((col, i) => {
             // return <div key={i} ></div>;
             let request_id = col["request_id"];
+
+            if (this.state.answered_request_ids.indexOf(request_id) > -1) {
+                return (
+                    <div key={i}/>
+                );
+            }
 
             let acceptButton = (
                 <Button
