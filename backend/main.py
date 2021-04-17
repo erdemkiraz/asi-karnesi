@@ -494,7 +494,7 @@ def invite_email():
 
     mailjet_api.send_email(email, name, body)
 
-    return get_response({}, 200)
+    return get_response({"message": "Sent email invite to {}".format(email)}, 200)
 
 
 @app.route("/4383e9c5b061cbcb400dacfd3ad83e9a.txt", methods=["GET", "POST"])
@@ -522,7 +522,7 @@ def invite_sms():
 
     twilio_api.send_sms(phone, message)
 
-    return get_response({}, 200)
+    return get_response({"message": "Sent text invite to {}".format(phone)}, 200)
 
 
 @app.route("/populate-demo-db", methods=["GET"])
