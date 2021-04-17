@@ -3,6 +3,7 @@ from mailjet_rest import Client
 
 api_key = os.environ.get("MAILJET_KEY")
 api_secret = os.environ.get("MAILJET_SECRET")
+# print("XXX" + api_key + "XXX" + api_secret + "XXX")
 mailjet = Client(auth=(api_key, api_secret), version="v3.1")
 
 

@@ -142,46 +142,66 @@ def get_google_friends():
     user_id = dbops.get_user_from_google_id(google_id).id
 
     google_token = dbops.get_user_google_token(user_id)
+    google_mobile_access_token = dbops.get_user_google_mobile_access_token(user_id)
 
-    creds = None
+    results = None
 
-    if google_token is not None:
-        creds = Credentials.from_authorized_user_info(json.loads(google_token), SCOPES)
+    if google_mobile_access_token:
+        URL = "https://people.googleapis.com/v1/people/me/connections"
 
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-            dbops.add_user_google_token(user_id, creds.to_json())
-        else:
-            client_secret_str = os.environ["GOOGLE_CLIENT_SECRET"]
-            client_secret = json.loads(client_secret_str)
+        params = {
+            "personFields": "names,phoneNumbers,emailAddresses",
+            "access_token": google_mobile_access_token,
+            "pageSize": 1000,
+        }
 
-            flow = InstalledAppFlow.from_client_config(client_secret, SCOPES)
+        response = requests.get(url=URL, params=params)
+        if response.ok:
+            results = response.json()
 
-            kwargs = {}
-            kwargs.setdefault("prompt", "consent")
-            flow.redirect_uri = flow._OOB_REDIRECT_URI
-            auth_url, _ = flow.authorization_url(**kwargs)
+    if results is None:
+        creds = None
 
-            res = {
-                "is_auth": False,
-                "auth_url": auth_url,
-                "friends": [],
-            }
-            return get_response(res, 200)
+        if google_token is not None:
+            creds = Credentials.from_authorized_user_info(
+                json.loads(google_token), SCOPES
+            )
 
-    service = build("people", "v1", credentials=creds)
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+                dbops.add_user_google_token(user_id, creds.to_json())
+            else:
+                client_secret_str = os.environ["GOOGLE_CLIENT_SECRET"]
+                client_secret = json.loads(client_secret_str)
 
-    results = (
-        service.people()
-        .connections()
-        .list(
-            resourceName="people/me",
-            pageSize=1000,
-            personFields="names,emailAddresses,phoneNumbers",
+                flow = InstalledAppFlow.from_client_config(client_secret, SCOPES)
+
+                kwargs = {}
+                kwargs.setdefault("prompt", "consent")
+                flow.redirect_uri = flow._OOB_REDIRECT_URI
+                auth_url, _ = flow.authorization_url(**kwargs)
+
+                res = {
+                    "is_auth": False,
+                    "auth_url": auth_url,
+                    "friends": [],
+                }
+                return get_response(res, 200)
+
+        service = build("people", "v1", credentials=creds)
+
+        results = (
+            service.people()
+            .connections()
+            .list(
+                resourceName="people/me",
+                pageSize=1000,
+                personFields="names,emailAddresses,phoneNumbers",
+            )
+            .execute()
         )
-        .execute()
-    )
+
     connections = results.get("connections", [])
 
     contacts = []
@@ -198,7 +218,7 @@ def get_google_friends():
             email = emails[0].get("value")
         phones = person.get("phoneNumbers", [])
         if phones:
-            phone = phones[0].get("value")
+            phone = phones[0].get("canonicalForm")
 
         name = pretty_name(name)
 
@@ -401,21 +421,15 @@ def fill_user_info():
     age = request.json.get("age")
     country_name = request.json.get("country_name")
     is_update = request.json.get("is_update")
-    is_mobile = request.json.get("is_mobile")
 
-    if is_mobile:
-        access_token = request.json["access_token"]
-        URL = "https://people.googleapis.com/v1/people/me/connections"
+    access_token = request.json.get("access_token")
 
-        # defining a params dict for the parameters to be sent to the API
-        PARAMS = {'personFields': "names,phoneNumbers,emailAddresses", "access_token": access_token}
-        r = requests.get(url=URL, params=PARAMS)
-
-        # extracting data in json format
-        data = r.json()
+    print("Access token:", access_token)
 
     user = dbops.get_user_from_google_id(google_id)
 
+    if access_token:
+        user.google_mobile_access_token = access_token
     if email:
         user.email = email
     if facebook_id:
@@ -498,22 +512,26 @@ def invite_email():
     inviter = dbops.get_user_from_google_id(google_id)
 
     # Let's not spam people
-    email = "erdemkiraz@gmail.com"
+    # email = "erdemkiraz@gmail.com"
 
     body = (
         "Hi {},<br><br>{} is inviting you to join Asi Karnesi! "
-        "Sign up to Asi Karnesi to see vaccination status of your friends!".format(
-            name, inviter.name
-        )
+        "Sign up to Asi Karnesi at https://asi-karnesi.netlify.app/ "
+        "to see vaccination status of your friends!".format(name, inviter.name)
     )
     # print("")
-    # mailjet_api.send_email(email, name, body) ##TODO: uncomment in production
+    mailjet_api.send_email(email, name, body)  # TODO: uncomment in production
 
     return get_response({"message": "Sent email invite to {}".format(email)}, 200)
 
 
 @app.route("/4383e9c5b061cbcb400dacfd3ad83e9a.txt", methods=["GET", "POST"])
 def check_file_mailjet():
+    return get_response({}, 200)
+
+
+@app.route("/2f8ba22d3a84c56ed67972ec2574e2d8.txt", methods=["GET", "POST"])
+def check_file_mailjet_new():
     return get_response({}, 200)
 
 
@@ -527,15 +545,14 @@ def invite_sms():
 
     message = (
         "Hi {}, {} is inviting you to join Asi Karnesi! "
-        "Sign up to Asi Karnesi to see vaccination status of your friends!".format(
-            name, inviter.name
-        )
+        "Sign up to Asi Karnesi at https://asi-karnesi.netlify.app/ "
+        "to see vaccination status of your friends!".format(name, inviter.name)
     )
 
     # Let's not spam people
-    phone = "+905542638860"
+    # phone = "+905542638860"
 
-    # twilio_api.send_sms(phone, message) ##TODO: uncomment in production
+    twilio_api.send_sms(phone, message)  # TODO: uncomment in production
 
     return get_response({"message": "Sent text invite to {}".format(phone)}, 200)
 

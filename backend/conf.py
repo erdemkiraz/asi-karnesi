@@ -24,7 +24,8 @@ filename = "secrets.txt"
 try:
     with open(filename, mode="rb") as config_file:
         for line in config_file.readlines():
-            key, *values = line.decode("utf-8").split("=")
+            # print("Line: XXX" + line.decode("utf-8").strip() + "XXX")
+            key, *values = line.decode("utf-8").strip().split("=")
             value = "=".join(values)
             os.environ[key] = value
             # print(key, ' --> ', value)

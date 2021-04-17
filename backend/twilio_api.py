@@ -10,6 +10,8 @@ client = Client(account_sid, auth_token)
 def send_sms(phone, message):
     try:
         message = client.messages.create(body=message, from_=number, to=phone)
-    except Exception:
+        print(message)
+    except Exception as e:
+        print(e)
         return False
     return True
