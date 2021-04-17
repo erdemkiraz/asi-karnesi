@@ -4,10 +4,12 @@ import Chart from "../components/Chart";
 import Styles from "../css/statistics.module.css";
 import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
+import {BASE_URL} from "../services/base_service";
 
 
-const url = "http://127.0.0.1:5000/get-vaccine-statistics";
-const countriesUrl = "http://127.0.0.1:5000/health-check";
+
+const url = BASE_URL+"/get-vaccine-statistics";
+const countriesUrl = BASE_URL+"/health-check";
 
 const defaultChoice = { label: "All", value: "" };
 
