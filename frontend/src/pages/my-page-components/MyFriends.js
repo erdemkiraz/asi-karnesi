@@ -1,15 +1,11 @@
 import React from 'react';
-// import GoogleLogin from "react-google-login";
 import {BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
-import {Button} from "primereact/button";
-import {put_storage, get_storage} from "../../services/StorageUtil";
-import {TreeTable} from "primereact/treetable";
+import {get_storage} from "../../services/StorageUtil";
 import {Column} from "primereact/column";
 import {DataTable} from "primereact/datatable";
 import axios from "axios";
 
 
-// import '../App.css';
 
 export class MyFriends extends React.Component {
 
