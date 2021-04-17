@@ -25,15 +25,6 @@ export class Welcome extends React.Component {
 
 		put_storage("google_user", googleUser);
 
-		// console.log("From storage : ")
-		// console.log(get_storage("google_user"))
-		//
-		// var profile = googleUser.getBasicProfile();
-		// console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-		// put_storage('google_tokenId', googleUser.tokenId);
-		// console.log('Name: ' + profile.getName());
-		// console.log('Image URL: ' + profile.getImageUrl());
-		// console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 	}
 
 	testButton() {
