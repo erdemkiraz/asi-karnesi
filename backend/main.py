@@ -491,8 +491,8 @@ def invite_email():
             name, inviter.name
         )
     )
-
-    mailjet_api.send_email(email, name, body)
+    # print("")
+    # mailjet_api.send_email(email, name, body) ##TODO: uncomment in production
 
     return get_response({"message": "Sent email invite to {}".format(email)}, 200)
 
@@ -520,7 +520,7 @@ def invite_sms():
     # Let's not spam people
     phone = "+905542638860"
 
-    twilio_api.send_sms(phone, message)
+    # twilio_api.send_sms(phone, message) ##TODO: uncomment in production
 
     return get_response({"message": "Sent text invite to {}".format(phone)}, 200)
 
