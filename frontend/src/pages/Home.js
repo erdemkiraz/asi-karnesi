@@ -3,17 +3,14 @@ import {TabPanel, TabView} from "primereact/tabview";
 import MyFriends from "./my-page-components/MyFriends";
 import MyCodes from "./my-page-components/MyCodes";
 import AddFriend from "./my-page-components/AddFriend";
-import UpdateMyInfo from "./my-page-components/UpdateMyInfo";
 import MyGoogleFriends from "./my-page-components/MyGoogleFriends";
 
-// import '../App.css';
 
 export class Home extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            // login : new Login(),
         };
     }
 
@@ -46,7 +43,6 @@ export class Home extends React.Component {
 
                         <TabPanel
                             header="oogle Friends"
-                            // leftIcon="pi pi-users"
                             leftIcon="pi pi-google"
                         >
                             <MyGoogleFriends/>

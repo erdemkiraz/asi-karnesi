@@ -1,15 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import GoogleLogin from "react-google-login";
-import {clientId, BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
+import {BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
 import {get_storage, remove_key, put_storage} from "../../services/StorageUtil";
 import {Button} from "primereact/button";
 import "../../css/divs.css";
 import {SET_UNAUTHENTICATED, SET_USER, STOP_LOADING_UI} from "../../redux/types";
 import axios from "axios";
 
-// import axios from "axios";
 import AppLogo from "../../imgs/vaccine_icon_64px.png"
 
 class PersonalBar extends React.Component {
@@ -118,7 +116,7 @@ class PersonalBar extends React.Component {
                     <div className="p-grid">
                         <div className="p-col-4">
                             <div className="p-field p-col">
-                                <img src={AppLogo}/>
+                                <img src={AppLogo} alt="Logo" />
                             </div>
                         </div>
                         <div className="p-col-8">

@@ -8,7 +8,6 @@ import axios from "axios";
 import {BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
 import {get_storage} from "../../services/StorageUtil";
 import {Dialog} from "primereact/dialog";
-import {Toast} from "primereact/toast";
 import {Messages} from "primereact/messages";
 
 
@@ -102,7 +101,7 @@ export class MyGoogleFriends extends React.Component {
 
 
     async fetchInitialData() {
-        let response = await axios.get(BASE_URL + "/google/my-friends" + "?google_id=" + this.state.logged_in_google_id, BUILD_HEADER())
+        let response = await axios.get(BASE_URL + "/google/my-friends?google_id=" + this.state.logged_in_google_id, BUILD_HEADER())
         let data = response.data;
 
         let is_auth = data["is_auth"]
@@ -295,7 +294,7 @@ export class MyGoogleFriends extends React.Component {
             url,
         };
 
-        let response = await axios(options);
+        await axios(options);
 
         this.onHide("displayModal");
         await this.fetchInitialData();

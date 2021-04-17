@@ -85,12 +85,12 @@ export class UpdateMyInfo extends React.Component {
         this.messages.show({
             severity: "success",
             summary: "",
-            detail: "Update info sent!",
+            detail: "Your profile is updated!",
         });
         this.toast.show({
             severity: "success",
             summary: "",
-            detail: "Update info sent!",
+            detail: "Your profile is updated!",
         });
     }
 
@@ -98,12 +98,12 @@ export class UpdateMyInfo extends React.Component {
         this.messages.show({
             severity: "error",
             summary: "",
-            detail: "Update info failed",
+            detail: "Your profile is NOT updated!",
         });
         this.toast.show({
             severity: "error",
             summary: "",
-            detail: "Update info failed",
+            detail: "Your profile is NOT updated!",
         });
     }
 

@@ -1,16 +1,11 @@
 import React from "react";
-// import GoogleLogin from "react-google-login";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { clientId } from "../services/base_service";
-import { Button } from "primereact/button";
 import { put_storage, get_storage } from "../services/StorageUtil";
 
 export class Welcome extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			// login : new Login(),
 		};
 		this.componentDidMount = this.componentDidMount.bind(this);
 		this.onSignIn = this.onSignIn.bind(this);
@@ -45,12 +40,8 @@ export class Welcome extends React.Component {
 				<h1>Home Page</h1>
 				<h2>{fullname}</h2>
 				<h3>{email}</h3>
-				<img src={image} />
-				{/*<div style={{ display: "flex", flexDirection: "column" }}>*/}
-				{/*	<Link to="/login">Login</Link>*/}
-				{/*	<Link to="/me">Me Page</Link>*/}
-				{/*	<Link to="/page-2">Page 2</Link>*/}
-				{/*</div>*/}
+				<img src={image} alt="pp" />
+
 			</div>
 		);
 	}
