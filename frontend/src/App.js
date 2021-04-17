@@ -13,6 +13,7 @@ import Statistics from "./pages/Statistics";
 import UpdateMyInfo from "./pages/my-page-components/UpdateMyInfo";
 import NavBar from "./pages/bar-components/PersonalBar";
 
+
 // Routes
 import PrivateRoute from "./routes/PrivateRoute";
 import { TabMenu } from "primereact/tabmenu";

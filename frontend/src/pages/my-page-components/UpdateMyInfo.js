@@ -4,13 +4,10 @@ import {Button} from "primereact/button";
 import axios from "axios";
 import {BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
 import {get_storage} from "../../services/StorageUtil";
-import {Panel} from "primereact/panel";
 import {Messages} from "primereact/messages";
 import {Toast} from "primereact/toast";
 import {TabPanel, TabView} from "primereact/tabview";
-import MyFriends from "./MyFriends";
-import MyCodes from "./MyCodes";
-import AddFriend from "./AddFriend";
+
 import {Dropdown} from "primereact/dropdown";
 
 export class UpdateMyInfo extends React.Component {
@@ -61,7 +58,6 @@ export class UpdateMyInfo extends React.Component {
         axios(options).then(data => {
             console.log(data);
             this.showSuccess();
-
         })
 
     }
@@ -119,6 +115,10 @@ export class UpdateMyInfo extends React.Component {
             {label: 'USA', value: "USA"},
             {label: 'UK', value: "UK"},
             {label: 'Germany', value: "Germany"},
+            {label: 'Finland', value: "Finland"},
+            {label: 'Denmark', value: "Denmark"},
+            {label: 'Switzerland', value: "Switzerland"},
+            {label: 'Iceland', value: "Iceland"},
 
         ];
         const baseStyle = {width: "100%"}
