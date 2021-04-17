@@ -10,6 +10,7 @@ import {BASE_URL} from "../services/base_service";
 
 const url = BASE_URL+"/get-vaccine-statistics";
 const countriesUrl = BASE_URL+"/get-countries";
+const vaccinesUrl = BASE_URL+"/get-vaccines";
 
 const defaultChoice = { label: "All", value: "" };
 
@@ -26,26 +27,32 @@ const Statistics = () => {
 	useEffect(() => {
 		async function getCountries() {
 			const { status, data } = await axios.get(countriesUrl);
-			if (status == 200) {
-				console.log(data)
-				setCountries([
-					{ label: "All", value: "" },
-					{ label: "Turkey", value: "1" },
-					{ label: "USA", value: "2" },
-					{ label: "UK", value: "3" },
-					{ label: "Germany", value: "4" },
-				]);
+			if (status === 200) {
+				let fetchedCountries = [{ label: "All", value: "" }]
+				let arrayLength = data["countries"].length;
+				for (let i = 0; i < arrayLength; i++) {
+					fetchedCountries.push({
+						label: data["countries"][i]["name"].toString(),
+						value: data["countries"][i]["id"].toString()
+					})
+				}
+				setCountries(fetchedCountries);
 			}
 		}
 		async function getVaccines() {
-			const { status, data } = await axios.get(countriesUrl);
+			const { status, data } = await axios.get(vaccinesUrl);
 			if (status === 200) {
-				setVaccines([
-					{ label: "All", value: "" },
-					{ label: "Covid-19", value: "1" },
-					{ label: "Sars", value: "2" },
-					{ label: "Polio", value: "3" },
-				]);
+				console.log(data)
+				let fetchedVaccines = [{ label: "All", value: "" }]
+				let arrayLength = data["vaccines"].length;
+				for (let i = 0; i < arrayLength; i++) {
+					console.log(data["vaccines"][i]);
+					fetchedVaccines.push({
+						label: data["vaccines"][i]["name"].toString(),
+						value: data["vaccines"][i]["id"].toString()
+					})
+				}
+				setVaccines(fetchedVaccines);
 			}
 		}
         getCountries();
