@@ -1,1 +1,1 @@
-web: gunicorn --chdir backend main:app
+frontend:--chdir frontend npm install
