@@ -73,21 +73,19 @@ class GoogleAuth extends Component {
         return (
             (
                 <div>
-                    {/*<script src="https://apis.google.com/js/platform.js" async defer></script>*/}
                     <GoogleLogin
                         clientId={clientId}
                         buttonText="Login"
                         onSuccess={this.onSignIn}
                         // onFailure={onFailure}
                         cookiePolicy={"single_host_origin"}
-                        style={{height: "7vh", margin: "10px"}}
+                        style={{ padding: 60 }}
                         isSignedIn={false} // auto load
-                        // scope="profile email https://www.googleapis.com/auth/user.birthday.read"
                         scope="email profile"
-                        // scope="email profile https://www.googleapis.com/auth/contacts.readonly"
+                        //scope="email profile https://www.googleapis.com/auth/contacts"
+                        buttonText="Login With Google"
                     />
-                {/*<meta name="google-signin-client_id" data-onsuccess={this.onSignIn} content={clientId} />*/}
-                    {/*<div className="g-signin2" data-onsuccess={this.onSignIn}></div>*/}
+
                 </div>
             )
         );
