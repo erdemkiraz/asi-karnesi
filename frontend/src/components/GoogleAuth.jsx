@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import GoogleLogin from "react-google-login";
 import {BASE_URL, BUILD_HEADER, clientId} from "../services/base_service";
 import {SET_USER} from "../redux/types";
-import {remove_key, put_storage} from "../services/StorageUtil";
+import {put_storage} from "../services/StorageUtil";
 import axios from "axios";
 
 class GoogleAuth extends Component {

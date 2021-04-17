@@ -4,7 +4,6 @@ import {BASE_URL, BUILD_HEADER, getGoogleId} from "../../services/base_service";
 import {Button} from "primereact/button";
 import {Messages} from "primereact/messages";
 import {Toast} from "primereact/toast";
-import qs from 'qs';
 import {Dropdown} from "primereact/dropdown";
 import {get_storage} from "../../services/StorageUtil";
 
@@ -54,9 +53,7 @@ class EditPrivacy extends React.Component {
 
     }
 
-    printState() {
-        console.log("State :", this.state);
-    }
+
 
 
     async changePrivacySetting() {
@@ -109,10 +106,6 @@ class EditPrivacy extends React.Component {
         // this.toast.show({ severity: 'error', summary: 'Error!', detail: msg });
     }
 
-    submissionOnChange(key, value) {
-
-
-    }
 
     render() {
 
