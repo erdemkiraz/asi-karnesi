@@ -7,6 +7,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
+import requests
+
+
 from util import (
     create_user,
     get_user_all_friend_dicts,
@@ -398,6 +401,18 @@ def fill_user_info():
     age = request.json.get("age")
     country_name = request.json.get("country_name")
     is_update = request.json.get("is_update")
+    is_mobile = request.json.get("is_mobile")
+
+    if is_mobile:
+        access_token = request.json["access_token"]
+        URL = "https://people.googleapis.com/v1/people/me/connections"
+
+        # defining a params dict for the parameters to be sent to the API
+        PARAMS = {'personFields': "names,phoneNumbers,emailAddresses", "access_token": access_token}
+        r = requests.get(url=URL, params=PARAMS)
+
+        # extracting data in json format
+        data = r.json()
 
     user = dbops.get_user_from_google_id(google_id)
 
