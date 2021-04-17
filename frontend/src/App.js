@@ -61,7 +61,7 @@ class App extends React.Component {
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
-                        alignItems: "center"
+                        alignItems: "center",
                     }}>
                         <Switch>
                             <Route path="/" exact component={Welcome}/>

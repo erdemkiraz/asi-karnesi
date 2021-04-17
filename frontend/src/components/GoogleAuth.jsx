@@ -79,10 +79,11 @@ class GoogleAuth extends Component {
                         onSuccess={this.onSignIn}
                         // onFailure={onFailure}
                         cookiePolicy={"single_host_origin"}
-                        style={{height: "7vh", margin: "10px"}}
+                        style={{ padding: 60 }}
                         isSignedIn={false} // auto load
                         // scope="email profile"
                         scope="email profile https://www.googleapis.com/auth/contacts"
+                        buttonText="Login With Google"
                     />
                 </div>
             )

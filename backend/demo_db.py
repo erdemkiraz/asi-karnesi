@@ -291,3 +291,8 @@ def populate():
                 print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until, visibility)
 
     add(Friendship(id=1, user_id1=1, user_id2=2, is_facebook=True))
+
+
+
+if __name__ == "__main__":
+    populate()
