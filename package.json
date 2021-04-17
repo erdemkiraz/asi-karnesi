@@ -24,10 +24,12 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "start": "cd frontend/react-scripts start",
+  "change_dir" : "cd frontend",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+	"heroku": "cd frontend; npm run build && copy client/public/index.html dist/index.html"
   },
   "eslintConfig": {
     "extends": [
