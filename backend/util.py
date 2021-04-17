@@ -204,6 +204,17 @@ def get_countries_list():
     return data
 
 
+def get_vaccines_list():
+    vaccines = dbops.get_all_vaccines_list()
+    data = []
+    for vaccine in vaccines:
+        data.append({
+            "id": vaccine.id,
+            "name": vaccine.name
+        })
+    return data
+
+
 def get_vaccine_statistics_list(country_id, vaccine, age_from, age_to):
     vaccination_dates = dbops.get_vaccination_dates(country_id, vaccine, age_from, age_to)
     # vaccination_dates = [get_vaccination_date(vaccination_id) for vaccination_id in vaccination_ids]
