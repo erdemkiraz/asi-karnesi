@@ -596,7 +596,7 @@ def get_vaccine_statistics():
     country_id = request.args.get("country_id")
     age_from = request.args.get("age_from")
     age_to = request.args.get("age_to")
-    vaccine = request.args.get("vaccine")
+    vaccine = request.args.get("vaccine_id")
 
     vaccine_dates = get_vaccine_statistics_list(country_id, vaccine, age_from, age_to)
 
