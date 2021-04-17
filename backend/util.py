@@ -173,10 +173,18 @@ def get_vaccine_statistics_list(country_id, vaccine, age_from, age_to):
     vaccination_dates = dbops.get_vaccination_dates(country_id, vaccine, age_from, age_to)
     # vaccination_dates = [get_vaccination_date(vaccination_id) for vaccination_id in vaccination_ids]
     vaccination_dates.sort()
-    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    months = ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
     # counts = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    
-    data = [{"month": month, "total": random.randint(0, 15)} for month in months]
+
+    data = [0 for _ in range(12)]
+    for vaccination_date in vaccination_dates:
+        data[(vaccination_date.month+7) % 12] += 1
+
+    for i in range(len(data)):
+        if i > 0:
+            data[i] += data[i-1]
+
+    data = [{"month": months[i], "total": data[i]} for i in range(len(months))] 
     
     return data
 
