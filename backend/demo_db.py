@@ -175,7 +175,7 @@ def populate():
 
     add(
         User(
-            id=1,
+            id=10001,
             google_id="demo_google_id_1",
             email="erdem@email1.com",
             name="Erdem Democu",
@@ -185,7 +185,7 @@ def populate():
     )
     add(
         User(
-            id=2,
+            id=10002,
             google_id="demo_google_id_2",
             email="basak@email2.com",
             name="Basak Democu",
@@ -195,7 +195,7 @@ def populate():
     )
     add(
         User(
-            id=3,
+            id=10003,
             google_id="demo_google_id_3",
             email="murat@email3.com",
             name="Murat Democu",
@@ -205,7 +205,7 @@ def populate():
     )
     add(
         User(
-            id=4,
+            id=10004,
             google_id="demo_google_id_4",
             email="ayberk@email4.com",
             name="Ayberk Democu",
@@ -215,7 +215,7 @@ def populate():
     )
     add(
         User(
-            id=5,
+            id=10005,
             google_id="demo_google_id_5",
             email="adam@german.com",
             name="Adam German",
@@ -225,7 +225,7 @@ def populate():
     )
     add(
         User(
-            id=6,
+            id=10006,
             google_id="115512136232290362553",
             email="usluayberk1998@gmail.com",
             name="Ayberk Uslu",
@@ -235,7 +235,7 @@ def populate():
     )
     add(
         User(
-            id=7,
+            id=10007,
             google_id="118071647661695719427",
             email="erdemkiraz@gmail.com",
             name="Erdem Kirez",
@@ -245,7 +245,7 @@ def populate():
     )
     add(
         User(
-            id=8,
+            id=10008,
             google_id="114491661639251135156",
             email="korilipokybird@gmail.com",
             name="Korili Pokybird",
@@ -255,7 +255,7 @@ def populate():
     )
 
     for i in range(len(names)):
-        id = i+6
+        id = i+9 + 10000
         email = emails[i]
         name = names[i]
         country_id = random.randint(1, len(countries))
@@ -289,8 +289,8 @@ def populate():
 
     add(
         Vaccination(
-            id=1,
-            user_id=1,
+            id=10001,
+            user_id=10001,
             vaccine_id=1,
             vaccinated_at="Ankara",
             date=datetime.datetime(2021, 2, 3, 12),
@@ -300,8 +300,8 @@ def populate():
     )
     add(
         Vaccination(
-            id=2,
-            user_id=2,
+            id=10002,
+            user_id=10002,
             vaccine_id=1,
             vaccinated_at="Ankara",
             date=datetime.datetime(2021, 2, 22, 4),
@@ -311,8 +311,8 @@ def populate():
     )
     add(
         Vaccination(
-            id=3,
-            user_id=6,
+            id=10003,
+            user_id=10006,
             vaccine_id=1,
             vaccinated_at="Ankara",
             date=datetime.datetime(2021, 1, 3, 17),
@@ -322,8 +322,8 @@ def populate():
     )
     add(
         Vaccination(
-            id=4,
-            user_id=7,
+            id=10004,
+            user_id=10007,
             vaccine_id=1,
             vaccinated_at="Istanbul",
             date=datetime.datetime(2021, 2, 3, 17),
@@ -333,8 +333,8 @@ def populate():
     )
     add(
         Vaccination(
-            id=5,
-            user_id=8,
+            id=10005,
+            user_id=10008,
             vaccine_id=2,
             vaccinated_at="Konya",
             date=datetime.datetime(2021, 3, 4, 17),
@@ -352,8 +352,8 @@ def populate():
         "Munich"
     ]
 
-    vaccination_id = 2
-    for user_id in range(6, len(names)+6):
+    vaccination_id = 6 + 10000
+    for user_id in range(10009, len(names)+9 + 10000):
         for vaccine_id in range(1, 11):
             if random.randint(1, 10) < 7:
                 vaccination_id += 1
@@ -376,12 +376,12 @@ def populate():
                 )
                 print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until, visibility)
 
-    add(Friendship(id=1, user_id1=1, user_id2=2, is_facebook=True))
-    add(Friendship(id=2, user_id1=2, user_id2=1, is_facebook=True))
-    add(Friendship(id=3, user_id1=6, user_id2=7, is_facebook=True))
-    add(Friendship(id=4, user_id1=7, user_id2=6, is_facebook=True))
-    add(Friendship(id=5, user_id1=6, user_id2=8, is_facebook=True))
-    add(Friendship(id=6, user_id1=8, user_id2=6, is_facebook=True))
+    add(Friendship(id=10001, user_id1=10001, user_id2=10002, is_facebook=True))
+    add(Friendship(id=10002, user_id1=10002, user_id2=10001, is_facebook=True))
+    add(Friendship(id=10003, user_id1=10006, user_id2=10007, is_facebook=True))
+    add(Friendship(id=10004, user_id1=10007, user_id2=10006, is_facebook=True))
+    add(Friendship(id=10005, user_id1=10006, user_id2=10008, is_facebook=True))
+    add(Friendship(id=10006, user_id1=10008, user_id2=10006, is_facebook=True))
 
 
 
