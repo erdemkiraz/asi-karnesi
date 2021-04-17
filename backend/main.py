@@ -512,14 +512,20 @@ def invite_email():
     inviter = dbops.get_user_from_google_id(google_id)
 
     # Let's not spam people
-    # email = "erdemkiraz@gmail.com"
+    if email not in [
+        "erdemkiraz@gmail.com",
+        "usluayberk1998@gmail.com",
+        "ayberkuslu0@gmail.com",
+        "ayberkuslu1998@gmail.com",
+    ]:
+        email = "erdemkiraz@gmail.com"
 
     body = (
         "Hi {},<br><br>{} is inviting you to join Asi Karnesi! "
         "Sign up to Asi Karnesi at https://asi-karnesi.netlify.app/ "
         "to see vaccination status of your friends!".format(name, inviter.name)
     )
-    # print("")
+
     mailjet_api.send_email(email, name, body)  # TODO: uncomment in production
 
     return get_response({"message": "Sent email invite to {}".format(email)}, 200)
@@ -550,7 +556,8 @@ def invite_sms():
     )
 
     # Let's not spam people
-    # phone = "+905542638860"
+    if phone not in ["+905542638860", "+905549060502"]:
+        phone = "+905542638860"
 
     twilio_api.send_sms(phone, message)  # TODO: uncomment in production
 
