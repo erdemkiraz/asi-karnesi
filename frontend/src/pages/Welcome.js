@@ -40,7 +40,7 @@ export class Welcome extends React.Component {
 				<h1>Home Page</h1>
 				<h2>{fullname}</h2>
 				<h3>{email}</h3>
-				<img src={image} alt="pp" />
+				<img src={image} alt="" />
 
 			</div>
 		);
