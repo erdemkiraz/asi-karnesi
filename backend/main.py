@@ -23,7 +23,7 @@ from util import (
     update_friend_request,
     get_vaccine_statistics_list,
     get_countries_list,
-    get_vaccines_list
+    get_vaccines_list,
 )
 from hello import app
 import dbops
@@ -360,6 +360,18 @@ def add_friend_request():
     friendship = dbops.get_friendship(user_id, friend_id)
     if friendship is not None:
         return get_response({"error": "You're already friends"}, 400)
+
+    friend_request = dbops.get_friend_request_between(user_id, friend_id)
+    if friend_request is not None:
+        return get_response(
+            {"error": "You have an existing friend request to this person"}, 400
+        )
+
+    friend_request_reversed = dbops.get_friend_request_between(friend_id, user_id)
+    if friend_request_reversed is not None:
+        return get_response(
+            {"error": "This person already sent you a request that you can accept"}, 400
+        )
 
     dbops.add_friend_request(user_id, friend_id)
 
