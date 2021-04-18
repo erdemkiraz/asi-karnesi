@@ -199,13 +199,13 @@ export class MyCodes extends React.Component {
                             {/*        filterPlaceholder="Search by vaccine ID" filterMatchMode="contains"/>*/}
                             <Column field="name" header="Vaccine Name" sortable filter
                                     filterPlaceholder="Search by name" filterMatchMode="contains"/>
-                            <Column field="dose" header="Vaccine Dose" sortable filter filterPlaceholder=""
+                            <Column field="dose" header="Vaccine Dose" sortable filter filterPlaceholder="Search by dose"
                                     filterMatchMode="contains"/>
                             <Column field="vaccine_point" header="Vaccine Point" sortable filter
                                     filterPlaceholder="Search by location" filterMatchMode="contains"/>
                             <Column field="date" header="Vaccine Date" sortable filter
                                     filterPlaceholder="Search by date" filterMatchMode="contains"/>
-                            <Column field="valid_until" header="Validation Time" sortable filter filterPlaceholder=""
+                            <Column field="valid_until" header="Validation Time" sortable filter filterPlaceholder="Search by expire date"
                                     filterMatchMode="contains"/>
                             <Column body={this.editButton} headerStyle={{width: '8em', textAlign: 'center'}}
                                     bodyStyle={{textAlign: 'center', overflow: 'visible'}}/>
