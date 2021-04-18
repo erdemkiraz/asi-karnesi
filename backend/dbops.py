@@ -25,6 +25,12 @@ def get_user_from_google_id(google_id):
     return user
 
 
+def create_user_from_email(email):
+    user = User(email=email)
+    session.add(user)
+    session.commit()
+
+
 def get_user_from_email(email):
     query = session.query(User).filter(User.email == email)
     user = query.one_or_none()

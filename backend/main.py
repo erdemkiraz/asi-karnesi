@@ -25,10 +25,11 @@ from util import (
     get_countries_list,
     get_vaccines_list,
 )
-from hello import app
+from hello import app, redis_client, pubsub
 import dbops
 import twilio_api
 import mailjet_api
+import distributed
 
 SCOPES = ["https://www.googleapis.com/auth/contacts.readonly"]
 
@@ -428,7 +429,6 @@ def user_info():
 @app.route("/update-user-info", methods=["POST"])
 def fill_user_info():
     google_id = request.json["google_id"]
-    res = {"new_user": create_user(google_id)}
 
     email = request.json.get("email")
     facebook_id = request.json.get("facebook_id")
@@ -436,10 +436,12 @@ def fill_user_info():
     age = request.json.get("age")
     country_name = request.json.get("country_name")
     is_update = request.json.get("is_update")
-
     access_token = request.json.get("access_token")
 
-    print("Access token:", access_token)
+    # print("Access token:", access_token)
+
+    new_user = create_user(google_id, email)
+    res = {"new_user": new_user}
 
     user = dbops.get_user_from_google_id(google_id)
 
@@ -632,5 +634,9 @@ def health_check():
     return get_response({}, 200)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route("/bulk-insert", methods=["POST"])
+def bulk_insert():
+    d = request.json
+    redis_client.publish("asi-karnesi", json.dumps(d))
+
+    return get_response({}, 200)

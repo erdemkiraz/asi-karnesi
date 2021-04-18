@@ -11,7 +11,7 @@ class User(Base):
     __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
-    google_id = Column(String, unique=True, nullable=False)
+    google_id = Column(String, unique=True, nullable=True)
     facebook_id = Column(String, unique=True, nullable=True)
     google_token = Column(JSON)
     google_mobile_access_token = Column(String)

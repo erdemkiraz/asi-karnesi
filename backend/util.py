@@ -170,11 +170,18 @@ def get_link_vaccination_ids(link):
     vaccination_ids = dbops.get_vaccination_ids_from_link_id(link_id)
     return vaccination_ids
 
-
-def create_user(google_id):
+def create_user(google_id, email):
     user = dbops.get_user_from_google_id(google_id)
     if user is not None:
         return False
+
+    if email is not None:
+        user = dbops.get_user_from_email(email)
+        if user is not None:
+            user.google_id = google_id
+            dbops.session.commit()
+            return False
+
     dbops.create_user(google_id)
     return True
 
