@@ -72,6 +72,13 @@ def get_friendship(user_id, friend_id):
     return query.first()
 
 
+def get_friend_request_between(user_id, friend_id):
+    query = session.query(FriendRequest).filter(
+        FriendRequest.requester_id == user_id, FriendRequest.requestee_id == friend_id
+    )
+    return query.first()
+
+
 def add_facebook_friend(user_id1, user_id2):
     row1 = Friendship(user_id1=user_id1, user_id2=user_id2, is_facebook=True)
     row2 = Friendship(user_id1=user_id2, user_id2=user_id1, is_facebook=True)
@@ -139,11 +146,16 @@ def get_friend_ids(user_id):
 
 def get_vaccination_dates(country_id, vaccine_id, age_from, age_to):
     # print("\n\n\n", country_id, "\n",vaccine_id, "\n", age_from, "\n", age_to)
-    query = session.query(Vaccination).join(User).filter(
-        User.country_id == country_id if country_id is not None else True,
-        Vaccination.vaccine_id == vaccine_id if vaccine_id is not None else True,
-        User.age >= age_from if age_from is not None else True,
-        User.age <= age_to if age_to is not None else True)
+    query = (
+        session.query(Vaccination)
+        .join(User)
+        .filter(
+            User.country_id == country_id if country_id is not None else True,
+            Vaccination.vaccine_id == vaccine_id if vaccine_id is not None else True,
+            User.age >= age_from if age_from is not None else True,
+            User.age <= age_to if age_to is not None else True,
+        )
+    )
     vaccinations = query.all()
     vaccination_dates = [x.date for x in vaccinations]
     return vaccination_dates
