@@ -570,9 +570,9 @@ def invite_sms():
         "to see vaccination status of your friends!".format(name, inviter.name)
     )
 
-    # # Let's not spam people
-    # if phone not in ["+905542638860", "+905549060502"]:
-    #     phone = "+905542638860"
+    # Let's not spam people
+    if phone not in ["+905542638860", "+905549060502"]:
+        phone = "+905542638860"
 
     twilio_api.send_sms(phone, message)  # TODO: uncomment in production
 
