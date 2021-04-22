@@ -8,6 +8,7 @@ import Welcome from "./pages/Welcome";
 import Home from "./pages/Home";
 import LoginPage from "./pages/auth/LoginPage";
 import Statistics from "./pages/Statistics";
+import AllStatistics from "./pages/AllStatistics";
 
 import UpdateMyInfo from "./pages/my-page-components/UpdateMyInfo";
 import NavBar from "./pages/bar-components/PersonalBar";
@@ -40,6 +41,7 @@ class App extends React.Component {
             {label: 'Home', icon: 'pi pi-home', url: 'home'},
             {label: 'Statistics', icon: 'pi pi-table', url: 'statistics'},
             {label: 'My Profile', icon: 'pi pi-user-edit', url: 'me'},
+            // {label: 'My Profile', icon: 'pi pi-user-edit', url: 'me'},
 
         ]
 
@@ -60,7 +62,8 @@ class App extends React.Component {
                             <Route path="/" exact component={Welcome}/>
                             <PrivateRoute path="/home" exact component={Home}/>
                             <PrivateRoute path="/me" exact component={UpdateMyInfo}/>
-                            <PrivateRoute path="/statistics" exact component={Statistics}/>
+                            {/*<PrivateRoute path="/statistics" exact component={Statistics}/>*/}
+                            <PrivateRoute path="/statistics" exact component={AllStatistics}/>
                             <Route path="/login" exact component={LoginPage}/>
                         </Switch>
                     </div>
