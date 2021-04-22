@@ -615,10 +615,102 @@ def get_vaccine_statistics():
     return get_response({"vaccines": vaccine_dates}, 200)
 
 
-@app.route("/get-countries", methods=["GET"])
-def get_countries():
-    countries = get_countries_list()
-    return get_response({"countries": countries}, 200)
+# @app.route("/get-multiple-vaccine-statistics", methods=["POST"])
+# def get_multiple_vaccine_statistics():
+#     country_ids = request.json.get("country_ids", [])
+#     age_from = request.json.get("age_from", [])
+#     age_to = request.json.get("age_to", [])
+#     vaccines = request.json.get("vaccine_ids", [])
+
+#     vaccine_dates = get_multiple_vaccine_statistics_list(
+#         country_id, vaccine, age_from, age_to
+#     )
+
+#     return get_response({"vaccines": vaccine_dates}, 200)
+
+
+# CITIES = [
+#     Paris,
+#     London,
+#     Ankara,
+#     Munich,
+#     Konya,
+#     New York,
+#     Istanbul,
+#     Ankara,
+# ]
+
+# @app.route("/all-city-names", methods=["GET"])
+# def all_city_names():
+#     return get_response({"city_names": CITIES}, 200)
+
+
+@app.route("/daily-vaccination-table", methods=["GET"])
+def daily_vaccination_table():
+
+    # daily_vaccinations = get_daily_vaccinations()
+
+    data = {
+        "daily_vaccinations": [
+            {"day": "2021-04-23", "count": 23},
+            {"day": "2021-04-23", "count": 23},
+            {"day": "2021-04-23", "count": 23},
+        ]
+    }
+
+    return get_response(data, 200)
+
+    # return get_response({"daily_vaccinations": daily_vaccinations}, 200)
+
+
+@app.route("/covid-vaccine-table", methods=["GET"])
+def covid_vaccine_table():
+
+    data = {
+        "vaccine_table": [
+            {"name": "Covid-19 Biontech", "count": 1},
+            {"name": "Covid-19 Moderna", "count": 5},
+        ]
+    }
+
+    return get_response(data, 200)
+
+    # return get_response({"vaccines": vaccine_dates}, 200)
+
+
+CITY_POPULATIONS = {
+    "Paris": 2_161_000,
+    "London": 8_982_000,
+    "Munich": 1_472_000,
+    "Konya": 2_161_000,
+    "New York": 8_149_000,
+    "Istanbul": 15_460_000,
+    "Ankara": 5_663_000,
+    "Los Angeles": 3_967_000,
+    "Tel Aviv": 435_000,
+}
+
+
+@app.route("/city-vaccination-table", methods=["GET"])
+def city_vaccination_table():
+
+    data = {
+        "city_table": [
+            {"name": "Ankara", "count": 0.42},
+            {"name": "Istanbul", "count": 0.5},
+            {"name": "Konya", "count": 0.7},
+        ]
+    }
+
+    return get_response(data, 200)
+
+    # return get_response({"vaccines": vaccine_dates}, 200)
+
+
+# @app.route("/get-countries", methods=["GET"])
+# def get_countries():
+#     countries = get_countries_list()
+#     return get_response({"countries": countries}, 200)
 
 
 @app.route("/get-vaccines", methods=["GET"])
