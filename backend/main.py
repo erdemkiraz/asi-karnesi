@@ -707,10 +707,10 @@ def city_vaccination_table():
     # return get_response({"vaccines": vaccine_dates}, 200)
 
 
-# @app.route("/get-countries", methods=["GET"])
-# def get_countries():
-#     countries = get_countries_list()
-#     return get_response({"countries": countries}, 200)
+@app.route("/get-countries", methods=["GET"])
+def get_countries():
+    countries = get_countries_list()
+    return get_response({"countries": countries}, 200)
 
 
 @app.route("/get-vaccines", methods=["GET"])
