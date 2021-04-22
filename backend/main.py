@@ -526,14 +526,14 @@ def invite_email():
 
     inviter = dbops.get_user_from_google_id(google_id)
 
-    # Let's not spam people
-    if email not in [
-        "erdemkiraz@gmail.com",
-        "usluayberk1998@gmail.com",
-        "ayberkuslu0@gmail.com",
-        "ayberkuslu1998@gmail.com",
-    ]:
-        email = "erdemkiraz@gmail.com"
+    # # Let's not spam people
+    # if email not in [
+    #     "erdemkiraz@gmail.com",
+    #     "usluayberk1998@gmail.com",
+    #     "ayberkuslu0@gmail.com",
+    #     "ayberkuslu1998@gmail.com",
+    # ]:
+    #     email = "erdemkiraz@gmail.com"
 
     body = (
         "Hi {},<br><br>{} is inviting you to join Asi Karnesi! "
