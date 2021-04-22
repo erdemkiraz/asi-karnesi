@@ -350,7 +350,20 @@ def populate():
         "New York",
         "Paris",
         "Munich"
+        "Konya"
     ]
+
+    CITY_POPULATIONS = {
+        "Paris": 2_161_000,
+        "London": 8_982_000,
+        "Munich": 1_472_000,
+        "Konya": 2_161_000,
+        "New York": 8_149_000,
+        "Istanbul": 15_460_000,
+        "Ankara": 5_663_000,
+        "Los Angeles": 3_967_000,
+        "Tel Aviv": 435_000,
+    }
 
     vaccination_id = 6 + 10000
     for user_id in range(10009, len(names)+9 + 10000):
