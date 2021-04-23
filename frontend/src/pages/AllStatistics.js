@@ -30,7 +30,7 @@ export class AllStatistics extends React.Component {
                         </TabPanel>
 
                         <TabPanel
-                            header="Country-Vaccine Statistics"
+                            header="City-Vaccine Statistics"
                             rightIcon="pi pi-chart-bar"
                         >
                             <CityVaccinationTable/>

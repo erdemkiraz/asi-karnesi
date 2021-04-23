@@ -68,6 +68,24 @@ export class DailyVaccinationTable extends React.Component {
             weekly_covid_numbers[i] = data_array[i]["covid_statistics"]["weekly_average_count"];
         }
 
+        // vaccination_numbers = [
+        //     10341000,
+        //     10338123,
+        //     7815915,
+        //     9546991,
+        //     10730290,
+        //     10112279,
+        //     9097500,
+        //     8385322,
+        //     6912508,
+        //     6241024,
+        //     7659982,
+        //     6666017,
+        //     7617563,
+        //     7423508,
+        //     7548248
+        // ];
+
         datasets[0] = {
             type: 'line',
             label: 'COVID-19 Cases',

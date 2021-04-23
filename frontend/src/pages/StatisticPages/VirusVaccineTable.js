@@ -53,11 +53,22 @@ export class VirusVaccineTable extends React.Component {
 
         }
 
+        // labels = ["Covid-19 Biontech",
+        //     "Covid-19 Moderna",
+        //     "Covid-19 Pfizer",
+        //     "Covid-19 CoronaVac",
+        //     "Covid-19 SputnikV",
+        // ]
+        //
+        // data_from_db = [8, 7, 5, 6, 2];
+
         datasets[0] = {
             label: 'Types of COVID-19 Vaccines',
             data: data_from_db,
             backgroundColor: this.getBackgroundColor(data_array.length),
             hoverBackgroundColor: this.getHoverBackgroundColor(data_array.length)
+            // backgroundColor: this.getBackgroundColor(5),
+            // hoverBackgroundColor: this.getHoverBackgroundColor(5)
         }
 
         current_basic_data["labels"] = labels
@@ -104,7 +115,7 @@ export class VirusVaccineTable extends React.Component {
                 {this.state.is_fetched &&
                 <div className="card">
                     <h5>Types of COVID-19 Vaccines</h5>
-                    <Chart type="pie" data={this.state.basicData} options={this.lightOptions} />
+                    <Chart type="pie" data={this.state.basicData} options={this.lightOptions}/>
                 </div>
                 }
             </div>
