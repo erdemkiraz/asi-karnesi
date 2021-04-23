@@ -645,22 +645,37 @@ def get_vaccine_statistics():
 
 #DO NOT CHANGE
 WORLD_DAILY_AND_WEEKLY_COVID_CASES = {
-    {"2021-04-09": {"covid_count": 794486, "weekly_avarage_count": 639389}},
-    {"2021-04-10": {"covid_count": 722783, "weekly_avarage_count": 661444}},
-    {"2021-04-11": {"covid_count": 654915, "weekly_avarage_count": 675629}},
-    {"2021-04-12": {"covid_count": 591231, "weekly_avarage_count": 691258}},
-    {"2021-04-13": {"covid_count": 744496, "weekly_avarage_count": 706531}},
-    {"2021-04-14": {"covid_count": 815879, "weekly_avarage_count": 724393}},
-    {"2021-04-15": {"covid_count": 845213, "weekly_avarage_count": 738429}},
-    {"2021-04-16": {"covid_count": 839090, "weekly_avarage_count": 744801}},
-    {"2021-04-17": {"covid_count": 805215, "weekly_avarage_count": 756577}},
-    {"2021-04-18": {"covid_count": 731449, "weekly_avarage_count": 767510}},
-    {"2021-04-19": {"covid_count": 661922, "weekly_avarage_count": 777609}},
-    {"2021-04-20": {"covid_count": 832684, "weekly_avarage_count": 790208}},
-    {"2021-04-21": {"covid_count": 888259, "weekly_avarage_count": 800547}},
-    {"2021-04-22": {"covid_count": 885978, "weekly_avarage_count": 806371}},
-    {"2021-04-23": {"covid_count": 889016, "weekly_avarage_count": 809424}},
 
+    "2021-04-09":
+         {"covid_count": 794486, "weekly_avarage_count": 639389},
+    "2021-04-10":
+         {"covid_count": 722783, "weekly_avarage_count": 661444},
+    "2021-04-11":
+         {"covid_count": 654915, "weekly_avarage_count": 675629},
+    "2021-04-12":
+         {"covid_count": 591231, "weekly_avarage_count": 691258},
+    "2021-04-13":
+         {"covid_count": 744496, "weekly_avarage_count": 706531},
+    "2021-04-14":
+         {"covid_count": 815879, "weekly_avarage_count": 724393},
+    "2021-04-15":
+         {"covid_count": 845213, "weekly_avarage_count": 738429},
+    "2021-04-16":
+         {"covid_count": 839090, "weekly_avarage_count": 744801},
+    "2021-04-17":
+         {"covid_count": 805215, "weekly_avarage_count": 756577},
+    "2021-04-18":
+         {"covid_count": 731449, "weekly_avarage_count": 767510},
+    "2021-04-19":
+         {"covid_count": 661922, "weekly_avarage_count": 777609},
+    "2021-04-20":
+         {"covid_count": 832684, "weekly_avarage_count": 790208},
+    "2021-04-21":
+         {"covid_count": 888259, "weekly_avarage_count": 800547},
+    "2021-04-22":
+         {"covid_count": 885978, "weekly_avarage_count": 806371},
+    "2021-04-23":
+         {"covid_count": 889016, "weekly_avarage_count": 809424}
 }
 
 
