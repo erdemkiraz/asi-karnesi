@@ -645,6 +645,7 @@ def get_vaccine_statistics():
 
 #DO NOT CHANGE
 WORLD_DAILY_AND_WEEKLY_COVID_CASES = {
+
     "2021-04-09":
          {"covid_count": 794486, "weekly_avarage_count": 639389},
     "2021-04-10":
@@ -674,8 +675,7 @@ WORLD_DAILY_AND_WEEKLY_COVID_CASES = {
     "2021-04-22":
          {"covid_count": 885978, "weekly_avarage_count": 806371},
     "2021-04-23":
-         {"covid_count": 889016, "weekly_avarage_count": 809424},
-
+         {"covid_count": 889016, "weekly_avarage_count": 809424}
 }
 
 
