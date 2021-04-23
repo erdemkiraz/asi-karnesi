@@ -39,13 +39,10 @@ export class CityVaccinationTable extends React.Component {
     }
 
     async componentDidMount() {
-        this.fetchData();
+        await this.fetchData();
     }
 
     async fetchData() {
-
-        console.log("Basic Data First : ", this.state.basicData)
-
         let response = await axios.get(
             BASE_URL + "/city-vaccination-table",
             {headers: BUILD_HEADER()}
@@ -71,37 +68,29 @@ export class CityVaccinationTable extends React.Component {
         datasets[0] = {
             label: 'Vaccinated Population',
             backgroundColor: '#689F38',
-            // backgroundColor: '#42A5F5',
             data: vaccination_numbers
         }
 
         datasets[1] = {
             label: 'Populations',
             backgroundColor: '#01579B',
-            // backgroundColor: '#42A5F5',
             data: populations
         }
 
         current_basic_data["labels"] = labels
         current_basic_data["datasets"] = datasets
-        // console.log("-------------After > ")
 
         this.setState({basicData: current_basic_data})
         this.setState({is_fetched: true})
-
-
     }
 
-    forceRender() {
-        let i = this.state.force_render;
-        this.setState({force_render: i + 1})
-    }
 
     render() {
 
         return (
             <div style={{height: "700px"}}>
-                {this.state.is_fetched &&
+                {
+                    this.state.is_fetched &&
                 <div className="card">
                     <h5>Population-Vaccinated Table</h5>
                     <Chart type="bar" data={this.state.basicData} options={this.basicOptions} style={{

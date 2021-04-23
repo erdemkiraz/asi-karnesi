@@ -4,7 +4,7 @@ import Statistics from "./Statistics";
 import RiskTable from "./StatisticPages/RiskTable";
 import CityVaccinationTable from "./StatisticPages/CityVaccinationTable";
 import VirusVaccineTable from "./StatisticPages/VirusVaccineTable";
-import DayVaccinationTable from "./StatisticPages/DayVaccinationTable";
+import DailyVaccinationTable from "./StatisticPages/DailyVaccinationTable";
 
 
 export class AllStatistics extends React.Component {
@@ -46,7 +46,7 @@ export class AllStatistics extends React.Component {
                             header="Daily Vaccine Statistics"
                             rightIcon="pi pi-chart-bar"
                         >
-                            <DayVaccinationTable/>
+                            <DailyVaccinationTable/>
                         </TabPanel>
                         <TabPanel
                             header="General Statistics"
