@@ -693,9 +693,9 @@ CITY_POPULATIONS = {
 def city_vaccination_table():
     data = {
         "city_table": [
-            {"name": "Ankara", "population": CITY_POPULATIONS["Ankara"], "count": "1500000"},
+            {"name": "Ankara", "population": CITY_POPULATIONS["Ankara"], "count": 1500000},
             {"name": "Istanbul", "population": CITY_POPULATIONS["Istanbul"], "count": 3200000},
-            {"name": "Konya", "population": CITY_POPULATIONS["Konya"], "count": 15},
+            {"name": "Konya", "population": CITY_POPULATIONS["Konya"], "count": 2000},
         ]
     }
 
