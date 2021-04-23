@@ -70,7 +70,7 @@ export class DailyVaccinationTable extends React.Component {
 
         datasets[0] = {
             type: 'line',
-            label: 'COVID-19 Numbers',
+            label: 'COVID-19 Cases',
             data: covid_numbers,
             fill: false,
             borderColor: '#323232',
@@ -78,7 +78,7 @@ export class DailyVaccinationTable extends React.Component {
         }
         datasets[1] = {
             type: 'line',
-            label: 'Weekly COVID-19 Numbers',
+            label: 'Weekly COVID-19 Cases',
             data: weekly_covid_numbers,
             fill: false,
             borderColor: '#2196F3',
@@ -109,11 +109,7 @@ export class DailyVaccinationTable extends React.Component {
                     this.state.is_fetched &&
                     <div className="card">
                         <h5>Daily Vaccination Statistics</h5>
-                        <Chart type="bar" data={this.state.basicData} options={this.basicOptions} style={{
-                            height: "900px !important",
-                            width: "2340px !important",
-                            display: "block !important"
-                        }}/>
+                        <Chart type="bar" data={this.state.basicData} options={this.basicOptions}/>
                     </div>
 
                 }

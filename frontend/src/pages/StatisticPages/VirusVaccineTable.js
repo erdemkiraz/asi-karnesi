@@ -52,6 +52,7 @@ export class VirusVaccineTable extends React.Component {
             data_from_db[i] = data_array[i]["count"]
 
         }
+
         datasets[0] = {
             label: 'Types of COVID-19 Vaccines',
             data: data_from_db,
@@ -69,10 +70,12 @@ export class VirusVaccineTable extends React.Component {
 
     getBackgroundColor(length) {
         let backgroundColor = [
+            "#8E44AD",
             "#105D97",
             "#F09440",
             "#42A5F5",
-            "#66BB6A",
+            "#66bb6a",
+            "#7F8C8D",
             "#FFA726"
         ]
 
@@ -81,10 +84,12 @@ export class VirusVaccineTable extends React.Component {
 
     getHoverBackgroundColor(length) {
         let hoverBackgroundColor = [
+            "#9B59B6",
             "#0591AF",
             "#F0B36A",
             "#64B5F6",
             "#81C784",
+            "#BDC3C7",
             "#FFB74D"
         ]
 
@@ -99,11 +104,7 @@ export class VirusVaccineTable extends React.Component {
                 {this.state.is_fetched &&
                 <div className="card">
                     <h5>Types of COVID-19 Vaccines</h5>
-                    <Chart type="pie" data={this.state.basicData} options={this.lightOptions} style={{
-                        height: "900px !important",
-                        width: "2340px !important",
-                        display: "block !important"
-                    }}/>
+                    <Chart type="pie" data={this.state.basicData} options={this.lightOptions} />
                 </div>
                 }
             </div>

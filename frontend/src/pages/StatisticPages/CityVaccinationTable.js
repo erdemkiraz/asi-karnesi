@@ -93,11 +93,7 @@ export class CityVaccinationTable extends React.Component {
                     this.state.is_fetched &&
                 <div className="card">
                     <h5>Population-Vaccinated Table</h5>
-                    <Chart type="bar" data={this.state.basicData} options={this.basicOptions} style={{
-                        height: "900px !important",
-                        width: "2340px !important",
-                        display: "block !important"
-                    }}/>
+                    <Chart type="bar" data={this.state.basicData} options={this.basicOptions}/>
                 </div>
 
                 }
