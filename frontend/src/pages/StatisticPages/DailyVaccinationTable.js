@@ -63,9 +63,9 @@ export class DailyVaccinationTable extends React.Component {
 
         for (let i = 0; i < data_array.length; i++) {
             labels[i] = data_array[i]["day"]
-            vaccination_numbers[i] = data_array[i]["vaccination_count"] * 10
+            vaccination_numbers[i] = data_array[i]["vaccination_count"] *10
             covid_numbers[i] = data_array[i]["covid_statistics"]["covid_count"];
-            weekly_covid_numbers[i] = data_array[i]["covid_statistics"]["weekly_avarage_count"];
+            weekly_covid_numbers[i] = data_array[i]["covid_statistics"]["weekly_average_count"];
         }
 
         datasets[0] = {
