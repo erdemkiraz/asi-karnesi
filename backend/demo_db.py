@@ -30,15 +30,6 @@ ID_ATTRS = [
     "user_id1",
     "user_id2",
 ]
-vaccination_points = [
-        "Ankara",
-        "Istanbul",
-        "London",
-        "New York",
-        "Paris",
-        "Munich"
-        "Konya"
-    ]
 
 names = [
     "Queenie Prude",
@@ -260,6 +251,8 @@ sur_names = [
     "Crozier",
     "Levert",
 ]
+
+
 name_surname=[]
 for name in range(1, 200):
     name_surname.append((names[random.randint(0,48)] + " "+sur_names[random.randint(0,48)]))
@@ -472,17 +465,19 @@ def populate():
         )
     )
 
-    vaccination_points = [
-        "Ankara",
-        "Istanbul",
-        "London",
-        "New York",
+vaccination_points = [
         "Paris",
-        "Munich"
-        "Konya"
-    ]
+        "London",
+        "Munich",
+        "Konya",
+        "New York",
+        "Istanbul",
+        "Ankara",
+        "Los Angeles",
+        "Tel Aviv""
+]
 
-    CITY_POPULATIONS = {
+CITY_POPULATIONS = {
         "Paris": 2_161_000,
         "London": 8_982_000,
         "Munich": 1_472_000,
@@ -493,7 +488,7 @@ def populate():
         "Los Angeles": 3_967_000,
         "Tel Aviv": 435_000,
     }
-
+"""
     vaccination_id = 6 + 10000
     for user_id in range(9, len(name_surname)+9 ):
         for vaccine_id in range(1, 11):
@@ -517,6 +512,292 @@ def populate():
                     )
                 )
                 print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until, visibility)
+
+"""
+vaccination_id = 6 + 10000
+newyork_count=CITY_POPULATIONS["New York"]
+newyork_id_count=int(newyork_count*26/150000)
+print(newyork_id_count)
+last_user_id=0
+last_vaccine_id=0
+for user_id in range(9, newyork_id_count):
+    for vaccine_id in range(1, 14):
+        if random.randint(1, 10) < 3:
+            vaccination_id += 1
+            vaccinated_at = vaccination_points[4]
+            date = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                            random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            valid_until = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                                    random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            visibility = VaccinationVisibility.PUBLIC.value
+            add(
+                    Vaccination(
+                        id=vaccination_id,
+                        user_id=user_id,
+                        vaccine_id=vaccine_id,
+                        vaccinated_at=vaccinated_at,
+                        date=date,
+                        valid_until=valid_until,
+                        visibility=visibility,
+                    )
+            )   
+            print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until)
+            last_user_id=user_id
+            last_vaccine_id=vaccination_id
+
+print(newyork_id_count)
+print("***********")
+paris_count=CITY_POPULATIONS["Paris"]
+paris_id_count=int(paris_count*18/150000)
+vaccination_id =last_vaccine_id
+print(paris_id_count)
+
+for user_id in range(last_user_id+1, last_user_id+1+paris_id_count):
+    for vaccine_id in range(1, 14):
+        if random.randint(1, 10) < 3:
+            vaccination_id += 1
+            vaccinated_at = vaccination_points[0]
+            date = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                            random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            valid_until = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                                    random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            visibility = VaccinationVisibility.PUBLIC.value
+            add(
+                    Vaccination(
+                        id=vaccination_id,
+                        user_id=user_id,
+                        vaccine_id=vaccine_id,
+                        vaccinated_at=vaccinated_at,
+                        date=date,
+                        valid_until=valid_until,
+                        visibility=visibility,
+                    )
+            )   
+            print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until)
+            last_user_id=user_id
+            last_vaccine_id=vaccination_id
+ 
+print("***********")
+london_count=CITY_POPULATIONS["London"]
+london_id_count=int(london_count*48/150000)
+vaccination_id =last_vaccine_id
+print(london_id_count)
+
+for user_id in range(last_user_id+1, last_user_id+1+london_id_count):
+    for vaccine_id in range(1, 14):
+        if random.randint(1, 10) < 3:
+            vaccination_id += 1
+            vaccinated_at = vaccination_points[1]
+            date = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                            random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            valid_until = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                                    random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            visibility = VaccinationVisibility.PUBLIC.value
+            add(
+                    Vaccination(
+                        id=vaccination_id,
+                        user_id=user_id,
+                        vaccine_id=vaccine_id,
+                        vaccinated_at=vaccinated_at,
+                        date=date,
+                        valid_until=valid_until,
+                        visibility=visibility,
+                    )
+            )   
+            print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until)
+            last_user_id=user_id
+            last_vaccine_id=vaccination_id
+ 
+print("***********")
+munich_count=CITY_POPULATIONS["Munich"]
+munich_id_count=int(munich_count*20/150000)
+vaccination_id =last_vaccine_id
+print(munich_id_count)
+
+for user_id in range(last_user_id+1, last_user_id+1+munich_id_count):
+    for vaccine_id in range(1, 14):
+        if random.randint(1, 10) < 3:
+            vaccination_id += 1
+            vaccinated_at = vaccination_points[2]
+            date = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                            random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            valid_until = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                                    random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            visibility = VaccinationVisibility.PUBLIC.value
+            add(
+                    Vaccination(
+                        id=vaccination_id,
+                        user_id=user_id,
+                        vaccine_id=vaccine_id,
+                        vaccinated_at=vaccinated_at,
+                        date=date,
+                        valid_until=valid_until,
+                        visibility=visibility,
+                    )
+            )   
+            print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until)
+            last_user_id=user_id
+            last_vaccine_id=vaccination_id
+ 
+print("***********")
+konya_count=CITY_POPULATIONS["Konya"]
+konya_id_count=int(konya_count*10/150000)
+vaccination_id =last_vaccine_id
+print(konya_id_count)
+
+for user_id in range(last_user_id+1, last_user_id+1+konya_id_count):
+    for vaccine_id in range(1, 14):
+        if random.randint(1, 10) < 3:
+            vaccination_id += 1
+            vaccinated_at = vaccination_points[3]
+            date = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                            random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            valid_until = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                                    random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            visibility = VaccinationVisibility.PUBLIC.value
+            add(
+                    Vaccination(
+                        id=vaccination_id,
+                        user_id=user_id,
+                        vaccine_id=vaccine_id,
+                        vaccinated_at=vaccinated_at,
+                        date=date,
+                        valid_until=valid_until,
+                        visibility=visibility,
+                    )
+            )   
+            print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until)
+            last_user_id=user_id
+            last_vaccine_id=vaccination_id
+print("***********")
+istanbul_count=CITY_POPULATIONS["Istanbul"]
+istanbul_id_count=int(istanbul_count*15/150000)
+vaccination_id =last_vaccine_id
+print(istanbul_id_count)
+
+for user_id in range(last_user_id+1, last_user_id+1+istanbul_id_count):
+    for vaccine_id in range(1, 14):
+        if random.randint(1, 10) < 3:
+            vaccination_id += 1
+            vaccinated_at = vaccination_points[6]
+            date = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                            random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            valid_until = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                                    random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            visibility = VaccinationVisibility.PUBLIC.value
+            add(
+                    Vaccination(
+                        id=vaccination_id,
+                        user_id=user_id,
+                        vaccine_id=vaccine_id,
+                        vaccinated_at=vaccinated_at,
+                        date=date,
+                        valid_until=valid_until,
+                        visibility=visibility,
+                    )
+            )                                                   
+            print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until)
+            last_user_id=user_id
+            last_vaccine_id=vaccination_id
+
+print("***********")
+ankara_count=CITY_POPULATIONS["Ankara"]
+ankara_id_count=int(ankara_count*14/150000)
+vaccination_id =last_vaccine_id
+print(ankara_id_count)
+
+for user_id in range(last_user_id+1, last_user_id+1+ankara_id_count):
+    for vaccine_id in range(1, 14):
+        if random.randint(1, 10) < 3:
+            vaccination_id += 1
+            vaccinated_at = vaccination_points[6]
+            date = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                            random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            valid_until = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                                    random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            visibility = VaccinationVisibility.PUBLIC.value
+            add(
+                    Vaccination(
+                        id=vaccination_id,
+                        user_id=user_id,
+                        vaccine_id=vaccine_id,
+                        vaccinated_at=vaccinated_at,
+                        date=date,
+                        valid_until=valid_until,
+                        visibility=visibility,
+                    )
+            )   
+            print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until)
+
+            last_user_id=user_id
+            last_vaccine_id=vaccination_id
+
+
+print("***********")
+losAngeles_count=CITY_POPULATIONS["Los Angeles"]
+losAngeles_id_count=int(losAngeles_count*40/150000)
+vaccination_id =last_vaccine_id
+print(losAngeles_id_count)
+
+for user_id in range(last_user_id+1, last_user_id+1+losAngeles_id_count):
+    for vaccine_id in range(1, 14):
+        if random.randint(1, 10) < 3:
+            vaccination_id += 1
+            vaccinated_at = vaccination_points[7]
+            date = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                            random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            valid_until = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                                    random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            visibility = VaccinationVisibility.PUBLIC.value
+            add(
+                    Vaccination(
+                        id=vaccination_id,
+                        user_id=user_id,
+                        vaccine_id=vaccine_id,
+                        vaccinated_at=vaccinated_at,
+                        date=date,
+                        valid_until=valid_until,
+                        visibility=visibility,
+                    )
+            )   
+            print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until)
+            last_user_id=user_id
+            last_vaccine_id=vaccination_id
+
+
+
+print("***********")
+telAviv_count=CITY_POPULATIONS["Tel Aviv"]
+telAviv_id_count=int(telAviv_count*60/150000)
+vaccination_id =last_vaccine_id
+print(losAngeles_id_count)
+
+for user_id in range(last_user_id+1, last_user_id+1+telAviv_id_count):
+    for vaccine_id in range(1, 14):
+        if random.randint(1, 10) < 3:
+            vaccination_id += 1
+            vaccinated_at = vaccination_points[8]
+            date = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                            random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            valid_until = datetime.datetime(2020, random.randint(1, 12), random.randint(1, 28),
+                                                    random.randint(8, 18), random.randint(0, 59), random.randint(0, 59))
+            visibility = VaccinationVisibility.PUBLIC.value
+            add(
+                    Vaccination(
+                        id=vaccination_id,
+                        user_id=user_id,
+                        vaccine_id=vaccine_id,
+                        vaccinated_at=vaccinated_at,
+                        date=date,
+                        valid_until=valid_until,
+                        visibility=visibility,
+                    )
+            )   
+            print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until)
+            last_user_id=user_id
+            last_vaccine_id=vaccination_id
+
+
 
 
 
