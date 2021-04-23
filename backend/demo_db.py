@@ -30,7 +30,15 @@ ID_ATTRS = [
     "user_id1",
     "user_id2",
 ]
-
+vaccination_points = [
+        "Ankara",
+        "Istanbul",
+        "London",
+        "New York",
+        "Paris",
+        "Munich"
+        "Konya"
+    ]
 
 names = [
     "Queenie Prude",
@@ -146,6 +154,124 @@ countries = [
     "Switzerland",
     "Iceland",
 ]
+
+print(55-6)
+names = [
+    "Queenie",
+    "Kaylene",
+    "Robbie",
+    "Rosella",
+    "Maia",
+    "Hisako",
+    "Von",
+    "Willa",
+    "Larisa",
+    "Elsy",
+    "Summer",
+    "Sophia",
+    "Dell",
+    "Ellyn",
+    "Maudie",
+    "Natasha",
+    "Jeannetta",
+    "Oma",
+    "Huey",
+    "Galen",
+    "Jodi",
+    "Houston",
+    "Wanita",
+    "Chanell",
+    "Rachell",
+    "Neville",
+    "Betsy",
+    "Yesenia",
+    "Ellena",
+    "Shawnee",
+    "Elden",
+    "Heide",
+    "Caron",
+    "Ryan",
+    "Geneva",
+    "Marvel",
+    "Pei",
+    "Joane",
+    "Keisha",
+    "Cinthia",
+    "Marg",
+    "Lynelle",
+    "Aracelis",
+    "Wallace",
+    "Isreal",
+    "Annette",
+    "Sunni",
+    "Malik",
+    "Mireille",
+    "Simon",
+]
+sur_names = [
+    "Prude",
+    "Ruth",
+    "Drumm",
+    "Bailey",
+    "Heidelberg",
+    "Pickney",
+    "Koelling",
+    "Fancher",
+    "Krantz",
+    "Deere",
+    "Mckee",
+    "Sansone",
+    "Kress",
+    "Marrow",
+    "Vickers",
+    "Callejas",
+    "Mcbain",
+    "Gascon",
+    "Coughlin",
+    "Callery",
+    "Castor",
+    "Null",
+    "Peredo",
+    "Dejesus",
+    "Giorgio",
+    "Losey",
+    "Mcsorley",
+    "Lachance",
+    "Feingold",
+    "Fraga",
+    "Anglin",
+    "Giblin",
+    "Poage",
+    "Entrekin",
+    "Buchanon",
+    "Howes",
+    "Wallander",
+    "Klahn",
+    "Daye",
+    "Mead",
+    "Buzard",
+    "Hudspeth",
+    "Ettinger",
+    "Wixom",
+    "Chong",
+    "Gurley",
+    "Sternberg",
+    "Tamayo",
+    "Crozier",
+    "Levert",
+]
+name_surname=[]
+for name in range(1, 200):
+    name_surname.append((names[random.randint(0,48)] + " "+sur_names[random.randint(0,48)]))
+print(name_surname)
+
+email_new=[]
+email_counter=0
+for email in range(0, 205):
+    email_new.append(emails[email_counter % 48])
+    email_counter=email_counter+1
+
+
 def add(row):
     for attr in dir(row):
         if attr in ID_ATTRS:
@@ -175,7 +301,7 @@ def populate():
 
     add(
         User(
-            id=10001,
+            id=1,
             google_id="demo_google_id_1",
             email="erdem@email1.com",
             name="Erdem Democu",
@@ -185,7 +311,7 @@ def populate():
     )
     add(
         User(
-            id=10002,
+            id=2,
             google_id="demo_google_id_2",
             email="basak@email2.com",
             name="Basak Democu",
@@ -195,7 +321,7 @@ def populate():
     )
     add(
         User(
-            id=10003,
+            id=3,
             google_id="demo_google_id_3",
             email="murat@email3.com",
             name="Murat Democu",
@@ -205,7 +331,7 @@ def populate():
     )
     add(
         User(
-            id=10004,
+            id=4,
             google_id="demo_google_id_4",
             email="ayberk@email4.com",
             name="Ayberk Democu",
@@ -215,7 +341,7 @@ def populate():
     )
     add(
         User(
-            id=10005,
+            id=5,
             google_id="demo_google_id_5",
             email="adam@german.com",
             name="Adam German",
@@ -225,7 +351,7 @@ def populate():
     )
     add(
         User(
-            id=10006,
+            id=6,
             google_id="115512136232290362553",
             email="usluayberk1998@gmail.com",
             name="Ayberk Uslu",
@@ -235,7 +361,7 @@ def populate():
     )
     add(
         User(
-            id=10007,
+            id=7,
             google_id="118071647661695719427",
             email="erdemkiraz@gmail.com",
             name="Erdem Kirez",
@@ -245,7 +371,7 @@ def populate():
     )
     add(
         User(
-            id=10008,
+            id=8,
             google_id="114491661639251135156",
             email="korilipokybird@gmail.com",
             name="Korili Pokybird",
@@ -254,10 +380,10 @@ def populate():
         )
     )
 
-    for i in range(len(names)):
-        id = i+9 + 10000
-        email = emails[i]
-        name = names[i]
+    for i in range(len(name_surname)):
+        id = i+9 
+        email = email_new[i]
+        name = name_surname[i]
         country_id = random.randint(1, len(countries))
         age = random.randint(15, 65)
         google_id = ''.join(random.choice(digits) for i in range(21))
@@ -276,14 +402,17 @@ def populate():
 
     add(Vaccine(id=1, name="Covid-19 Biontech", required_dose=2))
     add(Vaccine(id=2, name="Covid-19 Moderna", required_dose=2))
-    add(Vaccine(id=3, name="Influenza"))
-    add(Vaccine(id=4, name="Polio"))
-    add(Vaccine(id=5, name="Diphtheria"))
-    add(Vaccine(id=6, name="Tetanus"))
-    add(Vaccine(id=7, name="Pertussis"))
-    add(Vaccine(id=8, name="Poliomyelitis"))
-    add(Vaccine(id=9, name="Measles"))
-    add(Vaccine(id=10, name="Rubella"))
+    add(Vaccine(id=3, name="Covid-19 Pfizer"))
+    add(Vaccine(id=4, name="Covid-19 CoronaVac"))
+    add(Vaccine(id=5, name="Covid-19 SputnikV"))
+    add(Vaccine(id=6, name="Influenza"))
+    add(Vaccine(id=7, name="Polio"))
+    add(Vaccine(id=8, name="Diphtheria"))
+    add(Vaccine(id=9, name="Tetanus"))
+    add(Vaccine(id=10, name="Pertussis"))
+    add(Vaccine(id=11, name="Poliomyelitis"))
+    add(Vaccine(id=12, name="Measles"))
+    add(Vaccine(id=13, name="Rubella"))
 
 
 
@@ -366,7 +495,7 @@ def populate():
     }
 
     vaccination_id = 6 + 10000
-    for user_id in range(10009, len(names)+9 + 10000):
+    for user_id in range(9, len(name_surname)+9 ):
         for vaccine_id in range(1, 11):
             if random.randint(1, 10) < 7:
                 vaccination_id += 1
@@ -388,6 +517,15 @@ def populate():
                     )
                 )
                 print(vaccination_id, user_id, vaccine_id, vaccinated_at, date, valid_until, visibility)
+
+
+
+
+
+
+
+
+
 
     add(Friendship(id=10001, user_id1=10001, user_id2=10002, is_facebook=True))
     add(Friendship(id=10002, user_id1=10002, user_id2=10001, is_facebook=True))
