@@ -1,17 +1,16 @@
 import React from "react";
+
 import {Chart} from "primereact/chart";
 import axios from "axios";
 import {BASE_URL, BUILD_HEADER} from "../../services/base_service";
 
-export class RiskTable extends React.Component {
+export class CityVaccinationTable extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            basicData: {
-
-            },
-            is_fetched : false,
+            basicData: {},
+            is_fetched: false,
 
         };
 
@@ -48,7 +47,7 @@ export class RiskTable extends React.Component {
         console.log("Basic Data First : ", this.state.basicData)
 
         let response = await axios.get(
-            BASE_URL + "/city-risk-table",
+            BASE_URL + "/city-vaccination-table",
             {headers: BUILD_HEADER()}
         );
 
@@ -58,20 +57,29 @@ export class RiskTable extends React.Component {
 
         let labels = [];
         let datasets = [];
-        let data_from_db = [];
+        let vaccination_numbers = [];
+        let populations = [];
 
         let current_basic_data = this.state.basicData;
 
         for (let i = 0; i < data_array.length; i++) {
             labels[i] = data_array[i]["name"]
-            data_from_db[i] = data_array[i]["count"]*100
+            vaccination_numbers[i] = data_array[i]["count"]
+            populations[i] = data_array[i]["population"]
 
         }
         datasets[0] = {
-            label: 'Risk Percentage %',
-            backgroundColor: '#B00020',
+            label: 'Vaccinated Population',
+            backgroundColor: '#689F38',
             // backgroundColor: '#42A5F5',
-            data: data_from_db
+            data: vaccination_numbers
+        }
+
+        datasets[1] = {
+            label: 'Populations',
+            backgroundColor: '#01579B',
+            // backgroundColor: '#42A5F5',
+            data: populations
         }
 
         current_basic_data["labels"] = labels
@@ -79,8 +87,7 @@ export class RiskTable extends React.Component {
         // console.log("-------------After > ")
 
         this.setState({basicData: current_basic_data})
-        this.setState({is_fetched : true})
-
+        this.setState({is_fetched: true})
 
 
     }
@@ -93,12 +100,16 @@ export class RiskTable extends React.Component {
     render() {
 
         return (
-            <div style={{height: "700px" }}>
-                {   this.state.is_fetched &&
-                    <div className="card"  >
-                        <h5>Risk Table</h5>
-                        <Chart type="bar" data={this.state.basicData} options={this.basicOptions} style={{height : "900px !important", width:"2340px !important", display : "block !important"}} />
-                    </div>
+            <div style={{height: "700px"}}>
+                {this.state.is_fetched &&
+                <div className="card">
+                    <h5>Population-Vaccinated Table</h5>
+                    <Chart type="bar" data={this.state.basicData} options={this.basicOptions} style={{
+                        height: "900px !important",
+                        width: "2340px !important",
+                        display: "block !important"
+                    }}/>
+                </div>
 
                 }
             </div>
@@ -108,4 +119,5 @@ export class RiskTable extends React.Component {
 
 }
 
-export default RiskTable;
+
+export default CityVaccinationTable;

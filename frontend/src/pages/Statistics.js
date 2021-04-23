@@ -42,11 +42,11 @@ const Statistics = () => {
 		async function getVaccines() {
 			const { status, data } = await axios.get(vaccinesUrl);
 			if (status === 200) {
-				console.log(data)
+				// console.log(data)
 				let fetchedVaccines = [{ label: "All", value: "" }]
 				let arrayLength = data["vaccines"].length;
 				for (let i = 0; i < arrayLength; i++) {
-					console.log(data["vaccines"][i]);
+					// console.log(data["vaccines"][i]);
 					fetchedVaccines.push({
 						label: data["vaccines"][i]["name"].toString(),
 						value: data["vaccines"][i]["id"].toString()
