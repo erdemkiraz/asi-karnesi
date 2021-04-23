@@ -1,10 +1,10 @@
 import React from "react";
+
 import {Chart} from "primereact/chart";
 import axios from "axios";
 import {BASE_URL, BUILD_HEADER} from "../../services/base_service";
 
-export class VirusVaccineTable extends React.Component {
-
+export class CityVaccinationTable extends React.Component {
     constructor() {
         super();
 
@@ -14,49 +14,67 @@ export class VirusVaccineTable extends React.Component {
 
         };
 
-        this.lightOptions = {
+
+        this.basicOptions = {
             legend: {
                 labels: {
                     fontColor: '#495057'
                 }
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        fontColor: '#495057'
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        fontColor: '#495057'
+                    }
+                }]
             }
         };
+
 
     }
 
     async componentDidMount() {
-        this.fetchData();
+        await this.fetchData();
     }
 
     async fetchData() {
-
-        console.log("Basic Data First : ", this.state.basicData)
-
         let response = await axios.get(
-            BASE_URL + "/covid-vaccine-table",
+            BASE_URL + "/city-vaccination-table",
             {headers: BUILD_HEADER()}
         );
 
         let response_data = response.data;
 
-        let data_array = response_data["vaccine_table"]
+        let data_array = response_data["city_table"]
 
         let labels = [];
         let datasets = [];
-        let data_from_db = [];
+        let vaccination_numbers = [];
+        let populations = [];
 
         let current_basic_data = this.state.basicData;
 
         for (let i = 0; i < data_array.length; i++) {
             labels[i] = data_array[i]["name"]
-            data_from_db[i] = data_array[i]["count"]
+            vaccination_numbers[i] = data_array[i]["count"]
+            populations[i] = data_array[i]["population"]
 
         }
         datasets[0] = {
-            label: 'Types of COVID-19 Vaccines',
-            data: data_from_db,
-            backgroundColor: this.getBackgroundColor(data_array.length),
-            hoverBackgroundColor: this.getHoverBackgroundColor(data_array.length)
+            label: 'Vaccinated Population',
+            backgroundColor: '#689F38',
+            data: vaccination_numbers
+        }
+
+        datasets[1] = {
+            label: 'Populations',
+            backgroundColor: '#01579B',
+            data: populations
         }
 
         current_basic_data["labels"] = labels
@@ -64,31 +82,6 @@ export class VirusVaccineTable extends React.Component {
 
         this.setState({basicData: current_basic_data})
         this.setState({is_fetched: true})
-
-    }
-
-    getBackgroundColor(length) {
-        let backgroundColor = [
-            "#105D97",
-            "#F09440",
-            "#42A5F5",
-            "#66BB6A",
-            "#FFA726"
-        ]
-
-        return backgroundColor.slice(0, length)
-    }
-
-    getHoverBackgroundColor(length) {
-        let hoverBackgroundColor = [
-            "#0591AF",
-            "#F0B36A",
-            "#64B5F6",
-            "#81C784",
-            "#FFB74D"
-        ]
-
-        return hoverBackgroundColor.slice(0, length)
     }
 
 
@@ -96,20 +89,24 @@ export class VirusVaccineTable extends React.Component {
 
         return (
             <div style={{height: "700px"}}>
-                {this.state.is_fetched &&
+                {
+                    this.state.is_fetched &&
                 <div className="card">
-                    <h5>Types of COVID-19 Vaccines</h5>
-                    <Chart type="pie" data={this.state.basicData} options={this.lightOptions} style={{
+                    <h5>Population-Vaccinated Table</h5>
+                    <Chart type="bar" data={this.state.basicData} options={this.basicOptions} style={{
                         height: "900px !important",
                         width: "2340px !important",
                         display: "block !important"
                     }}/>
                 </div>
+
                 }
             </div>
         );
     }
 
+
 }
 
-export default VirusVaccineTable;
+
+export default CityVaccinationTable;

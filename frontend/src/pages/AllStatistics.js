@@ -1,15 +1,17 @@
 import React from "react";
 import {TabPanel, TabView} from "primereact/tabview";
 import Statistics from "./Statistics";
-
+import RiskTable from "./StatisticPages/RiskTable";
+import CityVaccinationTable from "./StatisticPages/CityVaccinationTable";
+import VirusVaccineTable from "./StatisticPages/VirusVaccineTable";
+import DailyVaccinationTable from "./StatisticPages/DailyVaccinationTable";
 
 
 export class AllStatistics extends React.Component {
     constructor() {
         super();
 
-        this.state = {
-        };
+        this.state = {};
     }
 
     async componentDidMount() {
@@ -21,26 +23,36 @@ export class AllStatistics extends React.Component {
             <div style={baseStyle}>
                 <div className="card" style={baseStyle}>
                     <TabView className="tabview-custom">
-                        <TabPanel header="My Friends" leftIcon="pi pi-user">
-                        </TabPanel>
-                        <TabPanel
-                            header="My Vaccines"
-                            leftIcon="pi pi-table"
-                            rightIcon="pi pi-user"
-                        >
-                            <Statistics/>
-                        </TabPanel>
-                        <TabPanel
-                            header="Add New Friend"
-                            leftIcon="pi pi-users"
-                            rightIcon="pi pi-user-plus"
-                        >
+
+                        <TabPanel header="Risk Table"
+                                  rightIcon="pi pi-chart-bar">
+                            <RiskTable/>
                         </TabPanel>
 
                         <TabPanel
-                            header="oogle Friends"
-                            leftIcon="pi pi-google"
+                            header="Country-Vaccine Statistics"
+                            rightIcon="pi pi-chart-bar"
                         >
+                            <CityVaccinationTable/>
+                        </TabPanel>
+
+                        <TabPanel
+                            header="Virus-Vaccine Statistics"
+                            rightIcon="pi pi-percentage"
+                        >
+                            <VirusVaccineTable/>
+                        </TabPanel>
+                        <TabPanel
+                            header="Daily Vaccine Statistics"
+                            rightIcon="pi pi-chart-bar"
+                        >
+                            <DailyVaccinationTable/>
+                        </TabPanel>
+                        <TabPanel
+                            header="General Statistics"
+                            rightIcon="pi pi-chart-line"
+                        >
+                            <Statistics/>
                         </TabPanel>
 
                     </TabView>
