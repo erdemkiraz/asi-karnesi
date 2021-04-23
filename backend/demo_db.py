@@ -474,7 +474,7 @@ vaccination_points = [
         "Istanbul",
         "Ankara",
         "Los Angeles",
-        "Tel Aviv""
+        "Tel Aviv"
 ]
 
 CITY_POPULATIONS = {
