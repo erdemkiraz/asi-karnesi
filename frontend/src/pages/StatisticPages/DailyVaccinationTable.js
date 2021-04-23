@@ -11,6 +11,7 @@ export class DailyVaccinationTable extends React.Component {
         this.state = {
             basicData: {},
             is_fetched: false,
+            date : Date.now(),
 
         };
 
@@ -62,27 +63,33 @@ export class DailyVaccinationTable extends React.Component {
 
         for (let i = 0; i < data_array.length; i++) {
             labels[i] = data_array[i]["day"]
-            vaccination_numbers[i] = data_array[i]["count"]
+            vaccination_numbers[i] = data_array[i]["vaccination_count"] * 10
             covid_numbers[i] = data_array[i]["covid_statistics"]["covid_count"];
             weekly_covid_numbers[i] = data_array[i]["covid_statistics"]["weekly_avarage_count"];
         }
+
         datasets[0] = {
-            label: 'Vaccinated Population',
-            data: vaccination_numbers,
-            fill: false,
-            borderColor: '#689F38',
-        }
-        datasets[1] = {
+            type: 'line',
             label: 'COVID-19 Numbers',
             data: covid_numbers,
             fill: false,
             borderColor: '#323232',
+            borderWidth: 2,
         }
-        datasets[2] = {
+        datasets[1] = {
+            type: 'line',
             label: 'Weekly COVID-19 Numbers',
             data: weekly_covid_numbers,
             fill: false,
             borderColor: '#2196F3',
+            borderWidth: 2,
+        }
+        datasets[2] = {
+            type: 'bar',
+            label: 'Vaccinated Population',
+            data: vaccination_numbers,
+            fill: true,
+            backgroundColor: '#689F38',
         }
 
         current_basic_data["labels"] = labels
@@ -90,6 +97,7 @@ export class DailyVaccinationTable extends React.Component {
 
         this.setState({basicData: current_basic_data})
         this.setState({is_fetched: true})
+        this.setState({date : Date.now})
     }
 
 
@@ -101,7 +109,7 @@ export class DailyVaccinationTable extends React.Component {
                     this.state.is_fetched &&
                     <div className="card">
                         <h5>Daily Vaccination Statistics</h5>
-                        <Chart type="line" data={this.state.basicData} options={this.basicOptions} style={{
+                        <Chart type="bar" data={this.state.basicData} options={this.basicOptions} style={{
                             height: "900px !important",
                             width: "2340px !important",
                             display: "block !important"
