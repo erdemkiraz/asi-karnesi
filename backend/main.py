@@ -23,6 +23,7 @@ from util import (
     get_vaccine_statistics_list,
     get_countries_list,
     get_vaccines_list,
+    get_dates,
 )
 from hello import app
 import dbops
@@ -644,48 +645,19 @@ def get_vaccine_statistics():
 #     return get_response({"city_names": CITIES}, 200)
 
 
-
-
 @app.route("/daily-vaccination-table", methods=["GET"])
 def daily_vaccination_table():
     # daily_vaccinations = get_daily_vaccinations()
     f = open('daily_covid_statistics.json')
     world_daily_and_weekly_covid_cases = json.load(f)
-    data = {        ## todo : just add vaccination count from db
-        "daily_vaccinations": [
-            {"day": "2021-04-09", "vaccination_count": 9000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-09"]},
-            {"day": "2021-04-10", "vaccination_count": 12000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-10"]},
-            {"day": "2021-04-11", "vaccination_count": 14000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-11"]},
-            {"day": "2021-04-12", "vaccination_count": 17000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-12"]},
-            {"day": "2021-04-13", "vaccination_count": 21000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-13"]},
-            {"day": "2021-04-14", "vaccination_count": 19000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-14"]},
-            {"day": "2021-04-15", "vaccination_count": 16000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-15"]},
-            {"day": "2021-04-16", "vaccination_count": 14000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-16"]},
-            {"day": "2021-04-17", "vaccination_count": 12500,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-17"]},
-            {"day": "2021-04-18", "vaccination_count": 11000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-18"]},
-            {"day": "2021-04-19", "vaccination_count": 89000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-19"]},
-            {"day": "2021-04-20", "vaccination_count": 55000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-20"]},
-            {"day": "2021-04-21", "vaccination_count": 23000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-21"]},
-            {"day": "2021-04-22", "vaccination_count": 35000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-22"]},
-            {"day": "2021-04-23", "vaccination_count": 29000,
-             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-23"]},
+    dates = get_dates()
+    data = {"daily_vaccinations": []}
 
-        ]
-    }
+    for date in dates:
+        data["daily_vaccinations"].append({
+            "day": date, "vaccination_count": 5000,  ## todo : just add vaccination count from db
+            "covid_statistics": world_daily_and_weekly_covid_cases[date]
+        })
 
     return get_response(data, 200)
 

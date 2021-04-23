@@ -3,6 +3,7 @@ import random
 import string
 
 from enums import VaccinationVisibility
+from datetime import date, datetime, timedelta
 
 
 def can_see_vaccines(user_id, target_user_id, vaccination_id):
@@ -248,3 +249,14 @@ def get_vaccine_statistics_list(country_id, vaccine, age_from, age_to):
     data = [{"month": months[i], "total": data[i]} for i in range(len(months))]
 
     return data
+
+
+def find_dates(start, end, delta):
+    curr = start
+    while curr < end:
+        yield curr
+        curr += delta
+
+
+def get_dates():
+    return [result.strftime("%Y-%m-%d") for result in find_dates(date(2021, 4, 9), date(2021, 4, 23), timedelta(days=1))]
