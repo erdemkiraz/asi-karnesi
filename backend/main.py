@@ -9,7 +9,6 @@ from google.oauth2.credentials import Credentials
 
 import requests
 
-
 from util import (
     create_user,
     get_user_all_friend_dicts,
@@ -196,13 +195,13 @@ def get_google_friends():
 
         results = (
             service.people()
-            .connections()
-            .list(
+                .connections()
+                .list(
                 resourceName="people/me",
                 pageSize=1000,
                 personFields="names,emailAddresses,phoneNumbers",
             )
-            .execute()
+                .execute()
         )
 
     connections = results.get("connections", [])
@@ -647,7 +646,6 @@ def get_vaccine_statistics():
 
 @app.route("/daily-vaccination-table", methods=["GET"])
 def daily_vaccination_table():
-
     # daily_vaccinations = get_daily_vaccinations()
 
     data = {
@@ -665,7 +663,6 @@ def daily_vaccination_table():
 
 @app.route("/covid-vaccine-table", methods=["GET"])
 def covid_vaccine_table():
-
     data = {
         "vaccine_table": [
             {"name": "Covid-19 Biontech", "count": 1},
@@ -691,9 +688,22 @@ CITY_POPULATIONS = {
 }
 
 
+# name : name of the city , population : total #of people in city, count : total # of people vaccinated
 @app.route("/city-vaccination-table", methods=["GET"])
 def city_vaccination_table():
+    data = {
+        "city_table": [
+            {"name": "Ankara", "population": CITY_POPULATIONS["Ankara"], "count": "1500000"},
+            {"name": "Istanbul", "population": CITY_POPULATIONS["Istanbul"], "count": 3200000},
+            {"name": "Konya", "population": CITY_POPULATIONS["Konya"], "count": 15},
+        ]
+    }
 
+    return get_response(data, 200)
+
+
+@app.route("/city-risk-table", methods=["GET"])
+def city_risk_table():
     data = {
         "city_table": [
             {"name": "Ankara", "count": 0.42},
