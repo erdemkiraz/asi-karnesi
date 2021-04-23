@@ -643,78 +643,46 @@ def get_vaccine_statistics():
 # def all_city_names():
 #     return get_response({"city_names": CITIES}, 200)
 
-#DO NOT CHANGE
-WORLD_DAILY_AND_WEEKLY_COVID_CASES = {
 
-    "2021-04-09":
-         {"covid_count": 794486, "weekly_avarage_count": 639389},
-    "2021-04-10":
-         {"covid_count": 722783, "weekly_avarage_count": 661444},
-    "2021-04-11":
-         {"covid_count": 654915, "weekly_avarage_count": 675629},
-    "2021-04-12":
-         {"covid_count": 591231, "weekly_avarage_count": 691258},
-    "2021-04-13":
-         {"covid_count": 744496, "weekly_avarage_count": 706531},
-    "2021-04-14":
-         {"covid_count": 815879, "weekly_avarage_count": 724393},
-    "2021-04-15":
-         {"covid_count": 845213, "weekly_avarage_count": 738429},
-    "2021-04-16":
-         {"covid_count": 839090, "weekly_avarage_count": 744801},
-    "2021-04-17":
-         {"covid_count": 805215, "weekly_avarage_count": 756577},
-    "2021-04-18":
-         {"covid_count": 731449, "weekly_avarage_count": 767510},
-    "2021-04-19":
-         {"covid_count": 661922, "weekly_avarage_count": 777609},
-    "2021-04-20":
-         {"covid_count": 832684, "weekly_avarage_count": 790208},
-    "2021-04-21":
-         {"covid_count": 888259, "weekly_avarage_count": 800547},
-    "2021-04-22":
-         {"covid_count": 885978, "weekly_avarage_count": 806371},
-    "2021-04-23":
-         {"covid_count": 889016, "weekly_avarage_count": 809424}
-}
 
 
 @app.route("/daily-vaccination-table", methods=["GET"])
 def daily_vaccination_table():
     # daily_vaccinations = get_daily_vaccinations()
-        ## todo : just add vaccination count from db
-    data = {
+    f = open('daily_covid_statistics.json')
+    world_daily_and_weekly_covid_cases = json.load(f)
+    data = {        ## todo : just add vaccination count from db
         "daily_vaccinations": [
             {"day": "2021-04-09", "vaccination_count": 9000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-09"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-09"]},
             {"day": "2021-04-10", "vaccination_count": 12000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-10"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-10"]},
             {"day": "2021-04-11", "vaccination_count": 14000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-11"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-11"]},
             {"day": "2021-04-12", "vaccination_count": 17000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-12"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-12"]},
             {"day": "2021-04-13", "vaccination_count": 21000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-13"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-13"]},
             {"day": "2021-04-14", "vaccination_count": 19000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-14"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-14"]},
             {"day": "2021-04-15", "vaccination_count": 16000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-15"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-15"]},
             {"day": "2021-04-16", "vaccination_count": 14000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-16"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-16"]},
             {"day": "2021-04-17", "vaccination_count": 12500,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-17"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-17"]},
             {"day": "2021-04-18", "vaccination_count": 11000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-18"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-18"]},
             {"day": "2021-04-19", "vaccination_count": 89000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-19"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-19"]},
             {"day": "2021-04-20", "vaccination_count": 55000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-20"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-20"]},
             {"day": "2021-04-21", "vaccination_count": 23000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-21"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-21"]},
             {"day": "2021-04-22", "vaccination_count": 35000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-22"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-22"]},
             {"day": "2021-04-23", "vaccination_count": 29000,
-             "covid_statistics": WORLD_DAILY_AND_WEEKLY_COVID_CASES["2021-04-23"]},
+             "covid_statistics": world_daily_and_weekly_covid_cases["2021-04-23"]},
 
         ]
     }
